@@ -7,6 +7,10 @@ namespace Motel.Application
 {
     public static class ServiceExtentions
     {
+        public static void Registers(this IServiceCollection services)
+        {
+
+        }
         public static void EnableCors(this IServiceCollection services)
         {
             //services.AddCors(opt =>

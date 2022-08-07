@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Motel.Application;
 using Motel.Application.Options;
 using Motel.Core.Data;
 using System;
@@ -92,6 +93,9 @@ namespace Motel.Api
             });
             services.AddAuthorization();
             #endregion
+
+            services.Registers();
+            services.AddCors();
 
             services.AddControllers();
         }

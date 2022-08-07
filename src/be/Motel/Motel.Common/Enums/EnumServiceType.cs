@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Motel.Common
+namespace Motel.Common.Enums
 {
     public enum EnumServiceType
     {

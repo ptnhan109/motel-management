@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Motel.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -22,6 +23,8 @@ namespace Motel.Core.Entities
 
         public string Description { get; set; }
 
-        public bool IsCanUse { get; set; }
+        public EnumRoomStatus Status { get; set; }
+
+        public string Location { get; set; }
     }
 }

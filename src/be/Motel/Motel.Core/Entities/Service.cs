@@ -1,4 +1,4 @@
-﻿using Motel.Common;
+﻿using Motel.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
