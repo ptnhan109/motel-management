@@ -6,6 +6,6 @@ namespace Motel.Application.Auth
 {
     public interface IJwtTokenFactory
     {
-        AccessToken GenerateToken(Guid userId, string userName);
+        AccessToken GenerateToken(Guid userId, string phone, string role);
     }
 }

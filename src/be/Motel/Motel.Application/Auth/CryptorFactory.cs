@@ -14,8 +14,8 @@ namespace Motel.Application.Auth
 
     public class CryptorFactory : ICryptorFactory
     {
-        private readonly CryptorOption _option;
-        public CryptorFactory(IOptions<CryptorOption> options)
+        private readonly AuthSetting _option;
+        public CryptorFactory(IOptions<AuthSetting> options)
         {
             _option = options.Value;
         }
@@ -24,7 +24,7 @@ namespace Motel.Application.Auth
         {
             var hashed = KeyDerivation.Pbkdf2(
                     password: password,
-                    salt: Encoding.UTF8.GetBytes(_option.HashPasswordKey),
+                    salt: Encoding.UTF8.GetBytes(_option.Secret),
                     prf: KeyDerivationPrf.HMACSHA512,
                     iterationCount: 10000,
                     numBytesRequested: 256 / 8

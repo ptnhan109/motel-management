@@ -41,7 +41,7 @@ namespace Motel.Api
             #region Options
             var secret = Configuration["JwtOption:Secret"];
             services.Configure<JwtOption>(opt => Configuration.GetSection(nameof(JwtOption)).Bind(opt));
-            services.Configure<CryptorOption>(opt => Configuration.GetSection(nameof(CryptorOption)).Bind(opt));
+            services.Configure<AuthSetting>(opt => Configuration.GetSection(nameof(AuthSetting)).Bind(opt));
             #endregion
 
             #region Swagger
@@ -53,7 +53,7 @@ namespace Motel.Api
                     In = ParameterLocation.Header,
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
-                    Scheme = "bearer"
+                    Scheme = "Bearer"
                 });
                 opt.AddSecurityRequirement(new OpenApiSecurityRequirement()
                 {

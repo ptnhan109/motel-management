@@ -9,8 +9,6 @@ namespace Motel.Core.Entities
     {
         public string Name { get; set; }
 
-        public double Price { get; set; }
-
         public int UnitId { get; set; }
 
         public EnumServiceType Type { get; set; }

@@ -1,4 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Motel.Application.Auth;
+using Motel.Application.Services.UserService;
+using Motel.Core;
+using mps.Core.Auth;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +13,11 @@ namespace Motel.Application
     {
         public static void Registers(this IServiceCollection services)
         {
+            services.AddScoped<IRepository, Repository>();
+            services.AddScoped<ICryptorFactory, CryptorFactory>();
+            services.AddScoped<IJwtTokenFactory, JwtTokenFactory>();
 
+            services.AddScoped<IUserService, UserService>();
         }
         public static void EnableCors(this IServiceCollection services)
         {

@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Motel.Application.Options
 {
-    public class CryptorOption
+    public class AuthSetting
     {
-        public string HashPasswordKey { get; set; }
-
-        public string FirstLayer { get; set; }
+        public string Secret { get; set; }
     }
 }

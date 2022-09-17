@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
@@ -18,6 +19,7 @@ namespace Motel.Core.Entities
 
         public double DespositedValue { get; set; }
 
+        [StringLength(150)]
         public string Note { get; set; }
     }
 }

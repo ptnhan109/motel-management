@@ -8,18 +8,18 @@ namespace Motel.Core.Entities
 {
     public class Room : BaseEntity
     {
-        public Guid MotelId { get; set; }
+        public Guid BoardingHouseId { get; set; }
 
-        [ForeignKey(nameof(MotelId))]
-        public Motel Motel { get; set; }
+        [ForeignKey(nameof(BoardingHouseId))]
+        public BoardingHouse BoardingHouse { get; set; }
 
         public string Name { get; set; }
 
         public double Price { get; set; }
 
-        public int Floor { get; set; }
+        public int? Floor { get; set; }
 
-        public int MaxHuman { get; set; }
+        public int? MaxHuman { get; set; }
 
         public string Description { get; set; }
 

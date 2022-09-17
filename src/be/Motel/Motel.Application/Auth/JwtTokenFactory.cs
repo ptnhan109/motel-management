@@ -26,13 +26,14 @@ namespace mps.Core.Auth
             this._options = options.Value;
         }
 
-        public AccessToken GenerateToken(Guid userId, string userName)
+        public AccessToken GenerateToken(Guid userId, string phone, string role)
         {
             var secret = Encoding.ASCII.GetBytes(_options.Secret);
             ClaimsIdentity claims = new ClaimsIdentity(new List<Claim>()
             {
                 new Claim(ClaimTypes.NameIdentifier,userId.ToString()),
-                new Claim(ClaimTypes.Name,userName)
+                new Claim(ClaimTypes.Name,phone),
+                new Claim(ClaimTypes.Role,role)
             });
 
             var tokenDecriptor = new SecurityTokenDescriptor

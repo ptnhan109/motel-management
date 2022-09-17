@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Motel.Core.Entities
 {
-    public class RoomFitment : BaseEntity
+    public class FitmentInRoom : BaseEntity
     {
         public Guid RoomId { get; set; }
 
@@ -13,8 +13,9 @@ namespace Motel.Core.Entities
         public virtual Room Room { get; set; }
 
         public Guid FitmentId { get; set; }
-
         [ForeignKey(nameof(FitmentId))]
         public virtual Fitment Fitment { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

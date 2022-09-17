@@ -5,16 +5,18 @@ using System.Text;
 
 namespace Motel.Core.Entities
 {
-    public class MotelService : BaseEntity
+    public class ServiceInMotel : BaseEntity
     {
-        public Guid MotelId { get; set; }
+        public Guid BoardingHouseId { get; set; }
         
-        [ForeignKey(nameof(MotelId))]        
-        public virtual Motel Motel { get; set; }
+        [ForeignKey(nameof(BoardingHouseId))]        
+        public virtual BoardingHouse BoardingHouse { get; set; }
 
         public Guid ServiceId { get; set; }
         
         [ForeignKey(nameof(ServiceId))]
         public virtual Service Service { get; set; }
+
+        public double Price { get; set; }
     }
 }

@@ -15,8 +15,6 @@ namespace Motel.Core
 
         Task DeleteRangeAsync<TEntity>(IEnumerable<Guid> ids) where TEntity : BaseEntity;
         
-        Task DeleteRangeAsync<TEntity, TKey>(IEnumerable<TEntity> entities) where TEntity : BaseEntity;
-
         Task DeleteAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
 
         Task DeleteAsync<TEntity>(Guid id) where TEntity : BaseEntity;

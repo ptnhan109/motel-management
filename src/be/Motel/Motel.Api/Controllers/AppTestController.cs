@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Motel.Application.Auth;
 using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -7,13 +9,20 @@ namespace Motel.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AppTestController : ControllerBase
     {
+        private readonly ICryptorFactory _cryptor;
+
         // GET: api/<AppTestController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        public AppTestController(ICryptorFactory cryptor)
         {
-            return new string[] { "value1", "value2" };
+            _cryptor = cryptor;
+        }
+        [HttpGet]
+        public string Get()
+        {
+            return _cryptor.ToHashPassword("123456");
         }
 
         // GET api/<AppTestController>/5
