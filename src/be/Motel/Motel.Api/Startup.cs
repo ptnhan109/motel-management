@@ -95,7 +95,16 @@ namespace Motel.Api
             #endregion
 
             services.Registers();
-            services.AddCors();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("EnableCors", builder =>
+                {
+                    builder.AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .SetIsOriginAllowed(origin => true) // allow any origin  
+                            .AllowCredentials();
+                });
+            });
 
             services.AddControllers();
         }
@@ -114,6 +123,8 @@ namespace Motel.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "motel management api v1.0");
 
             });
+
+            app.UseCors("EnableCors");
 
             app.UseHttpsRedirection();
 
