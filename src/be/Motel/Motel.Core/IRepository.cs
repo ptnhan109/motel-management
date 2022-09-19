@@ -14,7 +14,9 @@ namespace Motel.Core
         Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities) where TEntity : BaseEntity;
 
         Task DeleteRangeAsync<TEntity>(IEnumerable<Guid> ids) where TEntity : BaseEntity;
-        
+
+        Task DeleteRangeAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity;
+
         Task DeleteAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
 
         Task DeleteAsync<TEntity>(Guid id) where TEntity : BaseEntity;

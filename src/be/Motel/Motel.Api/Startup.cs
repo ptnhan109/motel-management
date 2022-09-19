@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Motel.Application;
+using Motel.Application.Mapper;
 using Motel.Application.Options;
 using Motel.Core.Data;
 using System;
@@ -94,6 +96,15 @@ namespace Motel.Api
             services.AddAuthorization();
             #endregion
 
+            #region Mapper
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AppMapper());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            #endregion
             services.Registers();
             services.AddCors(opt =>
             {

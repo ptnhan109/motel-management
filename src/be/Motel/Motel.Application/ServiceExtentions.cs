@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Motel.Application.Auth;
+using Motel.Application.Services.BoardingHouseService;
 using Motel.Application.Services.UserService;
 using Motel.Core;
 using mps.Core.Auth;
@@ -18,6 +19,7 @@ namespace Motel.Application
             services.AddScoped<IJwtTokenFactory, JwtTokenFactory>();
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IBoardingHouseService,BoardingHouseService>();
         }
         public static void EnableCors(this IServiceCollection services)
         {

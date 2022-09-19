@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Motel.Core.Entities
@@ -17,5 +18,10 @@ namespace Motel.Core.Entities
         public string Description { get; set; }
 
         public int? DateRetalPayment { get; set; }
+
+        public Guid? CityId { get; set; }
+        [ForeignKey(nameof(CityId))]
+        public virtual City City { get; set; }
+        
     }
 }

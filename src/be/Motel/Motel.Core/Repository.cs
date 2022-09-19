@@ -51,6 +51,14 @@ namespace Motel.Core
             await SaveChangeAsync();
         }
 
+
+        public async Task DeleteRangeAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity
+        {
+            var entities = _context.Set<TEntity>().Where(where);
+            _context.Remove(entities);
+            await SaveChangeAsync();
+        }
+
         public async Task<IEnumerable<TEntity>> FindAllAsync<TEntity>(Expression<Func<TEntity, bool>> where = null, Expression<Func<TEntity, TEntity>> selector = null, IEnumerable<string> includes = null) where TEntity : BaseEntity
         {
             var query = AsQueryable<TEntity>(includes).AsNoTracking();
@@ -119,5 +127,6 @@ namespace Motel.Core
 
             return query;
         }
+
     }
 }
