@@ -20,7 +20,6 @@ export class AppService {
   };
 
   authenticate(user) : Observable<AppResponse<any>>{
-    console.log(`${environment.apiServer}/api/Auth`);
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Auth`,user,this.options);
   }
 }
