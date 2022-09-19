@@ -124,7 +124,7 @@ export class BreadcrumbComponent implements OnInit {
       }
     });
     this.navigationList = result;
-    this.titleService.setTitle(title + ' | Gradient Able Angular 8+ Admin Template');
+    this.titleService.setTitle('iMoma system | Quản lý khu trọ');
   }
 
 }

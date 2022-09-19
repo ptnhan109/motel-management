@@ -8,6 +8,7 @@ namespace Motel.Common.Enums
     {
         ByMonth = 0,
         ByNumber = 1,
-        ByCustomer = 2
+        ByCustomer = 2,
+        ByQuantity = 3,
     }
 }

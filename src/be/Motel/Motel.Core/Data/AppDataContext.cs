@@ -32,7 +32,7 @@ namespace Motel.Core.Data
 
         public DbSet<Service> Services { get; set; }
 
-        public DbSet<ServiceInMotel> ServiceInMotels { get; set; }
+        public DbSet<ServiceInBoardingHouse> ServiceInBoardingHouses { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
 
@@ -52,6 +52,96 @@ namespace Motel.Core.Data
                     Role = EnumRole.Admin,
                     UpdatedAt = DateTime.Now,
                     CityId = null
+                }
+                );
+            builder.Entity<Service>().HasData(
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Tiền nhà",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Tiền điện",
+                    Type = EnumServiceType.ByNumber
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Tiền nước",
+                    Type = EnumServiceType.ByNumber
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Xe máy",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Tiền xe đạp",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Tiền xe điện",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Internet",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Bảo vệ",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Máy giặt",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Truyền hình cáp",
+                    Type = EnumServiceType.ByMonth
+                },
+                new Service()
+                {
+                    CreatedAt = DateTime.Now,
+                    UpdatedAt = DateTime.Now,
+                    Id = Guid.NewGuid(),
+                    Name = "Thang máy",
+                    Type = EnumServiceType.ByMonth
                 }
                 );
         }

@@ -7,6 +7,7 @@ import { SharedModule } from './theme/shared/shared.module';
 
 import { AppComponent } from './app.component';
 import { AdminComponent } from './theme/layout/admin/admin.component';
+import { AuthComponent } from './theme/layout/auth/auth.component';
 import { NavigationComponent } from './theme/layout/admin/navigation/navigation.component';
 import { NavContentComponent } from './theme/layout/admin/navigation/nav-content/nav-content.component';
 import { NavGroupComponent } from './theme/layout/admin/navigation/nav-content/nav-group/nav-group.component';
@@ -26,12 +27,16 @@ import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-ful
 /* Menu Items */
 import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { AuthenticateComponent } from './authenticate/authenticate.component';
+import { AuthenticateComponent } from './pages/authenticate/authenticate.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
+    AuthComponent,
     NavigationComponent,
     NavContentComponent,
     NavGroupComponent,
@@ -46,7 +51,8 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     ChatMsgComponent,
     ConfigurationComponent,
     ToggleFullScreenDirective,
-    AuthenticateComponent
+    AuthenticateComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,13 @@ import { AuthenticateComponent } from './authenticate/authenticate.component';
     NgbDropdownModule,
     NgbTooltipModule,
     NgbButtonsModule,
-    NgbTabsetModule
+    NgbTabsetModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    })
   ],
   providers: [NavigationItem],
   bootstrap: [AppComponent]

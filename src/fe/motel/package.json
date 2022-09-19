@@ -29,6 +29,7 @@
     "ng-click-outside": "^4.0.0",
     "ngx-lightbox": "^2.1.2",
     "ngx-perfect-scrollbar": "^8.0.0",
+    "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.2",
     "screenfull": "^4.2.0",
