@@ -1,0 +1,31 @@
+<div class="col-xl-12">
+  <app-card cardTitle="Danh sách dịch vụ hiện có" blockClass="table-border-style">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>Tên dịch vụ</th>
+            <th>Hình thức</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let provide of provides | slice:1; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <input type="checkbox" class="custom-control-input" id="customControlValidation1" required="">
+            </td>
+            <td>{{ provide.name }}</td>
+            <td>{{ provide.by }}</td>
+            <td><a href="javascript:;"><i class="icon feather icon-edit text-primary"></i></a>
+              <a href="javascript:;"><i class="icon feather icon-trash text-danger"></i></a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>

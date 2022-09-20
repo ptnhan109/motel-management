@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Motel.Core.Entities
 {
-    public class Service : BaseEntity
+    public class Provide : BaseEntity
     {
         public string Name { get; set; }
 

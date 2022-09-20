@@ -15,7 +15,7 @@ namespace Motel.Core.Entities
         public Guid ServiceId { get; set; }
         
         [ForeignKey(nameof(ServiceId))]
-        public virtual Service Service { get; set; }
+        public virtual Provide Service { get; set; }
 
         public double Price { get; set; }
     }

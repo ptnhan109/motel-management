@@ -36,29 +36,27 @@ const NavigationItems = [
         id: 'dashboard',
         title: 'Quản trị',
         type: 'item',
-        url: '/dashboard/analytics',
+        url: '/dashboard',
         icon: 'feather icon-home',
         breadcrumbs: false
       },
       {
-        id: 'page-layouts',
+        id: 'category',
         title: 'Danh mục',
         type: 'collapse',
         icon: 'feather icon-layout',
         children: [
           {
-            id: 'vertical',
+            id: 'service',
             title: 'Dịch vụ',
             type: 'item',
-            url: '/layout/static',
-            target: true
+            url: '/service'
           },
           {
-            id: 'horizontal',
+            id: 'fitment',
             title: 'Tiện ích',
             type: 'item',
-            url: '/layout/horizontal',
-            target: true
+            url: '/fitment'
           }
         ]
       },
@@ -66,7 +64,7 @@ const NavigationItems = [
         id: 'boarding',
         title: 'Khu trọ',
         type: 'item',
-        url: '/dashboard/analytics',
+        url: '/boarding-house',
         icon: 'feather icon-aperture',
         breadcrumbs: false
       },

@@ -28,7 +28,8 @@ export class AuthenticateComponent implements OnInit {
   login(){
     this.appService.authenticate(this.user).subscribe(result =>{
       if(result.isSucceeded == true){
-        localStorage.setItem("imoma.token",result.data.token);
+        let token = `Bearer ${result.data.token}`;
+        localStorage.setItem("imoma.token",token);
         this.toast.success("Đăng nhập thành công.");
         window.location.href='/dashboard';
 

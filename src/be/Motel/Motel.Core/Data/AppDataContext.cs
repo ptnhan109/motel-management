@@ -30,7 +30,7 @@ namespace Motel.Core.Data
 
         public DbSet<RoomDeposited> RoomDepositeds { get; set; }
 
-        public DbSet<Service> Services { get; set; }
+        public DbSet<Provide> Services { get; set; }
 
         public DbSet<ServiceInBoardingHouse> ServiceInBoardingHouses { get; set; }
 
@@ -54,8 +54,8 @@ namespace Motel.Core.Data
                     CityId = null
                 }
                 );
-            builder.Entity<Service>().HasData(
-                new Service()
+            builder.Entity<Provide>().HasData(
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -63,7 +63,7 @@ namespace Motel.Core.Data
                     Name = "Tiền nhà",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -71,7 +71,7 @@ namespace Motel.Core.Data
                     Name = "Tiền điện",
                     Type = EnumServiceType.ByNumber
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -79,7 +79,7 @@ namespace Motel.Core.Data
                     Name = "Tiền nước",
                     Type = EnumServiceType.ByNumber
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -87,7 +87,7 @@ namespace Motel.Core.Data
                     Name = "Xe máy",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -95,7 +95,7 @@ namespace Motel.Core.Data
                     Name = "Tiền xe đạp",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -103,7 +103,7 @@ namespace Motel.Core.Data
                     Name = "Tiền xe điện",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -111,7 +111,7 @@ namespace Motel.Core.Data
                     Name = "Internet",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -119,7 +119,7 @@ namespace Motel.Core.Data
                     Name = "Bảo vệ",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -127,7 +127,7 @@ namespace Motel.Core.Data
                     Name = "Máy giặt",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
@@ -135,7 +135,7 @@ namespace Motel.Core.Data
                     Name = "Truyền hình cáp",
                     Type = EnumServiceType.ByMonth
                 },
-                new Service()
+                new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
