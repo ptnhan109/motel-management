@@ -67,6 +67,11 @@ namespace Motel.Core
                 query = query.Where(where);
             }
 
+            if(selector is null)
+            {
+                return await query.ToListAsync();
+            }
+
             return await query.Select(selector).ToListAsync();
         }
 

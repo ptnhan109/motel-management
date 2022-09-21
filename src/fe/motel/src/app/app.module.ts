@@ -31,6 +31,9 @@ import { AuthenticateComponent } from './pages/authenticate/authenticate.compone
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { BoardingHouseComponent } from './pages/boarding-house/boarding-house.component';
+import { FitmentComponent } from './pages/fitment/fitment.component';
+import { ServiceComponent } from './pages/service/service.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,10 @@ import { ToastrModule } from 'ngx-toastr';
     ConfigurationComponent,
     ToggleFullScreenDirective,
     AuthenticateComponent,
-    DashboardComponent
+    DashboardComponent,
+    BoardingHouseComponent,
+    FitmentComponent,
+    ServiceComponent
   ],
   imports: [
     BrowserModule,

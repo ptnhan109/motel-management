@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiServer: "https://api.nhanpt.com"
 };
