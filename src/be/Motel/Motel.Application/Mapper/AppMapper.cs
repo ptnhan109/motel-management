@@ -17,6 +17,8 @@ namespace Motel.Application.Mapper
 
             CreateMap<Provide, ProvideDto>()
                 .ForMember(dest => dest.By,d => d.MapFrom(source => source.Type.GetName()));
+            CreateMap<ProvideDto, Provide>();
+            CreateMap<ProvideModel, Provide>();
         }
     }
 }

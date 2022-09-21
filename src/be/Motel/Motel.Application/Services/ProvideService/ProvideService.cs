@@ -20,11 +20,35 @@ namespace Motel.Application.Services.ServiceService
             _repository = repository;
             _mapper = mapper;
         }
+
+        public async Task<Response> Add(ProvideModel model)
+        {
+            var entity = _mapper.Map<ProvideModel, Provide>(model);
+            await _repository.AddAsync(entity);
+
+            return Ok();
+        }
+
+        public async Task<Response> Delete(Guid id)
+        {
+            await _repository.DeleteAsync<Provide>(id);
+
+            return Ok();
+        }
+
         public async Task<Response> GetAll()
         {
             var entities = await _repository.FindAllAsync<Provide>();
             var data = _mapper.Map<IEnumerable<Provide>,List<ProvideDto>>(entities);
             return Ok(data);
+        }
+
+        public async Task<Response> Update(ProvideDto model)
+        {
+            var entity = _mapper.Map<ProvideDto, Provide>(model);
+            await _repository.UpdateAsync(entity);
+
+            return Ok();
         }
     }
 }

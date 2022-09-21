@@ -50,7 +50,8 @@ const NavigationItems = [
             id: 'service',
             title: 'Dịch vụ',
             type: 'item',
-            url: '/service'
+            url: '/service',
+            breadcrumbs: false
           },
           {
             id: 'fitment',
