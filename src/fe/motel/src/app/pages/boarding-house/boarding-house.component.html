@@ -1,16 +1,45 @@
+<div class="page-header ng-star-inserted">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <div class="row">
+            <div class="col-sm-6">
+
+              <h5 class="m-b-10 ng-star-inserted">Dịch vụ</h5>
+            </div>
+            <div class="col-sm-6 ">
+              <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                (click)="createHouse.show()">Thêm mới</button>
+            </div>
+          </div>
+
+        </div>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" href="/dashboard"
+              class="ng-star-inserted"><i class="feather icon-home"></i></a>
+          <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+              href="/boarding-house">Khu trọ</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="col-xl-12">
-    <app-card cardTitle="Striped Table" blockClass="table-border-style">
-      <div class="table-responsive">
-        <table class="table table-striped">
-          <thead>
+  <app-card cardTitle="Striped Table" blockClass="table-border-style">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
           <tr>
             <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Username</th>
           </tr>
-          </thead>
-          <tbody>
+        </thead>
+        <tbody>
           <tr>
             <td>1</td>
             <td>Mark</td>
@@ -29,8 +58,135 @@
             <td>the Bird</td>
             <td>@twitter</td>
           </tr>
-          </tbody>
-        </table>
-      </div>
-    </app-card>
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>
+
+
+
+<app-ui-modal #createHouse [hideFooter]="true" [dialogClass]="'modal-xl'">
+  <div class="app-modal-header">
+    <h6 class="modal-title">Thêm mới khu trọ</h6>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+      (click)="createHouse.hide()"><span aria-hidden="true">&times;</span></button>
   </div>
+  <div class="app-modal-body">
+    <div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="name">Tên khu trọ</label>
+          <input type="text" class="form-control" id="name" placeholder="Tên khu trọ">
+        </div>
+        <div class="form-group col-md-12">
+          <label for="address">Địa chỉ</label>
+          <input type="text" class="form-control" id="address" placeholder="Địa chỉ chi tiết">
+        </div>
+        <div class="form-group col-md-12">
+          <label for="descripion">Mô tả</label>
+          <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
+        </div>
+        
+      </div>
+      <h6>Thời gian thanh toán</h6>
+      <hr>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <label for="descripion">Số tháng</label>
+          <select class="form-control">
+            <option [ngValue]="1">1</option>
+            <option [ngValue]="3">3</option>
+            <option [ngValue]="6">6</option>
+
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="descripion">Từ ngày</label>
+          <select class="form-control">
+            <option [ngValue]="1">1</option>
+            <option [ngValue]="2">2</option>
+            <option [ngValue]="3">3</option>
+            <option [ngValue]="4">4</option>
+            <option [ngValue]="5">5</option>
+            <option [ngValue]="6">6</option>
+            <option [ngValue]="7">7</option>
+            <option [ngValue]="8">8</option>
+            <option [ngValue]="9">9</option>
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="11">11</option>
+            <option [ngValue]="12">12</option>
+            <option [ngValue]="13">13</option>
+            <option [ngValue]="14">14</option>
+            <option [ngValue]="15">15</option>
+            <option [ngValue]="16">16</option>
+            <option [ngValue]="17">17</option>
+            <option [ngValue]="18">18</option>
+            <option [ngValue]="19">19</option>
+            <option [ngValue]="20">20</option>
+            <option [ngValue]="21">21</option>
+            <option [ngValue]="22">22</option>
+            <option [ngValue]="23">23</option>
+            <option [ngValue]="24">24</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="26">26</option>
+            <option [ngValue]="27">27</option>
+            <option [ngValue]="28">28</option>
+            <option [ngValue]="29">29</option>
+            <option [ngValue]="30">30</option>
+
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="descripion">Đến ngày</label>
+          <select class="form-control">
+            <option [ngValue]="1">1</option>
+            <option [ngValue]="2">2</option>
+            <option [ngValue]="3">3</option>
+            <option [ngValue]="4">4</option>
+            <option [ngValue]="5">5</option>
+            <option [ngValue]="6">6</option>
+            <option [ngValue]="7">7</option>
+            <option [ngValue]="8">8</option>
+            <option [ngValue]="9">9</option>
+            <option [ngValue]="10">10</option>
+            <option [ngValue]="11">11</option>
+            <option [ngValue]="12">12</option>
+            <option [ngValue]="13">13</option>
+            <option [ngValue]="14">14</option>
+            <option [ngValue]="15">15</option>
+            <option [ngValue]="16">16</option>
+            <option [ngValue]="17">17</option>
+            <option [ngValue]="18">18</option>
+            <option [ngValue]="19">19</option>
+            <option [ngValue]="20">20</option>
+            <option [ngValue]="21">21</option>
+            <option [ngValue]="22">22</option>
+            <option [ngValue]="23">23</option>
+            <option [ngValue]="24">24</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="26">26</option>
+            <option [ngValue]="27">27</option>
+            <option [ngValue]="28">28</option>
+            <option [ngValue]="29">29</option>
+            <option [ngValue]="30">30</option>
+
+          </select>
+        </div>
+      </div>
+      <h6>Danh sách dịch vụ</h6>
+      <hr>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let provide of provides">
+          <div class="custom-control custom-checkbox">
+            <input (click)="setSelectProvide(provide.id)" type="checkbox" class="custom-control-input" id="{{provide.id}}">
+            <label class="custom-control-label" for="{{provide.id}}">{{ provide.name }}</label>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <button type="button" class="btn btn-default float-right" (click)="createHouse.hide()">Hủy bỏ</button>
+      <button type="button" class="btn btn-primary float-right" (click)="createHouse.hide();addBoardingHouse()">Thêm mới</button>
+    </div>
+  </div>
+</app-ui-modal>
