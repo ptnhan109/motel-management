@@ -9,8 +9,10 @@
               <h5 class="m-b-10 ng-star-inserted">Dịch vụ</h5>
             </div>
             <div class="col-sm-6 ">
-              <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                (click)="createHouse.show()">Thêm mới</button>
+              <button type="button" class="btn btn-success float-right l-1" style="margin-left: 4px;" data-toggle="modal"
+                (click)="createHouse.show()"><i class="icon feather icon-printer"></i> Excel</button>
+                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+                (click)="createHouse.show()"><i class="icon feather icon-plus"></i> Thêm mới</button>
             </div>
           </div>
 
@@ -39,18 +41,21 @@
             <th>Địa chỉ</th>
             <th>Số tháng</th>
             <th>Mô tả</th>
-            <th></th>
+            <th class="text-center">Hành động</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let boarding of boardings | slice:1; index as i">
-            <td>{{ i + 1 }}</td>
-            <td>{{ boarding.name }}</td>
-            <td>{{ boarding.startDatePayment }}</td>
-            <td>{{ boarding.address }}</td>
-            <td>{{ boarding.months }}</td>
+            <td style="width: 5%">{{ i + 1 }}</td>
+            <td style="width: 15%">{{ boarding.name }}</td>
+            <td style="width: 15%">Ngày {{ boarding.startDatePayment }} đến {{boarding.startDatePayment}} hàng tháng</td>
+            <td style="width: 30%">{{ boarding.address }}</td>
+            <td style="width: 10%">{{ boarding.months }}</td>
             <td>{{ boarding.descripion }}</td>
-            <td></td>
+            <td class="text-center"><a href="javascript:;" (click)="getBoarding(boarding.id)"><i class="icon feather icon-edit text-primary"></i></a>
+              <a href="javascript:;" ><i class="icon feather icon-trash text-danger"></i></a>
+              <a href="javascript:;" ><i class="icon feather icon-external-link text-success"></i></a>
+            </td>
           </tr>
         </tbody>
       </table>

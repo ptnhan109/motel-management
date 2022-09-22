@@ -53,6 +53,21 @@ namespace Motel.Application.Services.BoardingHouseService
             return Ok(data);
         }
 
+        public async Task<Response> GetAsync(Guid id)
+        {
+            var entity = await _repository.FindAsync<BoardingHouse>(id);
+            if(entity is null)
+            {
+                return NotFound();
+            }
+            
+            var services = await _repository.FindAllAsync<ServiceInBoardingHouse>(c => c.BoardingHouseId == id);
+            var data = _mapper.Map<BoardingHouse, BoardingHouseDetail>(entity);
+            data.Services = services;
+
+            return Ok(data);
+        }
+
         public async Task<Response> UpdateAsync(BoardingHouseDto request)
         {
             var entity = _mapper.Map<BoardingHouseDto, BoardingHouse>(request);

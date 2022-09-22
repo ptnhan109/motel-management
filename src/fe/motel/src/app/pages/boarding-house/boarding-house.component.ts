@@ -19,6 +19,16 @@ export class BoardingHouseComponent implements OnInit {
     endDatePayment: 5,
     months : 1,
     services: []
+  };
+  boardingUpdate = {
+    id :"",
+    name :"",
+    address :"",
+    description:"",
+    months: 0,
+    startDatePayment: 1,
+    endDatePayment: 5,
+    services : []
   }
   selectedProvides = [];
   constructor(
@@ -36,6 +46,7 @@ export class BoardingHouseComponent implements OnInit {
     this._service.addBoardingHouse(this.boardingInfo).subscribe(
       response =>{
         if(response.isSucceeded == true){
+          this.getBoardings();
           this._toast.success("Thêm mới khu trọ thành công");
         }
       }
@@ -55,6 +66,15 @@ export class BoardingHouseComponent implements OnInit {
       response =>{
         this.boardings = response.data;
         console.log(this.boardings);
+      }
+    )
+  }
+
+  getBoarding(id){
+    this._service.getBoarding(id).subscribe(
+      response =>{
+        this.boardingUpdate = response.data;
+        console.log(this.boardingUpdate);
       }
     )
   }

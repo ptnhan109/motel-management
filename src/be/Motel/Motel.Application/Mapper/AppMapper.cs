@@ -15,6 +15,8 @@ namespace Motel.Application.Mapper
         {
             CreateMap<BoardingHouseDto, BoardingHouse>();
             CreateMap<BoardingHouse, BoardingHouseDto>();
+            CreateMap<BoardingHouse, BoardingHouseDetail>();
+            CreateMap<ServiceInBoardingHouse, ServiceInHouseDto>();
 
             CreateMap<Provide, ProvideDto>()
                 .ForMember(dest => dest.By,d => d.MapFrom(source => source.Type.GetName()));

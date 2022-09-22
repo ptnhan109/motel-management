@@ -18,6 +18,8 @@ namespace Motel.Core
         }
         public async Task AddAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
             _context.Set<TEntity>().Add(entity);
             await SaveChangeAsync();
         }

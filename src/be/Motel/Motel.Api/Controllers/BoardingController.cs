@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Motel.Application.Services.BoardingHouseService;
 using Motel.Application.Services.BoardingHouseService.Dtos;
 using Motel.Common.Generics;
+using System;
 using System.Threading.Tasks;
 
 namespace Motel.Api.Controllers
@@ -25,5 +26,9 @@ namespace Motel.Api.Controllers
 
         [HttpGet]
         public async Task<Response> GetBoardings() => await _service.GetAllAsync();
+
+        [HttpGet("{id}")]
+        public async Task<Response> GetBoarding(Guid id) => await _service.GetAsync(id);
+        
     }
 }

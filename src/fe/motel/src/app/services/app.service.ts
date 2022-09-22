@@ -50,6 +50,10 @@ export class AppService {
     return this.get("boarding");
   }
 
+  getBoarding(id):Observable<AppResponse<any>>{
+    return this.get(`boarding/${id}`);
+  }
+
   addBoardingHouse(boarding): Observable<AppResponse<any>>{
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Boarding`,boarding,this.options);
   }
