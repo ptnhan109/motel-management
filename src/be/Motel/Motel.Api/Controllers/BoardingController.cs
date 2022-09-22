@@ -22,5 +22,8 @@ namespace Motel.Api.Controllers
 
         [HttpPost]
         public async Task<Response> AddBoarding([FromBody] BoardingHouseDto request) => await _service.AddAsync(request);
+
+        [HttpGet]
+        public async Task<Response> GetBoardings() => await _service.GetAllAsync();
     }
 }

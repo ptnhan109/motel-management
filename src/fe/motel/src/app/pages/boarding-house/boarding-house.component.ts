@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/services/app.service';
 
 @Component({
@@ -9,17 +10,36 @@ import { AppService } from 'src/app/services/app.service';
 export class BoardingHouseComponent implements OnInit {
 
   provides = [];
+  boardings = [];
+  boardingInfo = {
+    name:"",
+    address :"",
+    description:"",
+    startDatePayment: 1,
+    endDatePayment: 5,
+    months : 1,
+    services: []
+  }
   selectedProvides = [];
   constructor(
-    private _service : AppService
+    private _service : AppService,
+    private _toast : ToastrService
   ) { }
 
   ngOnInit(): void {
     this.getProvides();
+    this.getBoardings();
   }
 
   addBoardingHouse(){
-    console.log(this.selectedProvides);
+    this.boardingInfo.services = this.selectedProvides;
+    this._service.addBoardingHouse(this.boardingInfo).subscribe(
+      response =>{
+        if(response.isSucceeded == true){
+          this._toast.success("Thêm mới khu trọ thành công");
+        }
+      }
+    )
   }
 
   getProvides(){
@@ -30,13 +50,48 @@ export class BoardingHouseComponent implements OnInit {
     )
   }
 
+  getBoardings(){
+    this._service.getBoardings().subscribe(
+      response =>{
+        this.boardings = response.data;
+        console.log(this.boardings);
+      }
+    )
+  }
+
   setSelectProvide(id){
-    let index = this.selectedProvides.indexOf(id);
+    let element = {
+      serviceId: id,
+      price: 0
+    }
+    let index = this.selectedProvides.findIndex(x => x.id == id);
+    console.log(index);
     if( index > -1){
       this.selectedProvides.splice(index,1);
     }else{
-      this.selectedProvides.push(id);
+      this.selectedProvides.push(element);
     }
+  }
+
+  getPlaceHolder(type){
+    switch(type) { 
+      case 0: { 
+         return "Số tiền hàng tháng"
+      } 
+      case 1: { 
+         return "Đơn giá 1 số"
+      }
+      case 2: { 
+        return "Đơn giá 1 khách thuê"
+     }  
+     case 3: { 
+      return "Đơn giá 1 số"
+   }
+      default: { 
+         //statements; 
+         break; 
+      } 
+   } 
   }
 
 

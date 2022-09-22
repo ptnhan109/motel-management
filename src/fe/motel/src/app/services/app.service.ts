@@ -25,6 +25,9 @@ export class AppService {
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Auth`,user,this.options);
   }
 
+  get(url) : Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/${url}`,this.options);
+  }
 
   getProvides() : Observable<AppResponse<any>>{
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/Category/provide`,this.options);
@@ -41,4 +44,15 @@ export class AppService {
   updateProvide(provide) : Observable<AppResponse<any>>{
     return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/Category/provide`,provide,this.options);
   }
+
+
+  getBoardings():Observable<AppResponse<any>>{
+    return this.get("boarding");
+  }
+
+  addBoardingHouse(boarding): Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Boarding`,boarding,this.options);
+  }
+
+
 }

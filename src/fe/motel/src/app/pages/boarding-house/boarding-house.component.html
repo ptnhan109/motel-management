@@ -28,35 +28,29 @@
   </div>
 </div>
 <div class="col-xl-12">
-  <app-card cardTitle="Striped Table" blockClass="table-border-style">
+  <app-card cardTitle="Danh sách khu trọ quản lý" blockClass="table-border-style">
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Tên khu trọ</th>
+            <th>Ngày thanh toán</th>
+            <th>Địa chỉ</th>
+            <th>Số tháng</th>
+            <th>Mô tả</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
+          <tr *ngFor="let boarding of boardings | slice:1; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ boarding.name }}</td>
+            <td>{{ boarding.startDatePayment }}</td>
+            <td>{{ boarding.address }}</td>
+            <td>{{ boarding.months }}</td>
+            <td>{{ boarding.descripion }}</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
@@ -77,24 +71,26 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="name">Tên khu trọ</label>
-          <input type="text" class="form-control" id="name" placeholder="Tên khu trọ">
+          <input [(ngModel)]="boardingInfo.name" type="text" class="form-control" id="name" placeholder="Tên khu trọ">
         </div>
         <div class="form-group col-md-12">
           <label for="address">Địa chỉ</label>
-          <input type="text" class="form-control" id="address" placeholder="Địa chỉ chi tiết">
+          <input [(ngModel)]="boardingInfo.address" type="text" class="form-control" id="address"
+            placeholder="Địa chỉ chi tiết">
         </div>
         <div class="form-group col-md-12">
           <label for="descripion">Mô tả</label>
-          <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
+          <textarea [(ngModel)]="boardingInfo.description" rows="4" type="text" class="form-control" id="descripion"
+            placeholder="Mô tả"></textarea>
         </div>
-        
+
       </div>
       <h6>Thời gian thanh toán</h6>
       <hr>
       <div class="form-row">
         <div class="form-group col-md-4">
           <label for="descripion">Số tháng</label>
-          <select class="form-control">
+          <select [(ngModel)]="boardingInfo.months" class="form-control">
             <option [ngValue]="1">1</option>
             <option [ngValue]="3">3</option>
             <option [ngValue]="6">6</option>
@@ -103,7 +99,7 @@
         </div>
         <div class="form-group col-md-4">
           <label for="descripion">Từ ngày</label>
-          <select class="form-control">
+          <select [(ngModel)]="boardingInfo.startDatePayment" class="form-control">
             <option [ngValue]="1">1</option>
             <option [ngValue]="2">2</option>
             <option [ngValue]="3">3</option>
@@ -139,7 +135,7 @@
         </div>
         <div class="form-group col-md-4">
           <label for="descripion">Đến ngày</label>
-          <select class="form-control">
+          <select [(ngModel)]="boardingInfo.endDatePayment" class="form-control">
             <option [ngValue]="1">1</option>
             <option [ngValue]="2">2</option>
             <option [ngValue]="3">3</option>
@@ -179,14 +175,16 @@
       <div class="row">
         <div class="col-sm-4" *ngFor="let provide of provides">
           <div class="custom-control custom-checkbox">
-            <input (click)="setSelectProvide(provide.id)" type="checkbox" class="custom-control-input" id="{{provide.id}}">
+            <input (click)="setSelectProvide(provide.id)" type="checkbox" class="custom-control-input"
+              id="{{provide.id}}">
             <label class="custom-control-label" for="{{provide.id}}">{{ provide.name }}</label>
           </div>
         </div>
       </div>
       <hr>
       <button type="button" class="btn btn-default float-right" (click)="createHouse.hide()">Hủy bỏ</button>
-      <button type="button" class="btn btn-primary float-right" (click)="createHouse.hide();addBoardingHouse()">Thêm mới</button>
+      <button type="button" class="btn btn-primary float-right" (click)="createHouse.hide();addBoardingHouse()">Thêm
+        mới</button>
     </div>
   </div>
 </app-ui-modal>
