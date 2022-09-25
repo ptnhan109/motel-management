@@ -34,11 +34,14 @@ export class BoardingHouseComponent implements OnInit {
   constructor(
     private _service : AppService,
     private _toast : ToastrService
-  ) { }
+  ) {
+   
+  }
 
   ngOnInit(): void {
-    this.getProvides();
     this.getBoardings();
+
+    this.getProvides();
   }
 
   addBoardingHouse(){

@@ -30,9 +30,9 @@ namespace Motel.Core.Data
 
         public DbSet<RoomDeposited> RoomDepositeds { get; set; }
 
-        public DbSet<Provide> Services { get; set; }
+        public DbSet<Provide> Provides { get; set; }
 
-        public DbSet<ServiceInBoardingHouse> ServiceInBoardingHouses { get; set; }
+        public DbSet<ProvideInBoardingHouse> ServiceInBoardingHouses { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
 
@@ -60,16 +60,9 @@ namespace Motel.Core.Data
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
-                    Name = "Tiền nhà",
-                    Type = EnumServiceType.ByMonth
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
                     Name = "Tiền điện",
-                    Type = EnumServiceType.ByNumber
+                    Type = EnumServiceType.ByNumber,
+                    DefaultPrice = 4000
                 },
                 new Provide()
                 {
@@ -77,15 +70,18 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Tiền nước",
-                    Type = EnumServiceType.ByNumber
+                    Type = EnumServiceType.ByNumber,
+                    DefaultPrice = 100000
                 },
                 new Provide()
                 {
                     CreatedAt = DateTime.Now,
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
-                    Name = "Xe máy",
-                    Type = EnumServiceType.ByMonth
+                    Name = "Gửi Xe máy",
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 50000
+
                 },
                 new Provide()
                 {
@@ -93,7 +89,8 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Tiền xe đạp",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 0
                 },
                 new Provide()
                 {
@@ -101,7 +98,8 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Tiền xe điện",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 100000
                 },
                 new Provide()
                 {
@@ -109,7 +107,8 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Internet",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 50000
                 },
                 new Provide()
                 {
@@ -117,7 +116,8 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Bảo vệ",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 10000
                 },
                 new Provide()
                 {
@@ -125,7 +125,8 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Máy giặt",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 0
                 },
                 new Provide()
                 {
@@ -133,7 +134,9 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Truyền hình cáp",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 0
+
                 },
                 new Provide()
                 {
@@ -141,7 +144,8 @@ namespace Motel.Core.Data
                     UpdatedAt = DateTime.Now,
                     Id = Guid.NewGuid(),
                     Name = "Thang máy",
-                    Type = EnumServiceType.ByMonth
+                    Type = EnumServiceType.ByMonth,
+                    DefaultPrice = 50000
                 }
                 );
         }

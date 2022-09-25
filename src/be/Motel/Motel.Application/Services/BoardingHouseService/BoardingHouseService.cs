@@ -27,13 +27,13 @@ namespace Motel.Application.Services.BoardingHouseService
             entity.Id = Guid.NewGuid();
             await _repository.AddAsync(entity);
 
-            var serviceInboarding = request.Services.Select(c => new ServiceInBoardingHouse()
+            var serviceInboarding = request.Services.Select(c => new ProvideInBoardingHouse()
             {
                 Id = Guid.NewGuid(),
                 BoardingHouseId = entity.Id,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                ServiceId = c.ServiceId,
+                ProvideId = c.ServiceId,
                 Price = c.Price
             });
 
@@ -61,7 +61,7 @@ namespace Motel.Application.Services.BoardingHouseService
                 return NotFound();
             }
             
-            var services = await _repository.FindAllAsync<ServiceInBoardingHouse>(c => c.BoardingHouseId == id);
+            var services = await _repository.FindAllAsync<ProvideInBoardingHouse>(c => c.BoardingHouseId == id);
             var data = _mapper.Map<BoardingHouse, BoardingHouseDetail>(entity);
             data.Services = services;
 
@@ -72,14 +72,14 @@ namespace Motel.Application.Services.BoardingHouseService
         {
             var entity = _mapper.Map<BoardingHouseDto, BoardingHouse>(request);
             await _repository.UpdateAsync(entity);
-            await _repository.DeleteRangeAsync<ServiceInBoardingHouse>(c => c.BoardingHouseId.Equals(entity.Id));
-            var serviceInboarding = request.Services.Select(c => new ServiceInBoardingHouse()
+            await _repository.DeleteRangeAsync<ProvideInBoardingHouse>(c => c.BoardingHouseId.Equals(entity.Id));
+            var serviceInboarding = request.Services.Select(c => new ProvideInBoardingHouse()
             {
                 Id = Guid.NewGuid(),
                 BoardingHouseId = entity.Id,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                ServiceId = c.ServiceId,
+                ProvideId = c.ServiceId,
                 Price = c.Price
             });
 

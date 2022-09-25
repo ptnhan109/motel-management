@@ -45,7 +45,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let boarding of boardings | slice:1; index as i">
+          <tr *ngFor="let boarding of boardings; index as i">
             <td style="width: 5%">{{ i + 1 }}</td>
             <td style="width: 15%">{{ boarding.name }}</td>
             <td style="width: 15%">Ngày {{ boarding.startDatePayment }} đến {{boarding.startDatePayment}} hàng tháng</td>
@@ -193,3 +193,4 @@
     </div>
   </div>
 </app-ui-modal>
+{{boardings.length}}

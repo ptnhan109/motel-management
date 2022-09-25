@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import {AppResponse} from 'src/app/common/response'
 import { getToken } from '../common/message';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -47,11 +48,13 @@ export class AppService {
 
 
   getBoardings():Observable<AppResponse<any>>{
-    return this.get("boarding");
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/boarding`,this.options);
   }
 
   getBoarding(id):Observable<AppResponse<any>>{
-    return this.get(`boarding/${id}`);
+    return this.get(`boarding/${id}`).pipe(
+      tap(boardings => console.log(boardings))
+    );
   }
 
   addBoardingHouse(boarding): Observable<AppResponse<any>>{

@@ -37,6 +37,7 @@
             <th>#</th>
             <th></th>
             <th>Tên dịch vụ</th>
+            <th>Giá tiền mặc định</th>
             <th>Hình thức</th>
             <th></th>
           </tr>
@@ -45,12 +46,13 @@
           <tr *ngFor="let provide of provides | slice:1; index as i">
             <td>{{ i + 1 }}</td>
             <td>
-              <input type="checkbox" class="custom-control-input" id="customControlValidation1" required="">
+              <a href="javascript:;" (click)="getProvideUpdate(provide);updateService.show()"><i class="icon feather icon-edit text-primary f-20"></i></a>
             </td>
             <td>{{ provide.name }}</td>
+            <td>{{ formatCurrency(provide.defaultPrice) }}</td>
             <td>{{ provide.by }}</td>
-            <td><a href="javascript:;" (click)="getProvideUpdate(provide);updateService.show()"><i class="icon feather icon-edit text-primary"></i></a>
-              <a href="javascript:;" (click)="removeProvide(provide.id)"><i class="icon feather icon-trash text-danger"></i></a>
+            <td>
+              <a href="javascript:;" (click)="removeProvide(provide.id)"><i class="icon feather icon-trash text-danger f-20"></i></a>
             </td>
           </tr>
 
@@ -68,9 +70,13 @@
   <div class="app-modal-body">
     <div>
       <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-12">
               <label for="inputEmail4">Tên dịch vụ</label>
               <input [(ngModel)]="provideInsert.name" type="text" class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Giá tiền mặc định</label>
+              <input [(ngModel)]="provideInsert.defaultPrice" type="number" class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
           </div>
           <div class="form-group col-md-6">
               <label for="inputPassword4">Hình thức thu</label>

@@ -41,6 +41,6 @@ namespace Motel.Application.Services.BoardingHouseService.Dtos
 
         public int? EndDatePayment { get; set; }
 
-        public IEnumerable<ServiceInBoardingHouse> Services { get; set; }
+        public IEnumerable<ProvideInBoardingHouse> Services { get; set; }
     }
 }
