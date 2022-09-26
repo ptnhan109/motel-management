@@ -104,9 +104,10 @@ namespace Motel.Core
             return AsQueryable<TEntity>();
         }
 
-        public Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public async Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
-            throw new NotImplementedException();
+             _context.Set<TEntity>().Update(entity);
+            await SaveChangeAsync();
         }
 
         public Task UpdateRangeAsync<TEntity>(IEnumerable<TEntity> entites) where TEntity : BaseEntity

@@ -36,6 +36,7 @@ export class ServiceComponent implements OnInit {
     this._service.getProvides().subscribe(
       response =>{
         this.provides = response.data;
+        console.log(this.provides);
       }
     )
   }
@@ -52,30 +53,19 @@ export class ServiceComponent implements OnInit {
   }
 
   removeProvide(id){
-    bootbox.confirm({
-      title: "Bạn chắc chắn muốn xóa dịch vụ này?",
-      message: "Khi dịch vụ được xóa sẽ mất dữ liệu ở các khu trọ sử dụng dịch vụ",
-      buttons: {
-          cancel: {
-              label: '<i class="fa fa-times"></i> Hủy bỏ'
+    bootbox.confirm("Bạn chắc chắn muốn xóa dịch vụ này?",(result : boolean) =>{
+      if(result){
+        this._service.deleteProvide(id).subscribe(
+          response =>{
+            if(response.isSucceeded == true){
+              this._toast.success("Đã xóa dịch vụ");
+              this.getProvides();
+            }
           },
-          confirm: {
-              label: '<i class="fa fa-check"></i> Xác nhận'
-          }
-      },
-      callback: function (result) {
-          if(result){
-            this._service.deleteProvide(id).subscribe(
-              response =>{
-                if(response.isSucceeded == true){
-                  this._toast.success("Đã xóa dịch vụ");
-                  this.getProvides();
-                }
-              }
-            )
-          }
+          error => console.log(error)
+        )
       }
-  });
+    })
     
   }
 

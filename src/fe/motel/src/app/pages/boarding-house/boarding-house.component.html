@@ -6,7 +6,7 @@
           <div class="row">
             <div class="col-sm-6">
 
-              <h5 class="m-b-10 ng-star-inserted">Dịch vụ</h5>
+              <h5 class="m-b-10 ng-star-inserted">Khu trọ</h5>
             </div>
             <div class="col-sm-6 ">
               <button type="button" class="btn btn-success float-right l-1" style="margin-left: 4px;" data-toggle="modal"
@@ -36,25 +36,30 @@
         <thead>
           <tr>
             <th>#</th>
+            <th class="text-center"></th>
             <th>Tên khu trọ</th>
             <th>Ngày thanh toán</th>
             <th>Địa chỉ</th>
             <th>Số tháng</th>
             <th>Mô tả</th>
-            <th class="text-center">Hành động</th>
+            <th class="text-center"></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let boarding of boardings; index as i">
             <td style="width: 5%">{{ i + 1 }}</td>
+            <td style="width: 10%">
+              <a [routerLink]="[boarding.id]" href="javascript:;" (click)="getBoarding(boarding.id)"><i class="icon feather icon-edit text-primary f-20"></i></a>
+              <a href="javascript:;" ><i class="icon feather icon-external-link text-success f-20"></i></a>
+            
+            </td>
             <td style="width: 15%">{{ boarding.name }}</td>
             <td style="width: 15%">Ngày {{ boarding.startDatePayment }} đến {{boarding.startDatePayment}} hàng tháng</td>
             <td style="width: 30%">{{ boarding.address }}</td>
             <td style="width: 10%">{{ boarding.months }}</td>
-            <td>{{ boarding.descripion }}</td>
-            <td class="text-center"><a href="javascript:;" (click)="getBoarding(boarding.id)"><i class="icon feather icon-edit text-primary"></i></a>
-              <a href="javascript:;" ><i class="icon feather icon-trash text-danger"></i></a>
-              <a href="javascript:;" ><i class="icon feather icon-external-link text-success"></i></a>
+            <td style="width: 10%;">{{ boarding.descripion }}</td>
+            <td style="width: 5%;" class="text-center">
+              <a href="javascript:;" ><i class="icon feather icon-trash text-danger f-20"></i></a>
             </td>
           </tr>
         </tbody>

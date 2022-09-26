@@ -68,7 +68,6 @@ export class BoardingHouseComponent implements OnInit {
     this._service.getBoardings().subscribe(
       response =>{
         this.boardings = response.data;
-        console.log(this.boardings);
       }
     )
   }
