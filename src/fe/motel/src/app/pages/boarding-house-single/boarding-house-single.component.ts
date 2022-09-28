@@ -19,7 +19,8 @@ export class BoardingHouseSingleComponent implements OnInit {
     startDatePayment: 1,
     endDatePayment: 5,
     services : []
-  }
+  };
+  provides = [];
   constructor(
     private _service : AppService,
     private _route : ActivatedRoute
@@ -35,10 +36,32 @@ export class BoardingHouseSingleComponent implements OnInit {
       response =>{
         if(response.isSucceeded){
           this.boarding = response.data;
-          console.log(this.boarding);
+          this.getServices();
         }
       }
     )
+  }
+
+  getServices(){
+    this._service.getProvides().subscribe(
+      response =>{
+        this.provides = response.data;
+        this.fillProvide();
+      }
+    )
+  }
+
+  fillProvide(){
+    this.provides.forEach(e =>{
+      let provide = this.boarding.services.find(c => c.provideId == e.id);
+      if(provide == null){
+        e.checked = false;
+      }else{
+        e.checked = true;
+        e.defaultPrice = provide.price;
+      }
+    });
+    console.log(this.provides);
   }
 
 

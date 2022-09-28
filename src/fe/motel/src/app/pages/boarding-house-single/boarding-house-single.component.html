@@ -36,16 +36,19 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="inputEmail4">Tên khu trọ</label>
-                        <input type="text" class="form-control" id="inputEmail4" placeholder="Tên khu trọ">
+                        <input [(ngModel)]="boarding.name" type="text" class="form-control" id="inputEmail4"
+                            placeholder="Tên khu trọ">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="inputPassword4">Địa chỉ chi tiết</label>
-                        <input type="text" class="form-control" id="inputPassword4" placeholder="Địa chỉ chi tiết">
+                        <input [(ngModel)]="boarding.address" type="text" class="form-control" id="inputPassword4"
+                            placeholder="Địa chỉ chi tiết">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputAddress">Mô tả</label>
-                    <textarea rows="4" class="form-control" placeholder="Mô tả khu trọ"></textarea>
+                    <textarea [(ngModel)]="boarding.description" rows="4" class="form-control"
+                        placeholder="Mô tả khu trọ"></textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-4">
@@ -127,6 +130,20 @@
                             <option [ngValue]="30">30</option>
                         </select>
                     </div>
+                </div>
+                <h6>Danh sách và chi phí dịch vụ</h6>
+                <hr>
+                <div class="row">
+                    <div class="col-sm-3" *ngFor="let provide of provides">
+                        <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" checked id="{{provide.id}}" [checked]="provide.checked">
+                                <label class="custom-control-label" for="{{provide.id}}">{{ provide.name }}</label>
+                                &nbsp;<input type="number" value="{{provide.defaultPrice}}" class=" no-border">
+                            <hr>
+                        </div>
+
+                    </div>
+
                 </div>
                 <button type="button" class="btn btn-primary float-right">Cập nhật</button>
                 <button type="button" class="btn btn-default float-right">Hủy bỏ</button>
