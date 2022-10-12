@@ -57,7 +57,7 @@ namespace Motel.Core
         public async Task DeleteRangeAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity
         {
             var entities = _context.Set<TEntity>().Where(where);
-            _context.Remove(entities);
+            _context.RemoveRange(entities);
             await SaveChangeAsync();
         }
 

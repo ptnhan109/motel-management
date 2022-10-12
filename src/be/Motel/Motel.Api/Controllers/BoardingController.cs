@@ -29,6 +29,12 @@ namespace Motel.Api.Controllers
 
         [HttpGet("{id}")]
         public async Task<Response> GetBoarding(Guid id) => await _service.GetAsync(id);
+
+        [HttpPut]
+        public async Task<Response> UpdateBoarding([FromBody] BoardingHouseUpdate request) => await _service.UpdateAsync(request);
+
+        [HttpDelete("{id}")]
+        public async Task<Response> DeleteBoarding(Guid id) => await _service.DeleteAsync(id);
         
     }
 }

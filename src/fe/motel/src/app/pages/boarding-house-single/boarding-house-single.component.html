@@ -18,7 +18,7 @@
                     <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" href="/dashboard"
                             class="ng-star-inserted"><i class="feather icon-home"></i></a>
                     <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
-                            href="/boarding-house">Khu trọ</a>
+                        routerLink="/boarding-house">Khu trọ</a>
                     </li>
                     <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
                             href="/boarding-house">{{boarding.name }}</a>
@@ -53,16 +53,16 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="inputCity">Số tháng đóng tiền</label>
-                        <select class="form-control">
-                            <option>1</option>
-                            <option>3</option>
-                            <option>6</option>
+                        <select class="form-control" [(ngModel)]="boarding.months">
+                            <option [ngValue]="1">1</option>
+                            <option [ngValue]="3">3</option>
+                            <option [ngValue]="6">6</option>
                         </select>
 
                     </div>
                     <div class="form-group col-md-4">
                         <label for="inputState">Ngày bắt đầu đóng</label>
-                        <select id="inputState" class="form-control">
+                        <select id="inputState" class="form-control" [(ngModel)]="boarding.startDatePayment">
                             <option [ngValue]="1">1</option>
                             <option [ngValue]="2">2</option>
                             <option [ngValue]="3">3</option>
@@ -96,8 +96,8 @@
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="inputState">Ngày bắt đầu đóng</label>
-                        <select id="inputState" class="form-control">
+                        <label for="inputState">Ngày cuối đóng</label>
+                        <select id="inputState" class="form-control" [(ngModel)]="boarding.endDatePayment">
                             <option [ngValue]="1">1</option>
                             <option [ngValue]="2">2</option>
                             <option [ngValue]="3">3</option>
@@ -136,17 +136,18 @@
                 <div class="row">
                     <div class="col-sm-3" *ngFor="let provide of provides">
                         <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" checked id="{{provide.id}}" [checked]="provide.checked">
+                                <input  id="{{provide.id}}" type="checkbox" class="custom-control-input" [(ngModel)]="provide.checked"  [checked]="provide.checked">
                                 <label class="custom-control-label" for="{{provide.id}}">{{ provide.name }}</label>
-                                &nbsp;<input type="number" value="{{provide.defaultPrice}}" class=" no-border">
+                                &nbsp;
+                                <input type="number" value="{{provide.defaultPrice}}" class=" no-border" [(ngModel)] = "provide.defaultPrice" [disabled]="!provide.checked">
                             <hr>
                         </div>
 
                     </div>
 
                 </div>
-                <button type="button" class="btn btn-primary float-right">Cập nhật</button>
-                <button type="button" class="btn btn-default float-right">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary float-right" (click)="updateBoardingHouse()">Cập nhật</button>
+                <button type="button" class="btn btn-default float-right" routerLink="/boarding-house" >Hủy bỏ</button>
             </div>
         </app-card>
     </div>

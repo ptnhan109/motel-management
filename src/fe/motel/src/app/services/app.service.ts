@@ -61,5 +61,13 @@ export class AppService {
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Boarding`,boarding,this.options);
   }
 
+  updateBoardingHouse(boarding):Observable<AppResponse<any>>{
+    return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/Boarding`,boarding,this.options);
+  }
+
+  deleteBoardingHouse(id):Observable<AppResponse<any>>{
+    return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/Boarding/${id}`,this.options);
+  }
+
 
 }

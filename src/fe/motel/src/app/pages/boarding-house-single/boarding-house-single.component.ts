@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/services/app.service';
 
 @Component({
@@ -23,7 +24,8 @@ export class BoardingHouseSingleComponent implements OnInit {
   provides = [];
   constructor(
     private _service : AppService,
-    private _route : ActivatedRoute
+    private _route : ActivatedRoute,
+    private _toast : ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +63,40 @@ export class BoardingHouseSingleComponent implements OnInit {
         e.defaultPrice = provide.price;
       }
     });
-    console.log(this.provides);
+  }
+
+  updateBoardingHouse(){
+    this.boarding.services = this.provides.filter(c => c.checked == true);
+    let services = [];
+    this.boarding.services.forEach((service) => {
+      let add = {
+        boardingHouseId : this.id,
+        serviceId: service.id,
+        price: service.defaultPrice
+      }
+      services.push(add)
+    })
+    let request = {
+      id : this.boarding.id,
+      name : this.boarding.name,
+      address: this.boarding.address,
+      description: this.boarding.description,
+      months : this.boarding.months,
+      startDatePayment: this.boarding.startDatePayment,
+      endDatePayment: this.boarding.endDatePayment,
+      services: services
+    }
+    console.log(request)
+    this._service.updateBoardingHouse(request).subscribe(
+      response =>{
+        console.log(response)
+        this._toast.success("Cập nhật khu trọ thành công.")
+      },
+      error =>{
+        this._toast.error("Cập nhật thất bại");
+        console.log(error);
+      }
+    )
   }
 
 

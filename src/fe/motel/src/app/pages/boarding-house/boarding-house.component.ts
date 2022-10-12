@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/services/app.service';
+declare var bootbox:any;
 
 @Component({
   selector: 'app-boarding-house',
@@ -115,6 +116,24 @@ export class BoardingHouseComponent implements OnInit {
       } 
    } 
   }
+
+  removeBoarding(id){
+    bootbox.confirm("Bạn chắc chắn muốn khu trọ này?",(result : boolean) =>{
+      if(result){
+        this._service.deleteBoardingHouse(id).subscribe(
+          response =>{
+            if(response.isSucceeded == true){
+              this._toast.success("Đã khu trọ thành công");
+              this.getBoardings();
+            }
+          },
+          error => console.log(error)
+        )
+      }
+    })
+  }
+
+  
 
 
 

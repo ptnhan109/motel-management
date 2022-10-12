@@ -18,10 +18,10 @@
 
         </div>
         <ul class="breadcrumb">
-          <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" href="/dashboard"
+          <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
               class="ng-star-inserted"><i class="feather icon-home"></i></a>
           <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
-              href="/boarding-house">Khu trọ</a>
+            routerLink="/boarding-house">Khu trọ</a>
           </li>
 
         </ul>
@@ -59,7 +59,7 @@
             <td style="width: 10%">{{ boarding.months }}</td>
             <td style="width: 10%;">{{ boarding.descripion }}</td>
             <td style="width: 5%;" class="text-center">
-              <a href="javascript:;" ><i class="icon feather icon-trash text-danger f-20"></i></a>
+              <a href="javascript:;" (click)="removeBoarding(boarding.id)"><i class="icon feather icon-trash text-danger f-20"></i></a>
             </td>
           </tr>
         </tbody>
@@ -183,7 +183,7 @@
       <h6>Danh sách dịch vụ</h6>
       <hr>
       <div class="row">
-        <div class="col-sm-4" *ngFor="let provide of provides">
+        <div class="col-sm-4" *ngFor="let provide of provides; let index=index">
           <div class="custom-control custom-checkbox">
             <input (click)="setSelectProvide(provide.id)" type="checkbox" class="custom-control-input"
               id="{{provide.id}}">
@@ -198,4 +198,3 @@
     </div>
   </div>
 </app-ui-modal>
-{{boardings.length}}
