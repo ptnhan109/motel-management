@@ -34,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BoardingHouseComponent } from './pages/boarding-house/boarding-house.component';
 import { FitmentComponent } from './pages/fitment/fitment.component';
 import { ServiceComponent } from './pages/service/service.component';
+import { BoardingHouseSingleComponent } from './pages/boarding-house-single/boarding-house-single.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { ServiceComponent } from './pages/service/service.component';
     DashboardComponent,
     BoardingHouseComponent,
     FitmentComponent,
-    ServiceComponent
+    ServiceComponent,
+    BoardingHouseSingleComponent
   ],
   imports: [
     BrowserModule,

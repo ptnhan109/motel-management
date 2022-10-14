@@ -5,17 +5,17 @@ using System.Text;
 
 namespace Motel.Core.Entities
 {
-    public class ServiceInBoardingHouse : BaseEntity
+    public class ProvideInBoardingHouse : BaseEntity
     {
         public Guid BoardingHouseId { get; set; }
         
         [ForeignKey(nameof(BoardingHouseId))]        
         public virtual BoardingHouse BoardingHouse { get; set; }
 
-        public Guid ServiceId { get; set; }
+        public Guid ProvideId { get; set; }
         
-        [ForeignKey(nameof(ServiceId))]
-        public virtual Provide Service { get; set; }
+        [ForeignKey(nameof(ProvideId))]
+        public virtual Provide Provide { get; set; }
 
         public double Price { get; set; }
     }

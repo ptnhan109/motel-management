@@ -14,6 +14,8 @@ namespace Motel.Application.Services.ServiceService.Dtos
         public Guid Id { get; set; }
 
         public EnumServiceType Type { get; set; }
+
+        public double DefaultPrice { get; set; }
     }
 
     public class ProvideModel
@@ -21,5 +23,6 @@ namespace Motel.Application.Services.ServiceService.Dtos
         public Guid? Id { get; set; }
         public string Name { get; set; }
         public EnumServiceType Type { get; set; }
+        public double DefaultPrice { get; set; }
     }
 }

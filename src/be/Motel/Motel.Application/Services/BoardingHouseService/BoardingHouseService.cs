@@ -27,13 +27,13 @@ namespace Motel.Application.Services.BoardingHouseService
             entity.Id = Guid.NewGuid();
             await _repository.AddAsync(entity);
 
-            var serviceInboarding = request.Services.Select(c => new ServiceInBoardingHouse()
+            var serviceInboarding = request.Services.Select(c => new ProvideInBoardingHouse()
             {
                 Id = Guid.NewGuid(),
                 BoardingHouseId = entity.Id,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
-                ServiceId = c.ServiceId,
+                ProvideId = c.ServiceId,
                 Price = c.Price
             });
 
@@ -45,24 +45,46 @@ namespace Motel.Application.Services.BoardingHouseService
             return Ok();
         }
 
-        public async Task<Response> UpdateAsync(BoardingHouseDto request)
+        public async Task<Response> DeleteAsync(Guid id)
         {
-            var entity = _mapper.Map<BoardingHouseDto, BoardingHouse>(request);
-            await _repository.UpdateAsync(entity);
-            await _repository.DeleteRangeAsync<ServiceInBoardingHouse>(c => c.BoardingHouseId.Equals(entity.Id));
-            var serviceInboarding = request.Services.Select(c => new ServiceInBoardingHouse()
-            {
-                Id = Guid.NewGuid(),
-                BoardingHouseId = entity.Id,
-                CreatedAt = DateTime.Now,
-                UpdatedAt = DateTime.Now,
-                ServiceId = c.ServiceId,
-                Price = c.Price
-            });
+            await _repository.DeleteRangeAsync<ProvideInBoardingHouse>(c => c.BoardingHouseId.Equals(id));
+            await _repository.DeleteAsync<BoardingHouse>(id);
+            return Ok();
+        }
 
-            if (serviceInboarding.Any())
+        public async Task<Response> GetAllAsync()
+        {
+            var entities = await _repository.FindAllAsync<BoardingHouse>();
+            var data = _mapper.Map<IEnumerable<BoardingHouse>, IEnumerable<BoardingHouseDto>>(entities);
+
+            return Ok(data);
+        }
+
+        public async Task<Response> GetAsync(Guid id)
+        {
+            var entity = await _repository.FindAsync<BoardingHouse>(id);
+            if(entity is null)
             {
-                await _repository.AddRangeAsync(serviceInboarding);
+                return NotFound();
+            }
+            
+            var services = await _repository.FindAllAsync<ProvideInBoardingHouse>(c => c.BoardingHouseId == id);
+            var data = _mapper.Map<BoardingHouse, BoardingHouseDetail>(entity);
+            data.Services = services;
+
+            return Ok(data);
+        }
+
+        public async Task<Response> UpdateAsync(BoardingHouseUpdate request)
+        {
+            var entity = _mapper.Map<BoardingHouseUpdate, BoardingHouse>(request);
+            await _repository.UpdateAsync(entity);
+            await _repository.DeleteRangeAsync<ProvideInBoardingHouse>(c => c.BoardingHouseId.Equals(entity.Id));
+
+            var services = request.Services.Select(c => c.ToEntity(request.Id));
+            if (request.Services.Any())
+            {
+                await _repository.AddRangeAsync(services);
             }
 
             return Ok();

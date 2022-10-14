@@ -7,6 +7,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BoardingHouseComponent } from './pages/boarding-house/boarding-house.component';
 import { FitmentComponent } from './pages/fitment/fitment.component';
 import { ServiceComponent } from './pages/service/service.component';
+import { BoardingHouseSingleComponent } from './pages/boarding-house-single/boarding-house-single.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'boarding-house',
         component: BoardingHouseComponent
+      },
+      {
+        path: 'boarding-house/:id',
+        component: BoardingHouseSingleComponent
       },
       {
         path: 'fitment',

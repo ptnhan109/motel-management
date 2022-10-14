@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { FormatCurrency } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
-
+declare var bootbox:any;
 @Component({
   selector: 'app-service',
   templateUrl: './service.component.html',
@@ -12,13 +13,15 @@ export class ServiceComponent implements OnInit {
   provides = [];
   provideInsert = {
     name: "",
-    type: 0
+    type: 0,
+    defaultPrice: 0
   }
 
   provideUpdate = {
     id :"",
     type: 0,
-    name: ""
+    name: "",
+    defaultPrice : 0
   }
   constructor(
     private _service : AppService,
@@ -33,6 +36,7 @@ export class ServiceComponent implements OnInit {
     this._service.getProvides().subscribe(
       response =>{
         this.provides = response.data;
+        console.log(this.provides);
       }
     )
   }
@@ -49,14 +53,20 @@ export class ServiceComponent implements OnInit {
   }
 
   removeProvide(id){
-    this._service.deleteProvide(id).subscribe(
-      response =>{
-        if(response.isSucceeded == true){
-          this._toast.success("Đã xóa dịch vụ");
-          this.getProvides();
-        }
+    bootbox.confirm("Bạn chắc chắn muốn xóa dịch vụ này?",(result : boolean) =>{
+      if(result){
+        this._service.deleteProvide(id).subscribe(
+          response =>{
+            if(response.isSucceeded == true){
+              this._toast.success("Đã xóa dịch vụ");
+              this.getProvides();
+            }
+          },
+          error => console.log(error)
+        )
       }
-    )
+    })
+    
   }
 
   getProvideUpdate(provide){
@@ -72,6 +82,9 @@ export class ServiceComponent implements OnInit {
         }
       }
     )
+  }
+  formatCurrency(input){
+    return FormatCurrency(input);
   }
 
 }

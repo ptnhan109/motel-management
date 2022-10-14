@@ -18,6 +18,8 @@ namespace Motel.Core
         }
         public async Task AddAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
             _context.Set<TEntity>().Add(entity);
             await SaveChangeAsync();
         }
@@ -55,7 +57,7 @@ namespace Motel.Core
         public async Task DeleteRangeAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity
         {
             var entities = _context.Set<TEntity>().Where(where);
-            _context.Remove(entities);
+            _context.RemoveRange(entities);
             await SaveChangeAsync();
         }
 
@@ -102,9 +104,10 @@ namespace Motel.Core
             return AsQueryable<TEntity>();
         }
 
-        public Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public async Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
-            throw new NotImplementedException();
+             _context.Set<TEntity>().Update(entity);
+            await SaveChangeAsync();
         }
 
         public Task UpdateRangeAsync<TEntity>(IEnumerable<TEntity> entites) where TEntity : BaseEntity

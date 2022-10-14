@@ -10,5 +10,7 @@ namespace Motel.Core.Entities
         public string Name { get; set; }
 
         public EnumServiceType Type { get; set; }
+
+        public double DefaultPrice { get; set; }
     }
 }

@@ -8,23 +8,6 @@ namespace Motel.Core.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BoardingHouses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    UpdatedAt = table.Column<DateTime>(nullable: false),
-                    Name = table.Column<string>(maxLength: 150, nullable: true),
-                    Address = table.Column<string>(maxLength: 250, nullable: true),
-                    Description = table.Column<string>(maxLength: 150, nullable: true),
-                    DateRetalPayment = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BoardingHouses", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Cities",
                 columns: table => new
                 {
@@ -56,46 +39,45 @@ namespace Motel.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Services",
+                name: "Provides",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    UnitId = table.Column<int>(nullable: false),
-                    Type = table.Column<int>(nullable: false)
+                    Type = table.Column<int>(nullable: false),
+                    DefaultPrice = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.PrimaryKey("PK_Provides", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rooms",
+                name: "BoardingHouses",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
-                    BoardingHouseId = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Price = table.Column<double>(nullable: false),
-                    Floor = table.Column<int>(nullable: true),
-                    MaxHuman = table.Column<int>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false),
-                    Location = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 150, nullable: true),
+                    Address = table.Column<string>(maxLength: 250, nullable: true),
+                    Description = table.Column<string>(maxLength: 150, nullable: true),
+                    Months = table.Column<int>(nullable: false),
+                    StartDatePayment = table.Column<int>(nullable: true),
+                    EndDatePayment = table.Column<int>(nullable: true),
+                    CityId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.PrimaryKey("PK_BoardingHouses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Rooms_BoardingHouses_BoardingHouseId",
-                        column: x => x.BoardingHouseId,
-                        principalTable: "BoardingHouses",
+                        name: "FK_BoardingHouses_Cities_CityId",
+                        column: x => x.CityId,
+                        principalTable: "Cities",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,29 +108,56 @@ namespace Motel.Core.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ServiceInMotels",
+                name: "Rooms",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     UpdatedAt = table.Column<DateTime>(nullable: false),
                     BoardingHouseId = table.Column<Guid>(nullable: false),
-                    ServiceId = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Price = table.Column<double>(nullable: false),
+                    Floor = table.Column<int>(nullable: true),
+                    MaxHuman = table.Column<int>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    Location = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rooms_BoardingHouses_BoardingHouseId",
+                        column: x => x.BoardingHouseId,
+                        principalTable: "BoardingHouses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ServiceInBoardingHouses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    UpdatedAt = table.Column<DateTime>(nullable: false),
+                    BoardingHouseId = table.Column<Guid>(nullable: false),
+                    ProvideId = table.Column<Guid>(nullable: false),
                     Price = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiceInMotels", x => x.Id);
+                    table.PrimaryKey("PK_ServiceInBoardingHouses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ServiceInMotels_BoardingHouses_BoardingHouseId",
+                        name: "FK_ServiceInBoardingHouses_BoardingHouses_BoardingHouseId",
                         column: x => x.BoardingHouseId,
                         principalTable: "BoardingHouses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ServiceInMotels_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
+                        name: "FK_ServiceInBoardingHouses_Provides_ProvideId",
+                        column: x => x.ProvideId,
+                        principalTable: "Provides",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -259,9 +268,31 @@ namespace Motel.Core.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Provides",
+                columns: new[] { "Id", "CreatedAt", "DefaultPrice", "Name", "Type", "UpdatedAt" },
+                values: new object[,]
+                {
+                    { new Guid("6fa6e1d1-a53c-4e3d-b331-f9d0503fa1e0"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(792), 4000.0, "Tiền điện", 1, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(825) },
+                    { new Guid("788eb017-11ec-4ec4-a82d-1a777523db55"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1795), 100000.0, "Tiền nước", 1, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1802) },
+                    { new Guid("88c4dcf8-30ef-49f2-806a-dd1c89559e3d"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1830), 50000.0, "Gửi Xe máy", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1832) },
+                    { new Guid("45a5e448-daf3-4735-bc78-105a0db9fce9"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1834), 0.0, "Tiền xe đạp", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1835) },
+                    { new Guid("f808a050-94fc-45c8-a28c-6e8f5f2a5fde"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1838), 100000.0, "Tiền xe điện", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1839) },
+                    { new Guid("f3807d16-d8bf-4e1d-a3a9-8ea3f35b5867"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1841), 50000.0, "Internet", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1842) },
+                    { new Guid("086beef3-d6a0-4b7c-b300-de9ea30556a7"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1855), 10000.0, "Bảo vệ", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1856) },
+                    { new Guid("84ba87c7-ba3c-48ad-b7e3-45bc2e7fff1d"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1858), 0.0, "Máy giặt", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1859) },
+                    { new Guid("cc4723da-8abf-4c5b-9b21-85b2c08622bc"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1861), 0.0, "Truyền hình cáp", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1862) },
+                    { new Guid("9712da2d-961f-4a2d-a63e-ea72f1ca08a6"), new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1864), 50000.0, "Thang máy", 0, new DateTime(2022, 9, 23, 21, 38, 47, 655, DateTimeKind.Local).AddTicks(1865) }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Address", "CityId", "CreatedAt", "Gender", "Mail", "Name", "Password", "Phone", "role", "UpdatedAt" },
-                values: new object[] { new Guid("3720b019-6a94-40c6-94fb-2e32bb1fca3b"), "Cổ Nhuế, Từ Liêm", null, new DateTime(2022, 9, 17, 21, 55, 50, 158, DateTimeKind.Local).AddTicks(933), 1, "trongnhan1110i@gmail.com", "Phạm Trọng Nhân", "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=", "0775331777", 0, new DateTime(2022, 9, 17, 21, 55, 50, 158, DateTimeKind.Local).AddTicks(9618) });
+                values: new object[] { new Guid("6f97e985-807e-4312-88c0-06754cb08fe3"), "Cổ Nhuế, Từ Liêm", null, new DateTime(2022, 9, 23, 21, 38, 47, 653, DateTimeKind.Local).AddTicks(285), 1, "trongnhan1110i@gmail.com", "Phạm Trọng Nhân", "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=", "0775331777", 0, new DateTime(2022, 9, 23, 21, 38, 47, 653, DateTimeKind.Local).AddTicks(9523) });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_BoardingHouses_CityId",
+                table: "BoardingHouses",
+                column: "CityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_RoomId",
@@ -289,14 +320,14 @@ namespace Motel.Core.Migrations
                 column: "BoardingHouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceInMotels_BoardingHouseId",
-                table: "ServiceInMotels",
+                name: "IX_ServiceInBoardingHouses_BoardingHouseId",
+                table: "ServiceInBoardingHouses",
                 column: "BoardingHouseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ServiceInMotels_ServiceId",
-                table: "ServiceInMotels",
-                column: "ServiceId");
+                name: "IX_ServiceInBoardingHouses_ProvideId",
+                table: "ServiceInBoardingHouses",
+                column: "ProvideId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_CityId",
@@ -318,7 +349,7 @@ namespace Motel.Core.Migrations
                 name: "RoomDepositeds");
 
             migrationBuilder.DropTable(
-                name: "ServiceInMotels");
+                name: "ServiceInBoardingHouses");
 
             migrationBuilder.DropTable(
                 name: "Users");
@@ -330,10 +361,7 @@ namespace Motel.Core.Migrations
                 name: "Fitments");
 
             migrationBuilder.DropTable(
-                name: "Services");
-
-            migrationBuilder.DropTable(
-                name: "Cities");
+                name: "Provides");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -343,6 +371,9 @@ namespace Motel.Core.Migrations
 
             migrationBuilder.DropTable(
                 name: "BoardingHouses");
+
+            migrationBuilder.DropTable(
+                name: "Cities");
         }
     }
 }

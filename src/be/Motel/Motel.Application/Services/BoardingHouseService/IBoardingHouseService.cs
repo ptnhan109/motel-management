@@ -11,6 +11,12 @@ namespace Motel.Application.Services.BoardingHouseService
     {
         Task<Response> AddAsync(BoardingHouseDto request);
 
-        Task<Response> UpdateAsync(BoardingHouseDto request);
+        Task<Response> UpdateAsync(BoardingHouseUpdate request);
+
+        Task<Response> GetAllAsync();
+
+        Task<Response> GetAsync(Guid id);
+
+        Task<Response> DeleteAsync(Guid id);
     }
 }
