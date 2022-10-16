@@ -64,10 +64,24 @@ const NavigationItems = [
       {
         id: 'boarding',
         title: 'Khu trọ',
-        type: 'item',
-        url: '/boarding-house',
+        type: 'collapse',
         icon: 'feather icon-aperture',
-        breadcrumbs: false
+        children: [
+          {
+            id: 'boardings',
+            title: 'Khu trọ',
+            type: 'item',
+            url: '/boarding-house',
+            breadcrumbs: false
+          },
+          {
+            id: 'rooms',
+            title: 'Phòng trọ',
+            type: 'item',
+            url: '/room',
+            breadcrumbs: false
+          }
+        ]
       },
     ]
   }

@@ -1,0 +1,123 @@
+<div class="page-header ng-star-inserted">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h5 class="m-b-10 ng-star-inserted">Phòng trọ</h5>
+                        </div>
+                        <div class="col-sm-6 ">
+
+                            <button type="button" class="btn btn-success float-right l-4"
+                                data-toggle="modal" (click)="createHouse.show()"><i
+                                    class="icon feather icon-printer"></i> Excel</button>
+                            <button type="button" class="btn btn-primary float-right l-4" data-toggle="modal"
+                                (click)="createHouse.show()"><i class="icon feather icon-plus"></i> Thêm mới</button>
+                            <button type="button" class="btn btn-secondary float-right" (click)="showSearch()">
+                                <i class="icon feather icon-search">
+                                </i>
+                                 Tìm kiếm
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
+                            class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                            routerLink="/boarding-house">Khu trọ</a>
+                    </li>
+                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                            routerLink="/boarding-house">Phòng trọ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-header ng-star-inserted" *ngIf="isSearch">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail4">Từ khóa</label>
+                            <input type="text" class="form-control" placeholder="Tìm kiếm">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Giá từ</label>
+                            <input type="number" class="form-control" placeholder="Giá bắt đầu">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Giá đến</label>
+                            <input type="number" class="form-control" placeholder="Giá kết thúc">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="inputEmail4">Khu vực</label>
+                            <select class="form-control">
+                                <option>Tất cả</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-5">
+                            <label for="inputPassword4">Khu trọ</label>
+                            <select class="form-control">
+                                <option>Tất cả</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputPassword4">Trạng thái</label>
+                            <select class="form-control">
+                                <option>Tất cả</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <button class="btn btn-primary"><i class="icon feather icon-filter"></i> Tìm kiếm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-12">
+    <app-card cardTitle="Danh sách khu trọ quản lý" blockClass="table-border-style">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-center"></th>
+                        <th>Tên khu trọ</th>
+                        <th>Ngày thanh toán</th>
+                        <th>Địa chỉ</th>
+                        <th>Số tháng</th>
+                        <th>Mô tả</th>
+                        <th class="text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </app-card>
+</div>
+
+
+
+<app-ui-modal #createHouse [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Thêm mới khu trọ</h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="createHouse.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+    </div>
+</app-ui-modal>
