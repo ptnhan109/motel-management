@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AppService } from 'src/app/services/app.service';
+import { FormatCurrency } from 'src/app/common/stringFormat';
 
 @Component({
   selector: 'app-fitment',
@@ -7,9 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FitmentComponent implements OnInit {
 
-  constructor() { }
+  fitments = [];
+  constructor(
+    private _service : AppService,
+    private _toast : ToastrService,
+  ) { }
 
   ngOnInit(): void {
+    this.getFitments();
+  }
+
+  getFitments(){
+    this._service.getFitments().subscribe(
+      response =>{
+        this.fitments = response.data;
+      }
+    )
+  }
+
+  formatCurrency(input){
+    return FormatCurrency(input);
   }
 
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Motel.Application.Auth;
 using Motel.Application.Services.BoardingHouseService;
+using Motel.Application.Services.FitmentServices;
 using Motel.Application.Services.ServiceService;
 using Motel.Application.Services.UserService;
 using Motel.Core;
@@ -22,6 +23,7 @@ namespace Motel.Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IBoardingHouseService,BoardingHouseService>();
             services.AddScoped<IProvideService, ProvideService>();
+            services.AddScoped<IFitmentService, FitmentService>();
         }
         public static void EnableCors(this IServiceCollection services)
         {

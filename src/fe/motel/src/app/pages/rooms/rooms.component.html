@@ -10,15 +10,14 @@
                         </div>
                         <div class="col-sm-6 ">
 
-                            <button type="button" class="btn btn-success float-right l-4"
-                                data-toggle="modal" (click)="createHouse.show()"><i
-                                    class="icon feather icon-printer"></i> Excel</button>
+                            <button type="button" class="btn btn-success float-right l-4" data-toggle="modal"
+                                (click)="createHouse.show()"><i class="icon feather icon-printer"></i> Excel</button>
                             <button type="button" class="btn btn-primary float-right l-4" data-toggle="modal"
                                 (click)="createHouse.show()"><i class="icon feather icon-plus"></i> Thêm mới</button>
                             <button type="button" class="btn btn-secondary float-right" (click)="showSearch()">
                                 <i class="icon feather icon-search">
                                 </i>
-                                 Tìm kiếm
+                                Tìm kiếm
                             </button>
                         </div>
                     </div>
@@ -114,10 +113,65 @@
 
 <app-ui-modal #createHouse [hideFooter]="true" [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h6 class="modal-title">Thêm mới khu trọ</h6>
+        <h6 class="modal-title">Thêm mới phòng trọ</h6>
         <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
             (click)="createHouse.hide()"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="app-modal-body">
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <label for="name">Khu trọ</label>
+                <select class="form-control">
+                    <option *ngFor="let boarding of boardings">{{ boarding.name }}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-8">
+                <label for="name">Tên phòng</label>
+                <input type="text" class="form-control" id="name" placeholder="Số tầng - số thứ tự phòng">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="name">Trạng thái</label>
+                <select class="form-control">
+                    <option value="0">Chưa có người</option>
+                    <option value="1">Đã có cọc</option>
+                    <option value="2">Đã cho thuê</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="address">Giá tiền</label>
+                <input type="number" class="form-control" id="address" placeholder="Giá tiền">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="address">Vị trí tầng</label>
+                <input type="number" class="form-control" id="address" placeholder="Vị trí tầng">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="address">Số người ở tối đa</label>
+                <input type="number" class="form-control" id="address" placeholder="Số người ở tối đa">
+            </div>
+            <div class="form-group col-md-12">
+                <label for="descripion">Mô tả</label>
+                <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
+            </div>
+
+        </div>
+        <h6>Thiết bị hiện có</h6>
+        <hr>
+        <div class="row">
+            <div class="col-sm-4" *ngFor="let fitment of fitments">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="{{fitment.id}}">
+                    <label class="custom-control-label" for="{{fitment.id}}">{{ fitment.name }}</label>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" >
+            <label class="custom-control-label">Tiếp tục thêm các phòng khác</label>
+        </div>
+        <hr>
+        <button type="button" class="btn btn-primary float-right">Thêm mới</button>
+        <button type="button" class="btn btn-default float-right">Hủy bỏ</button>
     </div>
 </app-ui-modal>

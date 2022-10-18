@@ -69,5 +69,9 @@ export class AppService {
     return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/Boarding/${id}`,this.options);
   }
 
+  getFitments():Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/Category/fitment`,this.options);
+  }
+
 
 }

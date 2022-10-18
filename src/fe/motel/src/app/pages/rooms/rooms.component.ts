@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-rooms',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomsComponent implements OnInit {
   isSearch = false;
-  constructor() { }
+  boardings = [];
+  fitments = [];
+  constructor(
+    private _service : AppService,
+    private _toast : ToastrService,
+  ) { }
 
   ngOnInit(): void {
+    this.getMotels();
+    this.getFitments();
   }
 
   showSearch(){
@@ -18,6 +27,21 @@ export class RoomsComponent implements OnInit {
     }else{
       this.isSearch = true;
     }
+  }
+
+  getMotels(){
+    this._service.getBoardings().subscribe(
+      response => this.boardings = response.data
+    )
+  }
+
+  getFitments(){
+    this._service.getFitments().subscribe(
+      response => this.fitments = response.data
+    )
+  }
+  setSelectFitment(id){
+    
   }
 
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Motel.Application.Services.FitmentServices;
 using Motel.Application.Services.ServiceService;
 using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Common.Generics;
@@ -13,10 +14,12 @@ namespace Motel.Api.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly IProvideService _provideService;
+        private readonly IFitmentService _fitmentService;
 
-        public CategoryController(IProvideService provideService)
+        public CategoryController(IProvideService provideService, IFitmentService fitmentService)
         {
             _provideService = provideService;
+            _fitmentService = fitmentService;
         }
         [Route("provide")]
         [HttpGet]
@@ -45,5 +48,9 @@ namespace Motel.Api.Controllers
         {
             return await _provideService.Update(request);
         }
+
+        [Route("fitment")]
+        [HttpGet]
+        public async Task<Response> GetFiments() => await _fitmentService.GetAll();
     }
 }

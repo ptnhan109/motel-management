@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Motel.Application.Services.BoardingHouseService.Dtos;
+using Motel.Application.Services.FitmentServices.Dtos;
 using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Common.Enums;
 using Motel.Core.Entities;
@@ -25,6 +26,8 @@ namespace Motel.Application.Mapper
                 .ForMember(dest => dest.By,d => d.MapFrom(source => source.Type.GetName()));
             CreateMap<ProvideDto, Provide>();
             CreateMap<ProvideModel, Provide>();
+
+            CreateMap<Fitment, FitmentDto>();
         }
     }
 }
