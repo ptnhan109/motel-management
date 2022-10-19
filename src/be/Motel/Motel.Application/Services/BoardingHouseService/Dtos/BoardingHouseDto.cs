@@ -22,6 +22,10 @@ namespace Motel.Application.Services.BoardingHouseService.Dtos
 
         public Guid? CityId { get; set; }
 
+        public bool? IsNotLimitTime { get; set; }
+
+        public bool? IsSelfPayment { get; set; }
+
         public IEnumerable<ServiceInHouseDto> Services { get; set; }
     }
 
@@ -41,6 +45,10 @@ namespace Motel.Application.Services.BoardingHouseService.Dtos
 
         public int? EndDatePayment { get; set; }
 
+        public bool? IsNotLimitTime { get; set; }
+
+        public bool? IsSelfPayment { get; set; }
+
         public IEnumerable<ProvideInBoardingHouse> Services { get; set; }
     }
 
@@ -59,6 +67,10 @@ namespace Motel.Application.Services.BoardingHouseService.Dtos
         public int? StartDatePayment { get; set; }
 
         public int? EndDatePayment { get; set; }
+
+        public bool? IsNotLimitTime { get; set; }
+
+        public bool? IsSelfPayment { get; set; }
 
         public IEnumerable<ServiceInHouseDto> Services { get; set; }
     }

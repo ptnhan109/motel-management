@@ -26,5 +26,7 @@ namespace Motel.Core.Entities
         public EnumRoomStatus Status { get; set; }
 
         public string Location { get; set; }
+
+        public bool? IsSelfContainer { get; set; }
     }
 }

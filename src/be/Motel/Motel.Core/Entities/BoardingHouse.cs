@@ -26,6 +26,10 @@ namespace Motel.Core.Entities
         public Guid? CityId { get; set; }
         [ForeignKey(nameof(CityId))]
         public virtual City City { get; set; }
-        
+
+        public bool? IsNotLimitTime { get; set; }
+
+        public bool? IsSelfPayment { get; set; }
+
     }
 }
