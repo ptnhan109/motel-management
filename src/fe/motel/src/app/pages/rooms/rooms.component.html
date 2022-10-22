@@ -12,8 +12,7 @@
 
                             <button type="button" class="btn btn-success float-right l-4" data-toggle="modal"
                                 (click)="createHouse.show()"><i class="icon feather icon-printer"></i> Excel</button>
-                            <button type="button" class="btn btn-primary float-right l-4" data-toggle="modal"
-                                (click)="createHouse.show()"><i class="icon feather icon-plus"></i> Thêm mới</button>
+                            <a class="btn btn-primary float-right l-4" routerLink="/add-room"><i class="icon feather icon-plus"></i> Thêm mới</a>
                             <button type="button" class="btn btn-secondary float-right" (click)="showSearch()">
                                 <i class="icon feather icon-search">
                                 </i>
@@ -158,10 +157,10 @@
         <h6>Thiết bị hiện có</h6>
         <hr>
         <div class="row">
-            <div class="col-sm-4" *ngFor="let fitment of fitments">
+            <div class="col-sm-4" *ngFor="let fitment of fitments" >
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="{{fitment.id}}">
-                    <label class="custom-control-label" for="{{fitment.id}}">{{ fitment.name }}</label>
+                    <input type="checkbox" class="custom-control-input" id="a-{{fitment.id}}" (click)="setSelectFitment(fitment.id)">
+                    <label class="custom-control-label" for="a-{{fitment.id}}">{{ fitment.name }}</label>
                 </div>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -24,6 +24,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Motel.Application\Motel.Application.csproj" />
     <ProjectReference Include="..\Motel.Core\Motel.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\Images\Rooms\" />
   </ItemGroup>
 
 

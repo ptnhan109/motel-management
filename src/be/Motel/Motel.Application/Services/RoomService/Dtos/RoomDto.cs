@@ -1,4 +1,5 @@
-﻿using Motel.Common.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using Motel.Common.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -50,5 +51,7 @@ namespace Motel.Application.Services.RoomService.Dtos
         public bool? IsSelfContainer { get; set; }
 
         public IEnumerable<Guid> Fitments { get; set; }
+
+        public List<IFormFile> RoomImages { get; set; }
     }
 }

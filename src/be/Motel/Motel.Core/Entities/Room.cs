@@ -28,5 +28,7 @@ namespace Motel.Core.Entities
         public string Location { get; set; }
 
         public bool? IsSelfContainer { get; set; }
+
+        public int? Count { get; set; }
     }
 }

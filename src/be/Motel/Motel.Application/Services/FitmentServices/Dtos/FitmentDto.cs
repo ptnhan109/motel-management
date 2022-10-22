@@ -6,6 +6,8 @@ namespace Motel.Application.Services.FitmentServices.Dtos
 {
     public class FitmentDto
     {
+        public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public bool IsCanUse { get; set; }
