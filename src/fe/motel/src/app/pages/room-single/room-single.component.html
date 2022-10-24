@@ -43,37 +43,37 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="name">Khu trọ</label>
-                        <select class="form-control">
-                            <option *ngFor="let boarding of boardings">{{ boarding.name }}</option>
+                        <select [(ngModel)] = "room.boardingHouseId" class="form-control" >
+                            <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name }}</option>
                         </select>
                     </div>
                     <div class="form-group col-md-8">
                         <label for="name">Tên phòng</label>
-                        <input type="text" class="form-control" id="name" placeholder="Số tầng - số thứ tự phòng">
+                        <input [(ngModel)]="room.name" type="text" class="form-control" id="name" placeholder="Số tầng - số thứ tự phòng">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="name">Trạng thái</label>
-                        <select class="form-control">
-                            <option value="0">Chưa có người</option>
-                            <option value="1">Đã có cọc</option>
-                            <option value="2">Đã cho thuê</option>
+                        <select [(ngModel)]="room.status" class="form-control">
+                            <option [ngValue]="0">Phòng trống</option>
+                            <option [ngValue]="1">Đã có cọc</option>
+                            <option [ngValue]="2">Đã cho thuê</option>
                         </select>
                     </div>
                     <div class="form-group col-md-4">
                         <label for="address">Giá tiền</label>
-                        <input type="number" class="form-control" id="address" placeholder="Giá tiền">
+                        <input [(ngModel)]="room.price" type="number" class="form-control" id="address" placeholder="Giá tiền">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="address">Vị trí tầng</label>
-                        <input type="number" class="form-control" id="address" placeholder="Vị trí tầng">
+                        <input [(ngModel)]="room.floor" type="number" class="form-control" id="address" placeholder="Vị trí tầng">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="address">Số người ở tối đa</label>
-                        <input type="number" class="form-control" id="address" placeholder="Số người ở tối đa">
+                        <input [(ngModel)]="room.maxHuman" type="number" class="form-control" id="address" placeholder="Số người ở tối đa">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="descripion">Mô tả</label>
-                        <textarea rows="4" type="text" class="form-control" id="descripion"
+                        <textarea [(ngModel)]="room.description" rows="4" type="text" class="form-control" id="descripion"
                             placeholder="Mô tả"></textarea>
                     </div>
                     <div class="form-group col-md-12">

@@ -22,6 +22,13 @@ export class AppService {
     })
   };
 
+  formDataOption = {
+    headers: new HttpHeaders({
+      'Content-Type': 'multipart/form-data',
+      'Authorization': getToken()
+    })
+  };
+
   authenticate(user) : Observable<AppResponse<any>>{
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Auth`,user,this.options);
   }
@@ -73,5 +80,7 @@ export class AppService {
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/Category/fitment`,this.options);
   }
 
-
+  createRoom(params,boardingId):Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Boarding/${boardingId}/rooms`,params,this.formDataOption)
+  }
 }

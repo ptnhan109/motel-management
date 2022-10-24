@@ -50,8 +50,8 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public bool? IsSelfContainer { get; set; }
 
-        public IEnumerable<Guid> Fitments { get; set; }
+        public IEnumerable<Guid>? Fitments { get; set; } = null;
 
-        public List<IFormFile> RoomImages { get; set; }
+        public List<IFormFile>? RoomImages { get; set; } = null;
     }
 }

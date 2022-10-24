@@ -12,6 +12,8 @@ export class RoomsComponent implements OnInit {
   boardings = [];
   fitments = [];
   selectedFitment = [];
+  
+
   constructor(
     private _service : AppService,
     private _toast : ToastrService,

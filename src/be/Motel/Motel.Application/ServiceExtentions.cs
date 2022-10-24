@@ -2,6 +2,7 @@
 using Motel.Application.Auth;
 using Motel.Application.Services.BoardingHouseService;
 using Motel.Application.Services.FitmentServices;
+using Motel.Application.Services.RoomService;
 using Motel.Application.Services.ServiceService;
 using Motel.Application.Services.UserService;
 using Motel.Core;
@@ -24,6 +25,7 @@ namespace Motel.Application
             services.AddScoped<IBoardingHouseService,BoardingHouseService>();
             services.AddScoped<IProvideService, ProvideService>();
             services.AddScoped<IFitmentService, FitmentService>();
+            services.AddScoped<IRoomService, RoomService>();
         }
         public static void EnableCors(this IServiceCollection services)
         {

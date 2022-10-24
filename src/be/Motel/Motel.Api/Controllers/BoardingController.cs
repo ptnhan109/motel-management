@@ -41,7 +41,9 @@ namespace Motel.Api.Controllers
         public async Task<Response> DeleteBoarding(Guid id) => await _service.DeleteAsync(id);
 
         [Route("{boardingId}/rooms")]
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        [AllowAnonymous]
         public async Task<Response> AddRoom([FromForm] AddRoomModel request) => await _roomService.AddAsync(request);
-        
     }
 }
