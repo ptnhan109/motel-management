@@ -8,6 +8,7 @@ using Motel.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.RoomService
@@ -17,7 +18,8 @@ namespace Motel.Application.Services.RoomService
         private readonly IRepository _repository;
         private readonly IMapper _mapper;
 
-        public RoomService(IRepository repository, IMapper mapper)
+        public RoomService(IRepository repository,
+            IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
@@ -30,7 +32,7 @@ namespace Motel.Application.Services.RoomService
             if (request.RoomImages.Count > 0)
             {
                 var images = new List<SystemFile>();
-                foreach(var file in request.RoomImages)
+                foreach (var file in request.RoomImages)
                 {
                     var fileName = await file.SaveFile(EnumFileType.Room);
                     images.Add(new SystemFile()
@@ -46,6 +48,11 @@ namespace Motel.Application.Services.RoomService
                     });
                 }
                 await _repository.AddRangeAsync(images);
+            }
+            if (request.Fitments.Count > 0)
+            {
+                await _repository.AddRangeAsync(request.ToFitmentInRoom(request.Id.Value));
+
             }
             return Ok();
         }

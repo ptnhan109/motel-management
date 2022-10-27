@@ -24,8 +24,9 @@ export class AppService {
 
   formDataOption = {
     headers: new HttpHeaders({
-      'Content-Type': 'multipart/form-data',
-      'Authorization': getToken()
+      // 'Content-Type': 'multipart/form-data',
+      'Authorization': getToken(),
+      'Accept': '*/*'
     })
   };
 

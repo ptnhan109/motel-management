@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Motel.Common.Enums;
+using Motel.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Motel.Application.Services.RoomService.Dtos
@@ -30,7 +32,7 @@ namespace Motel.Application.Services.RoomService.Dtos
 
     public class AddRoomModel
     {
-        public Guid? Id { get; set; }
+        public Guid? Id { get; set; } = null;
 
         public Guid BoardingHouseId { get; set; }
 
@@ -50,8 +52,18 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public bool? IsSelfContainer { get; set; }
 
-        public IEnumerable<Guid>? Fitments { get; set; } = null;
+        public List<Guid>? Fitments { get; set; } = null;
 
         public List<IFormFile>? RoomImages { get; set; } = null;
+
+        public IEnumerable<FitmentInRoom> ToFitmentInRoom(Guid id) => Fitments.Select(c => new FitmentInRoom()
+        {
+            Id = Guid.NewGuid(),
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+            FitmentId = c,
+            RoomId = id,
+            Quantity = 1
+        });
     }
 }

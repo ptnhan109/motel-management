@@ -105,6 +105,7 @@ namespace Motel.Api
             IMapper mapper = mapperConfig.CreateMapper();
             services.AddSingleton(mapper);
             #endregion
+
             services.Registers();
             services.AddCors(opt =>
             {

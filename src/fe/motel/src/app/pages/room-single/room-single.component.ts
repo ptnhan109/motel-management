@@ -69,22 +69,25 @@ export class RoomSingleComponent implements OnInit {
   }
   SaveRoom() {
     var form = new FormData();
-    form.append("Id",this.room.id);
-    form.append("boardingHouseId",this.room.boardingHouseId);
-    form.append("name",this.room.name);
-    form.append("price",this.room.price);
-    form.append("floor",this.room.floor);
-    form.append("maxHuman",this.room.maxHuman);
-    form.append("description",this.room.description);
-    // form.append("status",JSON.stringify(this.room.status));
-    form.append("location",this.room.location);
-    // form.append("isSelfContainer",JSON.stringify(this.isSelfContainer));
-    // form.append("fitments",JSON.stringify(this.fitments));
-    // form.append("roomImages",JSON.stringify(this.roomImages));
-    // for(let i = 0; i <this.roomImages.length; i++){
-    //   form.append('roomImages[]',this.roomImages[i],this.roomImages[i].name);
-    // }
-    // console.log(form);
+    // form.append("Id",this.room.id);
+    form.append("BoardingHouseId",this.room.boardingHouseId);
+    form.append("Name",this.room.name);
+    form.append("Price",this.room.price);
+    form.append("Floor",this.room.floor);
+    form.append("MaxHuman",this.room.maxHuman);
+    form.append("Description",this.room.description);
+    form.append("Status",JSON.stringify(this.room.status));
+    form.append("Location",this.room.location);
+    form.append("IsSelfContainer",JSON.stringify(this.isSelfContainer));
+    let fitmentIds = this.fitments.map(element => element.id);
+    for(let i = 0; i < fitmentIds.length; i++){
+      form.append("Fitments[]",fitmentIds[i]);
+    }
+
+    for(let i = 0; i <this.roomImages.length; i++){
+      form.append('RoomImages[]',this.roomImages[i]);
+    }
+    console.log(form);
     
     this._service.createRoom(form,this.room.boardingHouseId).subscribe(
       response => console.log(response)

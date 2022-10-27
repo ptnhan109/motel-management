@@ -43,7 +43,11 @@ namespace Motel.Api.Controllers
         [Route("{boardingId}/rooms")]
         [HttpPost]
         [Consumes("multipart/form-data")]
-        [AllowAnonymous]
-        public async Task<Response> AddRoom([FromForm] AddRoomModel request) => await _roomService.AddAsync(request);
+        [DisableRequestSizeLimit]
+        public async Task<Response> AddRoom(Guid boardingId, [FromForm] AddRoomModel request)
+        {
+            var files = Request.Form.Files;
+            return await _roomService.AddAsync(request);
+        }
     }
 }
