@@ -58,6 +58,13 @@ namespace Motel.Application.Services.RoomService
             return Ok();
         }
 
+        public async Task<Response> DeleteAsync(Guid id)
+        {
+            await _repository.DeleteRangeAsync<SystemFile>(c => c.MapId.Equals(id));
+            await _repository.DeleteAsync<Room>(id);
+            return Ok();
+        }
+
         public async Task<Response> GetPagingAsync(RoomFilterModel filter)
         {
             var query = _repository.GetQueryable<Room>();
@@ -85,7 +92,12 @@ namespace Motel.Application.Services.RoomService
             {
                 query = query.Where(c => c.IsSelfContainer.Equals(filter.IsSelfContainer.Value));
             }
-            query = query.OrderBy(c => c.CreatedAt);
+
+            if (filter.Status.HasValue)
+            {
+                query = query.Where(c => c.Status.Equals(filter.Status.Value));
+            }
+            query = query.OrderByDescending(c => c.CreatedAt);
             var data = await _repository.FindPagedAsync(query, filter.pageIndex, filter.pageSize);
             var result = data.ChangeType(RoomDto.FromEntity);
             return Ok(result);

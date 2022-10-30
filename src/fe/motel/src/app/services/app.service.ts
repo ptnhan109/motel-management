@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -19,9 +19,8 @@ export class AppService {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': getToken()
-    })
+    }),
   };
-
   formDataOption = {
     headers: new HttpHeaders({
       // 'Content-Type': 'multipart/form-data',
@@ -29,6 +28,16 @@ export class AppService {
       'Accept': '*/*'
     })
   };
+
+  queryParam(param){
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': getToken()
+      }),
+      params: new HttpParams({fromObject: param})
+    }
+  }
 
   authenticate(user) : Observable<AppResponse<any>>{
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Auth`,user,this.options);
@@ -86,6 +95,11 @@ export class AppService {
   }
 
   getRooms(param):Observable<AppResponse<any>>{
-    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/rooms`,this.options);
+    var options = this.queryParam(param);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/rooms`,options);
+  }
+
+  deleteRoom(id):Observable<AppResponse<any>>{
+    return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/room/${id}`,this.options);
   }
 }

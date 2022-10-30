@@ -1,6 +1,7 @@
 ﻿using Motel.Application.Services.RoomService.Dtos;
 using Motel.Application.Services.RoomService.Models;
 using Motel.Common.Generics;
+using System;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.RoomService
@@ -10,5 +11,7 @@ namespace Motel.Application.Services.RoomService
         Task<Response> AddAsync(AddRoomModel request);
 
         Task<Response> GetPagingAsync(RoomFilterModel filter);
+
+        Task<Response> DeleteAsync(Guid id);
     }
 }

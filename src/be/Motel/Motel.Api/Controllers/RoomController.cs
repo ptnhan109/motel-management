@@ -39,5 +39,9 @@ namespace Motel.Api.Controllers
         [AllowAnonymous]
         public async Task<Response> GetPaging([FromQuery] RoomFilterModel request)
             => await _service.GetPagingAsync(request);
+
+        [Route("{id}")]
+        [HttpDelete]
+        public async Task<Response> Delete(Guid id) => await _service.DeleteAsync(id);
     }
 }

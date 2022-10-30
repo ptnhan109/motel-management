@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { FormatCurrency } from 'src/app/common/stringFormat';
+import { FormatCurrency,RemoveNullable } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
+declare var bootbox:any;
 
 @Component({
   selector: 'app-rooms',
@@ -22,8 +23,9 @@ export class RoomsComponent implements OnInit {
     boardingHouseId: null,
     status: null,
     keyword: null,
+    isSelfContainer: null,
     pageIndex: 1,
-    pageSize: 20
+    pageSize: 50
   }
 
   constructor(
@@ -32,7 +34,7 @@ export class RoomsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRooms();
+    this.getRooms(1);
     this.getMotels();
   }
 
@@ -66,17 +68,36 @@ export class RoomsComponent implements OnInit {
     }
   }
 
-  getRooms(){
-    this._service.getRooms(this.filter).subscribe(
+  getRooms(page){
+    this.filter.pageIndex = page;
+    this.pageNumber = [];
+    let filters = RemoveNullable(this.filter);
+    console.log(filters);
+    this._service.getRooms(filters).subscribe(
       response => {
         this.paging = response.data;
         this.rooms = response.data.items;
-        console.log(this.paging);
         for(let i = 1; i <= this.paging.totalPage; i++){
           this.pageNumber.push(i);
         }
       }
     )
+  }
+
+  removeRoom(id){
+    bootbox.confirm("Bạn chắc chắn muốn xóa phòng trọ này?",(result : boolean) =>{
+      if(result){
+        this._service.deleteRoom(id).subscribe(
+          response =>{
+            if(response.isSucceeded == true){
+              this._toast.success("Xóa phòng trọ thành công.");
+              this.getRooms(1);
+            }
+          },
+          error => console.log(error)
+        )
+      }
+    })
   }
   formatCurrency(input){
     return FormatCurrency(input);

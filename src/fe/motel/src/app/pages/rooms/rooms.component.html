@@ -39,10 +39,10 @@
                     <div class="col-sm-3">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <select class="form-control">
-                                    <option>Tất cả</option>
-                                    <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name
-                                        }}</option>
+                                <select [(ngModel)]="filter.boardingHouseId" (change)="getRooms(1)" class="form-control">
+                                    <option [ngValue]="null">Tất cả</option>
+                                    <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">
+                                        {{ boarding.name }}</option>
                                 </select>
                             </div>
                         </div>
@@ -62,41 +62,45 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for="inputEmail4">Từ khóa</label>
-                            <input type="text" class="form-control" placeholder="Tìm kiếm">
+                            <input [(ngModel)]="filter.keyword" type="text" class="form-control" placeholder="Tìm kiếm">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-3">
                             <label for="inputEmail4">Giá từ</label>
-                            <input type="number" class="form-control" placeholder="Giá bắt đầu">
+                            <input [(ngModel)]="filter.startPrice" type="number" class="form-control"
+                                placeholder="Giá bắt đầu">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputEmail4">Giá đến</label>
-                            <input type="number" class="form-control" placeholder="Giá kết thúc">
+                            <input [(ngModel)]="filter.endPrice" type="number" class="form-control"
+                                placeholder="Giá kết thúc">
                         </div>
 
                         <div class="form-group col-md-3">
                             <label for="inputPassword4">Công trình phụ</label>
-                            <select class="form-control">
-                                <option>Tất cả</option>
-                                <option>Khép kín</option>
-                                <option>Vệ sinh chung</option>
+                            <select [(ngModel)]="filter.isSelfContainer" class="form-control">
+                                <option [ngValue]="null">Tất cả</option>
+                                <option [ngValue]="true">Khép kín</option>
+                                <option [ngValue]="false">Vệ sinh chung</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputPassword4">Trạng thái</label>
                             <select class="form-control">
-                                <option>Tất cả</option>
-                                <option>Phòng trống</option>
-                                <option>Đã có cọc</option>
-                                <option>Đã cho thuê</option>
+                                <option [ngValue]="null">Tất cả</option>
+                                <option [ngValue]="0">Phòng trống</option>
+                                <option [ngValue]="1">Đã có cọc</option>
+                                <option [ngValue]="2">Đã cho thuê</option>
                             </select>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <button class="btn btn-default float-right"><i class="icon feather icon-x"></i>
+                    <div class="form-row float-right">
+                        <button class="btn btn-default float-right" (click)="isSearch = false"><i
+                                class="icon feather icon-x"></i>
                             Đóng</button>
-                        <button class="btn btn-primary float-right l-4"><i class="icon feather icon-filter"></i> Tìm
+                        <button class="btn btn-primary float-right l-4" (click)="getRooms(1)"><i
+                                class="icon feather icon-filter"></i> Tìm
                             kiếm</button>
                     </div>
                 </div>
@@ -146,7 +150,8 @@
                         </td>
                         <td>{{ room.description }}</td>
                         <td style="width: 5%;" class="text-center">
-                            <a href="javascript:;"><i class="icon feather icon-trash text-danger f-20"></i></a>
+                            <a href="javascript:;" (click)="removeRoom(room.id)"><i
+                                    class="icon feather icon-trash text-danger f-20"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -154,7 +159,8 @@
             <hr>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
-                    <li class="page-item" *ngFor="let page of pageNumber"><a class="page-link" href="#">{{ page }}</a></li>
+                    <li class="page-item" *ngFor="let page of pageNumber"><a class="page-link" href="javascript:;"
+                            (click)="getRooms(page)">{{ page }}</a></li>
                 </ul>
             </nav>
         </div>
