@@ -58,6 +58,15 @@ namespace Motel.Application.Services.RoomService
             return Ok();
         }
 
+        public async Task<Response> AddRoomDeposited(DepositDto request)
+        {
+            var entity = _mapper.Map<DepositDto, RoomDeposited>(request);
+            await _repository.AddAsync(entity);
+            await SetRoomStatus(request.RoomId, EnumRoomStatus.Deposited);
+
+            return Ok();
+        }
+
         public async Task<Response> DeleteAsync(Guid id)
         {
             await _repository.DeleteRangeAsync<SystemFile>(c => c.MapId.Equals(id));
@@ -101,6 +110,13 @@ namespace Motel.Application.Services.RoomService
             var data = await _repository.FindPagedAsync(query, filter.pageIndex, filter.pageSize);
             var result = data.ChangeType(RoomDto.FromEntity);
             return Ok(result);
+        }
+
+        private async Task SetRoomStatus(Guid id, EnumRoomStatus status)
+        {
+            var room = await _repository.FindAsync<Room>(id);
+            room.Status = status;
+            await _repository.UpdateAsync(room);
         }
     }
 }

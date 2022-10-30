@@ -29,7 +29,10 @@ namespace Motel.Application.Mapper
             CreateMap<ProvideModel, Provide>();
 
             CreateMap<AddRoomModel, Room>();
-
+            CreateMap<DepositDto, RoomDeposited>()
+                .ForMember(dest => dest.Id, d => d.MapFrom(source => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
+                .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
             CreateMap<Fitment, FitmentDto>();
         }
     }

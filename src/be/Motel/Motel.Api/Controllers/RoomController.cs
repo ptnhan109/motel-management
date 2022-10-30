@@ -43,5 +43,13 @@ namespace Motel.Api.Controllers
         [Route("{id}")]
         [HttpDelete]
         public async Task<Response> Delete(Guid id) => await _service.DeleteAsync(id);
+
+        [Route("{id}/room-deposit")]
+        [HttpPost]
+        public async Task<Response> AddRoomDeposit(Guid id, [FromBody] DepositDto request)
+        {
+            request.RoomId = id;
+            return await _service.AddRoomDeposited(request);
+        }
     }
 }

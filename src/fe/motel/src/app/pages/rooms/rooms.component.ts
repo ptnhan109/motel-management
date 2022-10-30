@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { FormatCurrency,RemoveNullable } from 'src/app/common/stringFormat';
+import { FormatCurrency, RemoveNullable } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
-declare var bootbox:any;
+declare var bootbox: any;
 
 @Component({
   selector: 'app-rooms',
@@ -19,7 +19,7 @@ export class RoomsComponent implements OnInit {
   rooms = [];
   filter = {
     startPrice: null,
-    endPrice :null,
+    endPrice: null,
     boardingHouseId: null,
     status: null,
     keyword: null,
@@ -28,9 +28,23 @@ export class RoomsComponent implements OnInit {
     pageSize: 50
   }
 
+  deposit = {
+    roomId: null,
+    dateStart: null,
+    dateEnd: null,
+    despositedValue: null,
+    note: null,
+    name: null,
+    phone: null,
+    address: null,
+    identityNumber: null
+  }
+
+  roomName = '';
+
   constructor(
-    private _service : AppService,
-    private _toast : ToastrService,
+    private _service: AppService,
+    private _toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -38,37 +52,37 @@ export class RoomsComponent implements OnInit {
     this.getMotels();
   }
 
-  showSearch(){
-    if(this.isSearch){
+  showSearch() {
+    if (this.isSearch) {
       this.isSearch = false;
-    }else{
+    } else {
       this.isSearch = true;
     }
   }
 
-  getMotels(){
+  getMotels() {
     this._service.getBoardings().subscribe(
       response => this.boardings = response.data
     )
   }
 
-  getFitments(){
+  getFitments() {
     this._service.getFitments().subscribe(
       response => {
         this.fitments = response.data;
       }
     )
   }
-  setSelectFitment(id){
+  setSelectFitment(id) {
     let index = this.selectedFitment.indexOf(id);
-    if(index > -1){
-      this.selectedFitment.splice(index,1);
-    }else{
+    if (index > -1) {
+      this.selectedFitment.splice(index, 1);
+    } else {
       this.selectedFitment.push(id);
     }
   }
 
-  getRooms(page){
+  getRooms(page) {
     this.filter.pageIndex = page;
     this.pageNumber = [];
     let filters = RemoveNullable(this.filter);
@@ -77,19 +91,19 @@ export class RoomsComponent implements OnInit {
       response => {
         this.paging = response.data;
         this.rooms = response.data.items;
-        for(let i = 1; i <= this.paging.totalPage; i++){
+        for (let i = 1; i <= this.paging.totalPage; i++) {
           this.pageNumber.push(i);
         }
       }
     )
   }
 
-  removeRoom(id){
-    bootbox.confirm("Bạn chắc chắn muốn xóa phòng trọ này?",(result : boolean) =>{
-      if(result){
+  removeRoom(id) {
+    bootbox.confirm("Bạn chắc chắn muốn xóa phòng trọ này?", (result: boolean) => {
+      if (result) {
         this._service.deleteRoom(id).subscribe(
-          response =>{
-            if(response.isSucceeded == true){
+          response => {
+            if (response.isSucceeded == true) {
               this._toast.success("Xóa phòng trọ thành công.");
               this.getRooms(1);
             }
@@ -99,12 +113,12 @@ export class RoomsComponent implements OnInit {
       }
     })
   }
-  formatCurrency(input){
+  formatCurrency(input) {
     return FormatCurrency(input);
   }
 
-  formatStatus(status){
-    switch(status){
+  formatStatus(status) {
+    switch (status) {
       case 0:
         return 'Phòng trống';
       case 1:
@@ -116,8 +130,8 @@ export class RoomsComponent implements OnInit {
     }
   }
 
-  formatStatusDisplay(status){
-    switch(status){
+  formatStatusDisplay(status) {
+    switch (status) {
       case 0:
         return 'badge badge-success';
       case 1:
@@ -127,6 +141,10 @@ export class RoomsComponent implements OnInit {
       default:
         return '';
     }
+  }
+
+  setRoomName(name){
+    this.roomName = name;
   }
 
 }
