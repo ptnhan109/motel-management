@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Motel.Application.Helpers;
 using Motel.Application.Services.RoomService.Dtos;
+using Motel.Application.Services.RoomService.Models;
 using Motel.Common.Enums;
 using Motel.Common.Generics;
 using Motel.Core;
@@ -55,6 +56,39 @@ namespace Motel.Application.Services.RoomService
 
             }
             return Ok();
+        }
+
+        public async Task<Response> GetPagingAsync(RoomFilterModel filter)
+        {
+            var query = _repository.GetQueryable<Room>();
+            if (!string.IsNullOrEmpty(filter.keyword))
+            {
+                query = query.Where(c => c.Name.Equals(filter.keyword));
+            }
+
+            if (filter.StartPrice.HasValue)
+            {
+                query = query.Where(c => c.Price >= filter.StartPrice.Value);
+            }
+
+            if (filter.EndPrice.HasValue)
+            {
+                query = query.Where(c => c.Price <= filter.EndPrice.Value);
+            }
+
+            if (filter.BoardingHouseId.HasValue)
+            {
+                query = query.Where(c => c.BoardingHouseId.Equals(filter.BoardingHouseId.Value));
+            }
+
+            if (filter.IsSelfContainer.HasValue)
+            {
+                query = query.Where(c => c.IsSelfContainer.Equals(filter.IsSelfContainer.Value));
+            }
+            query = query.OrderBy(c => c.CreatedAt);
+            var data = await _repository.FindPagedAsync(query, filter.pageIndex, filter.pageSize);
+            var result = data.ChangeType(RoomDto.FromEntity);
+            return Ok(result);
         }
     }
 }

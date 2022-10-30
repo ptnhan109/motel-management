@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Motel.Common.Generics;
 using Motel.Core.Data;
 using System;
 using System.Collections.Generic;
@@ -118,6 +119,28 @@ namespace Motel.Core
         public async Task SaveChangeAsync()
         {
             await _context.SaveChangesAsync();
+        }
+
+
+        public async Task<PagedResult<TEntity>> FindPagedAsync<TEntity>(IQueryable<TEntity> query, int? pageIndex = 1, int? pageSize = 20) where TEntity : BaseEntity
+        {
+            query = query.AsNoTracking();
+
+            pageIndex = pageIndex.Value <= 0 ? 1 : pageIndex;
+            pageSize = pageSize.Value <= 0 ? 20 : pageSize;
+
+            var total = await query.CountAsync();
+
+            query = query.Skip((pageIndex.Value - 1) * pageSize.Value).Take(pageSize.Value);
+            var data = await query.ToListAsync();
+            return new PagedResult<TEntity>()
+            {
+                Items = data,
+                PageIndex = pageIndex.Value,
+                PageSize = pageSize.Value,
+                TotalCount = total,
+
+            };
         }
 
         private IQueryable<TEntity> AsQueryable<TEntity>(IEnumerable<string> includes = null) where TEntity : BaseEntity

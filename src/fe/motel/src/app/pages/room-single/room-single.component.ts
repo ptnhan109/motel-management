@@ -15,6 +15,7 @@ export class RoomSingleComponent implements OnInit {
   selectedFitment = [];
   isSelfContainer = true;
   roomImages = [];
+  isContinue = false;
   room = {
     id: null,
     boardingHouseId: null,
@@ -87,7 +88,6 @@ export class RoomSingleComponent implements OnInit {
     for(let i = 0; i <this.roomImages.length; i++){
       form.append('RoomImages[]',this.roomImages[i]);
     }
-    console.log(form);
     
     this._service.createRoom(form,this.room.boardingHouseId).subscribe(
       response => console.log(response)

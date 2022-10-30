@@ -13,7 +13,11 @@ namespace Motel.Application.Helpers
     {
         public static async Task<string> SaveFile(this IFormFile file, EnumFileType type)
         {
-            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", nameof(type));
+            var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "Assets", Enum.GetName(typeof(EnumFileType),type));
+            if (!File.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
             var fileName = $"{nameof(type)}_{Guid.NewGuid()}_{file.FileName}";
             using (var stream = new FileStream(Path.Combine(folderPath,fileName), FileMode.Create))
             {

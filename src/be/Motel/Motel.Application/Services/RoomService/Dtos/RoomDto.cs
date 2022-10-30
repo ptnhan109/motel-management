@@ -13,6 +13,7 @@ namespace Motel.Application.Services.RoomService.Dtos
         public Guid Id { get; set; }
 
         public Guid BoardingHouseId { get; set; }
+
         public string Name { get; set; }
 
         public double Price { get; set; }
@@ -28,6 +29,21 @@ namespace Motel.Application.Services.RoomService.Dtos
         public string Location { get; set; }
 
         public bool? IsSelfContainer { get; set; }
+
+        public static RoomDto FromEntity(Room room)
+            => new RoomDto()
+            {
+                BoardingHouseId = room.BoardingHouseId,
+                Description = room.Description,
+                Floor = room.Floor,
+                Id = room.Id,
+                IsSelfContainer = room.IsSelfContainer,
+                Location = room.Location,
+                MaxHuman = room.MaxHuman,
+                Name = room.Name,
+                Price = room.Price,
+                Status = room.Status
+            };
     }
 
     public class AddRoomModel

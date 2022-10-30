@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { FormatCurrency } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
 
 @Component({
@@ -12,7 +13,18 @@ export class RoomsComponent implements OnInit {
   boardings = [];
   fitments = [];
   selectedFitment = [];
-  
+  paging = null;
+  pageNumber = [];
+  rooms = [];
+  filter = {
+    startPrice: null,
+    endPrice :null,
+    boardingHouseId: null,
+    status: null,
+    keyword: null,
+    pageIndex: 1,
+    pageSize: 20
+  }
 
   constructor(
     private _service : AppService,
@@ -20,8 +32,8 @@ export class RoomsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getRooms();
     this.getMotels();
-    this.getFitments();
   }
 
   showSearch(){
@@ -52,7 +64,48 @@ export class RoomsComponent implements OnInit {
     }else{
       this.selectedFitment.push(id);
     }
-    console.log(this.selectedFitment);
+  }
+
+  getRooms(){
+    this._service.getRooms(this.filter).subscribe(
+      response => {
+        this.paging = response.data;
+        this.rooms = response.data.items;
+        console.log(this.paging);
+        for(let i = 1; i <= this.paging.totalPage; i++){
+          this.pageNumber.push(i);
+        }
+      }
+    )
+  }
+  formatCurrency(input){
+    return FormatCurrency(input);
+  }
+
+  formatStatus(status){
+    switch(status){
+      case 0:
+        return 'Phòng trống';
+      case 1:
+        return 'Đã có cọc';
+      case 2:
+        return 'Đã cho thuê';
+      default:
+        return '';
+    }
+  }
+
+  formatStatusDisplay(status){
+    switch(status){
+      case 0:
+        return 'badge badge-success';
+      case 1:
+        return 'badge badge-warning';
+      case 2:
+        return 'badge badge-secondary';
+      default:
+        return '';
+    }
   }
 
 }

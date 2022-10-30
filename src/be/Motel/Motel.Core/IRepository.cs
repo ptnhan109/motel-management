@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Motel.Common.Generics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -30,6 +31,8 @@ namespace Motel.Core
         Task<TEntity> FindAsync<TEntity>(Guid id) where TEntity : BaseEntity;
 
         Task<TEntity> FindAsync<TEntity>(Guid id, IEnumerable<string> includes = null) where TEntity : BaseEntity;
+
+        Task<PagedResult<TEntity>> FindPagedAsync<TEntity>(IQueryable<TEntity> query, int? pageIndex = 1, int? pageSize = 20) where TEntity : BaseEntity;
 
         IQueryable<TEntity> GetQueryable<TEntity>() where TEntity : BaseEntity;
 

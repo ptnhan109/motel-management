@@ -82,6 +82,10 @@ export class AppService {
   }
 
   createRoom(params,boardingId):Observable<AppResponse<any>>{
-    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/Boarding/${boardingId}/rooms`,params,this.formDataOption)
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/room/${boardingId}/rooms`,params,this.formDataOption)
+  }
+
+  getRooms(param):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/rooms`,this.options);
   }
 }

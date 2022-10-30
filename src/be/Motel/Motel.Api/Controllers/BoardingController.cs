@@ -5,8 +5,10 @@ using Motel.Application.Services.BoardingHouseService;
 using Motel.Application.Services.BoardingHouseService.Dtos;
 using Motel.Application.Services.RoomService;
 using Motel.Application.Services.RoomService.Dtos;
+using Motel.Application.Services.RoomService.Models;
 using Motel.Common.Generics;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Motel.Api.Controllers
@@ -17,12 +19,10 @@ namespace Motel.Api.Controllers
     public class BoardingController : ControllerBase
     {
         private readonly IBoardingHouseService _service;
-        private readonly IRoomService _roomService;
 
-        public BoardingController(IBoardingHouseService service, IRoomService roomService)
+        public BoardingController(IBoardingHouseService service)
         {
             _service = service;
-            _roomService = roomService;
         }
 
         [HttpPost]
@@ -40,14 +40,5 @@ namespace Motel.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<Response> DeleteBoarding(Guid id) => await _service.DeleteAsync(id);
 
-        [Route("{boardingId}/rooms")]
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        [DisableRequestSizeLimit]
-        public async Task<Response> AddRoom(Guid boardingId, [FromForm] AddRoomModel request)
-        {
-            var files = Request.Form.Files;
-            return await _roomService.AddAsync(request);
-        }
     }
 }

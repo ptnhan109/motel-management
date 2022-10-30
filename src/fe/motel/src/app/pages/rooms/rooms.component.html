@@ -10,28 +10,46 @@
                         </div>
                         <div class="col-sm-6 ">
 
-                            <button type="button" class="btn btn-success float-right l-4" data-toggle="modal"
-                                (click)="createHouse.show()"><i class="icon feather icon-printer"></i> Excel</button>
-                            <a class="btn btn-primary float-right l-4" routerLink="/add-room"><i class="icon feather icon-plus"></i> Thêm mới</a>
+                            <button type="button" class="btn btn-success float-right l-4"><i
+                                    class="icon feather icon-printer"></i> Excel</button>
+                            <a class="btn btn-primary float-right l-4" routerLink="/add-room"><i
+                                    class="icon feather icon-plus"></i> Thêm mới</a>
                             <button type="button" class="btn btn-secondary float-right" (click)="showSearch()">
                                 <i class="icon feather icon-search">
                                 </i>
-                                Tìm kiếm
+                                Tìm kiếm phòng
                             </button>
                         </div>
                     </div>
 
                 </div>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
-                            class="ng-star-inserted"><i class="feather icon-home"></i></a>
-                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
-                            routerLink="/boarding-house">Khu trọ</a>
-                    </li>
-                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
-                            routerLink="/boarding-house">Phòng trọ</a>
-                    </li>
-                </ul>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
+                                    class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Khu trọ</a>
+                            </li>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Phòng trọ</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <select class="form-control">
+                                    <option>Tất cả</option>
+                                    <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name
+                                        }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>
@@ -48,37 +66,38 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="inputEmail4">Giá từ</label>
                             <input type="number" class="form-control" placeholder="Giá bắt đầu">
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="inputEmail4">Giá đến</label>
                             <input type="number" class="form-control" placeholder="Giá kết thúc">
                         </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="inputEmail4">Khu vực</label>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputPassword4">Công trình phụ</label>
                             <select class="form-control">
                                 <option>Tất cả</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="inputPassword4">Khu trọ</label>
-                            <select class="form-control">
-                                <option>Tất cả</option>
+                                <option>Khép kín</option>
+                                <option>Vệ sinh chung</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputPassword4">Trạng thái</label>
                             <select class="form-control">
                                 <option>Tất cả</option>
+                                <option>Phòng trống</option>
+                                <option>Đã có cọc</option>
+                                <option>Đã cho thuê</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-row">
-                        <button class="btn btn-primary"><i class="icon feather icon-filter"></i> Tìm kiếm</button>
+                        <button class="btn btn-default float-right"><i class="icon feather icon-x"></i>
+                            Đóng</button>
+                        <button class="btn btn-primary float-right l-4"><i class="icon feather icon-filter"></i> Tìm
+                            kiếm</button>
                     </div>
                 </div>
             </div>
@@ -93,94 +112,52 @@
                     <tr>
                         <th>#</th>
                         <th class="text-center"></th>
-                        <th>Tên khu trọ</th>
-                        <th>Ngày thanh toán</th>
-                        <th>Địa chỉ</th>
-                        <th>Số tháng</th>
+                        <th>Tầng</th>
+                        <th>Tên phòng</th>
+                        <th>Số người tối đa</th>
+                        <th>Đơn giá</th>
+                        <th>Trạng thái</th>
                         <th>Mô tả</th>
-                        <th class="text-center"></th>
+                        <th></th>
                     </tr>
+
                 </thead>
                 <tbody>
+                    <tr *ngFor="let room of rooms; index as i">
+                        <td>{{ i + 1}}</td>
+                        <td>
+                            <a href="javascript:;" data-toggle="tooltip" data-placement="top"
+                                title="Chỉnh sửa thông tin"><i class="icon feather icon-edit text-primary f-20"></i></a>
+                            <a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Đặt cọc"
+                                class="l-2" *ngIf="(room.status == 0)"><i
+                                    class="icon feather icon-download text-success f-20"></i></a>
+                            <a href="javascript:;" data-toggle="tooltip" data-placement="top"
+                                title="Thông tin người thuê" class="l-2" *ngIf="(room.status == 2)"><i
+                                    class="icon feather icon-user-check text-danger f-20"></i></a>
+                            <a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Hủy đặt cọc"
+                                class="l-2" *ngIf="(room.status == 1)"><i
+                                    class="icon feather icon-x-square text-warning f-20"></i></a>
+                        </td>
+                        <td>{{ room.floor }}</td>
+                        <td>{{ room.name }}</td>
+                        <td>{{ room.maxHuman }}</td>
+                        <td>{{ formatCurrency(room.price) }}</td>
+                        <td><span class="{{formatStatusDisplay(room.status)}}">{{ formatStatus(room.status) }}</span>
+                        </td>
+                        <td>{{ room.description }}</td>
+                        <td style="width: 5%;" class="text-center">
+                            <a href="javascript:;"><i class="icon feather icon-trash text-danger f-20"></i></a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
+            <hr>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" *ngFor="let page of pageNumber"><a class="page-link" href="#">{{ page }}</a></li>
+                </ul>
+            </nav>
         </div>
     </app-card>
+
 </div>
-
-
-
-<app-ui-modal #createHouse [hideFooter]="true" [dialogClass]="'modal-xl'">
-    <div class="app-modal-header">
-        <h6 class="modal-title">Thêm mới phòng trọ</h6>
-        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
-            (click)="createHouse.hide()"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="app-modal-body">
-        <div class="form-row">
-            <div class="form-group col-md-12">
-                <label for="name">Khu trọ</label>
-                <select class="form-control">
-                    <option *ngFor="let boarding of boardings">{{ boarding.name }}</option>
-                </select>
-            </div>
-            <div class="form-group col-md-8">
-                <label for="name">Tên phòng</label>
-                <input type="text" class="form-control" id="name" placeholder="Số tầng - số thứ tự phòng">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="name">Trạng thái</label>
-                <select class="form-control">
-                    <option value="0">Chưa có người</option>
-                    <option value="1">Đã có cọc</option>
-                    <option value="2">Đã cho thuê</option>
-                </select>
-            </div>
-            <div class="form-group col-md-4">
-                <label for="address">Giá tiền</label>
-                <input type="number" class="form-control" id="address" placeholder="Giá tiền">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="address">Vị trí tầng</label>
-                <input type="number" class="form-control" id="address" placeholder="Vị trí tầng">
-            </div>
-            <div class="form-group col-md-4">
-                <label for="address">Số người ở tối đa</label>
-                <input type="number" class="form-control" id="address" placeholder="Số người ở tối đa">
-            </div>
-            <div class="form-group col-md-12">
-                <label for="descripion">Mô tả</label>
-                <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
-            </div>
-
-        </div>
-        <h6>Thiết bị hiện có</h6>
-        <hr>
-        <div class="row">
-            <div class="col-sm-4" *ngFor="let fitment of fitments" >
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="a-{{fitment.id}}" (click)="setSelectFitment(fitment.id)">
-                    <label class="custom-control-label" for="a-{{fitment.id}}">{{ fitment.name }}</label>
-                </div>
-            </div>
-        </div>
-        <br>
-        <h6>Thông tin khác</h6>
-        <hr>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="selfContainer">
-                    <label class="custom-control-label" for="selfContainer">Hệ thống vệ sinh khép kín</label>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="continue" >
-            <label class="custom-control-label" for="continue">Tiếp tục thêm các phòng khác</label>
-        </div>
-        <button type="button" class="btn btn-primary float-right">Thêm mới</button>
-        <button type="button" class="btn btn-default float-right">Hủy bỏ</button>
-    </div>
-</app-ui-modal>
