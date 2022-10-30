@@ -40,7 +40,10 @@ export class RoomsComponent implements OnInit {
     identityNumber: null
   }
 
-  roomName = '';
+  roomSelected = {
+    name: null,
+    id: null
+  };
 
   constructor(
     private _service: AppService,
@@ -113,6 +116,19 @@ export class RoomsComponent implements OnInit {
       }
     })
   }
+
+  saveDeposit(){
+    this.deposit.roomId = this.roomSelected.id;
+    console.log(this.deposit);
+    this._service.addDeposit(this.deposit).subscribe(
+      response =>{
+        if(response.isSucceeded){
+          this.getRooms(1);
+          this._toast.success("Đã đặt cọc phòng.");
+        }
+      }
+    )
+  }
   formatCurrency(input) {
     return FormatCurrency(input);
   }
@@ -143,8 +159,9 @@ export class RoomsComponent implements OnInit {
     }
   }
 
-  setRoomName(name){
-    this.roomName = name;
+  setRoomName(room){
+    this.roomSelected.name = room.name;
+    this.roomSelected.id = room.id;
   }
 
 }
