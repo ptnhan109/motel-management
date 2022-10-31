@@ -15,5 +15,7 @@ namespace Motel.Application.Services.RoomService
         Task<Response> DeleteAsync(Guid id);
 
         Task<Response> AddRoomDeposited(DepositDto request);
+
+        Task<Response> DeleteRoomDeposited(Guid id);
     }
 }

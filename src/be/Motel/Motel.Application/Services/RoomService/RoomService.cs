@@ -74,6 +74,13 @@ namespace Motel.Application.Services.RoomService
             return Ok();
         }
 
+        public async Task<Response> DeleteRoomDeposited(Guid id)
+        {
+            await _repository.DeleteRangeAsync<RoomDeposited>(c => c.RoomId.Equals(id));
+            await SetRoomStatus(id, EnumRoomStatus.Available);
+            return Ok();
+        }
+
         public async Task<Response> GetPagingAsync(RoomFilterModel filter)
         {
             var query = _repository.GetQueryable<Room>();

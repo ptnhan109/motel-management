@@ -129,6 +129,18 @@ export class RoomsComponent implements OnInit {
       }
     )
   }
+
+  deleteRoomDeposit(){
+    let id = this.roomSelected.id;
+    this._service.deleteDeposit(id).subscribe(
+      response =>{
+        if(response.isSucceeded){
+          this.getRooms(1);
+          this._toast.success("Đã hủy cọc phòng thành công.");
+        }
+      }
+    )
+  }
   formatCurrency(input) {
     return FormatCurrency(input);
   }
