@@ -119,6 +119,18 @@ namespace Motel.Application.Services.RoomService
             return Ok(result);
         }
 
+        public async Task<Response> GetRoomDeposit(Guid id)
+        {
+            var entity = await _repository.FindAsync<RoomDeposited>(c => c.RoomId.Equals(id));
+            if(entity is null)
+            {
+                return NotFound();
+            }
+            var data = _mapper.Map<RoomDeposited, DepositDto>(entity);
+
+            return Ok(data);
+        }
+
         private async Task SetRoomStatus(Guid id, EnumRoomStatus status)
         {
             var room = await _repository.FindAsync<Room>(id);

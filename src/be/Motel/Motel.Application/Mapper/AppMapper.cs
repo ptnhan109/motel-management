@@ -33,6 +33,7 @@ namespace Motel.Application.Mapper
                 .ForMember(dest => dest.Id, d => d.MapFrom(source => Guid.NewGuid()))
                 .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
                 .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
+            CreateMap<RoomDeposited, DepositDto>();
             CreateMap<Fitment, FitmentDto>();
         }
     }

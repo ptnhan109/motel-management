@@ -141,6 +141,17 @@ export class RoomsComponent implements OnInit {
       }
     )
   }
+
+  getRoomDeposit(){
+    let id = this.roomSelected.id;
+    this._service.getRoomDeposit(id).subscribe(
+      response =>{
+        this.deposit = response.data;
+        console.log(this.deposit);
+      }
+    )
+  }
+
   formatCurrency(input) {
     return FormatCurrency(input);
   }

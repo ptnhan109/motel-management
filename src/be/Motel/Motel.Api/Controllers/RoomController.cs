@@ -58,5 +58,12 @@ namespace Motel.Api.Controllers
         {
             return await _service.DeleteRoomDeposited(id);
         }
+
+        [Route("{id}/room-deposit")]
+        [HttpGet]
+        public async Task<Response> GetRoomDeposit(Guid id)
+        {
+            return await _service.GetRoomDeposit(id);
+        }
     }
 }

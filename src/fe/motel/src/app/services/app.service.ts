@@ -110,4 +110,8 @@ export class AppService {
   deleteDeposit(id):Observable<AppResponse<any>>{
     return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/room-deposit`,this.options);
   }
+
+  getRoomDeposit(id):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/room-deposit`,this.options);
+  }
 }

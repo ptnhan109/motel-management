@@ -17,5 +17,7 @@ namespace Motel.Application.Services.RoomService
         Task<Response> AddRoomDeposited(DepositDto request);
 
         Task<Response> DeleteRoomDeposited(Guid id);
+
+        Task<Response> GetRoomDeposit(Guid id);
     }
 }
