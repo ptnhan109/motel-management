@@ -149,7 +149,8 @@
                                             class="icon feather icon-box text-info f-20"></i> Trả phòng</a>
                                     <a href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-download text-warning f-20"></i> Nhận phòng</a>
-                                    <a (click)="setRoomName(room);getRoomDeposit();viewDeposit.show();" href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                    <a (click)="setRoomName(room);getRoomDeposit();viewDeposit.show();"
+                                        href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-alert-circle text-primary f-20"></i> Xem đặt
                                         cọc</a>
                                     <a (click)="setRoomName(room);deleteDeposit.show()" href="javascript:;"
@@ -205,8 +206,8 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="address">Ngày hết hạn</label>
-                        <input [(ngModel)]="deposit.dateEnd" type="date" class="form-control" id="address"
-                            placeholder="Địa chỉ chi tiết">
+                        <input [(ngModel)]="deposit.dateEnd" type="date" format="yyyy-MM-dd" class="form-control"
+                            id="address" placeholder="Địa chỉ chi tiết">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="address">Số tiền đặt cọc</label>
@@ -297,6 +298,8 @@
                         <label for="address">Ngày hết hạn</label>
                         <input [(ngModel)]="deposit.dateEnd" type="date" class="form-control" id="address"
                             placeholder="Địa chỉ chi tiết">
+                        <!-- <p-calendar [(ngModel)]="deposit.dateEnd" type="date" class="form-control" id="address"
+                            placeholder="Địa chỉ chi tiết"></p-calendar> -->
                     </div>
                     <div class="form-group col-md-12">
                         <label for="address">Số tiền đặt cọc</label>

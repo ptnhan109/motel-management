@@ -117,12 +117,12 @@ export class RoomsComponent implements OnInit {
     })
   }
 
-  saveDeposit(){
+  saveDeposit() {
     this.deposit.roomId = this.roomSelected.id;
     console.log(this.deposit);
     this._service.addDeposit(this.deposit).subscribe(
-      response =>{
-        if(response.isSucceeded){
+      response => {
+        if (response.isSucceeded) {
           this.getRooms(1);
           this._toast.success("Đã đặt cọc phòng.");
         }
@@ -130,11 +130,11 @@ export class RoomsComponent implements OnInit {
     )
   }
 
-  deleteRoomDeposit(){
+  deleteRoomDeposit() {
     let id = this.roomSelected.id;
     this._service.deleteDeposit(id).subscribe(
-      response =>{
-        if(response.isSucceeded){
+      response => {
+        if (response.isSucceeded) {
           this.getRooms(1);
           this._toast.success("Đã hủy cọc phòng thành công.");
         }
@@ -142,10 +142,10 @@ export class RoomsComponent implements OnInit {
     )
   }
 
-  getRoomDeposit(){
+  getRoomDeposit() {
     let id = this.roomSelected.id;
     this._service.getRoomDeposit(id).subscribe(
-      response =>{
+      response => {
         this.deposit = response.data;
         console.log(this.deposit);
       }
@@ -182,7 +182,7 @@ export class RoomsComponent implements OnInit {
     }
   }
 
-  setRoomName(room){
+  setRoomName(room) {
     this.roomSelected.name = room.name;
     this.roomSelected.id = room.id;
   }
