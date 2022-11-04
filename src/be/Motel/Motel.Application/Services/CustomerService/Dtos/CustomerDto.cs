@@ -30,7 +30,8 @@ namespace Motel.Application.Services.CustomerService.Dtos
                 Room = customer.Room?.Name,
                 RoomId = customer.RoomId,
                 BoardingHouseId = customer?.Room?.BoardingHouseId,
-                BoardingHouseName = customer?.Room?.BoardingHouse.Name
+                BoardingHouseName = customer?.Room?.BoardingHouse.Name,
+                Name = customer.Name
             };
         }
     }
