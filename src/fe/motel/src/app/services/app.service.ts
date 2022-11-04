@@ -98,8 +98,32 @@ export class AppService {
     var options = this.queryParam(param);
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/rooms`,options);
   }
+  getAllRooms(param):Observable<AppResponse<any>>{
+    var options = this.queryParam(param);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/get-all`,options);
+  }
 
   deleteRoom(id):Observable<AppResponse<any>>{
     return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/room/${id}`,this.options);
+  }
+
+  addDeposit(deposit):Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/room/${deposit.roomId}/room-deposit`,deposit,this.options);
+  }
+
+  deleteDeposit(id):Observable<AppResponse<any>>{
+    return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/room-deposit`,this.options);
+  }
+
+  getRoomDeposit(id):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/room-deposit`,this.options);
+  }
+
+  uploadFile(formData,type):Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/file/${type}`,formData,this.formDataOption);
+  }
+
+  addCustomer(param):Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/customer`,param,this.options)
   }
 }

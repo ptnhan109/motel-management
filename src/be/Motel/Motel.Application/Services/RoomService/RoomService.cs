@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.RoomService
@@ -58,11 +59,77 @@ namespace Motel.Application.Services.RoomService
             return Ok();
         }
 
+        public async Task<Response> AddRoomDeposited(DepositDto request)
+        {
+            var entity = _mapper.Map<DepositDto, RoomDeposited>(request);
+            await _repository.AddAsync(entity);
+            await SetRoomStatus(request.RoomId, EnumRoomStatus.Deposited);
+
+            return Ok();
+        }
+
         public async Task<Response> DeleteAsync(Guid id)
         {
             await _repository.DeleteRangeAsync<SystemFile>(c => c.MapId.Equals(id));
             await _repository.DeleteAsync<Room>(id);
             return Ok();
+        }
+
+        public async Task<Response> DeleteRoomDeposited(Guid id)
+        {
+            await _repository.DeleteRangeAsync<RoomDeposited>(c => c.RoomId.Equals(id));
+            await SetRoomStatus(id, EnumRoomStatus.Available);
+            return Ok();
+        }
+
+        public async Task<Response> GetAllAsync(RoomFilterModel filter)
+        {
+            var query = _repository.GetQueryable<Room>();
+            if (!string.IsNullOrEmpty(filter.keyword))
+            {
+                query = query.Where(c => c.Name.Equals(filter.keyword));
+            }
+
+            if (filter.StartPrice.HasValue)
+            {
+                query = query.Where(c => c.Price >= filter.StartPrice.Value);
+            }
+
+            if (filter.EndPrice.HasValue)
+            {
+                query = query.Where(c => c.Price <= filter.EndPrice.Value);
+            }
+
+            if (filter.BoardingHouseId.HasValue)
+            {
+                query = query.Where(c => c.BoardingHouseId.Equals(filter.BoardingHouseId.Value));
+            }
+
+            if (filter.IsSelfContainer.HasValue)
+            {
+                query = query.Where(c => c.IsSelfContainer.Equals(filter.IsSelfContainer.Value));
+            }
+
+            if (filter.Status.HasValue)
+            {
+                query = query.Where(c => c.Status.Equals(filter.Status.Value));
+            }
+            query = query.OrderByDescending(c => c.CreatedAt);
+            var data = await _repository.FindAllAsync(query);
+            var result = data.Select(room => new RoomDto()
+            {
+                BoardingHouseId = room.BoardingHouseId,
+                Description = room.Description,
+                Floor = room.Floor,
+                Id = room.Id,
+                IsSelfContainer = room.IsSelfContainer,
+                Location = room.Location,
+                MaxHuman = room.MaxHuman,
+                Name = room.Name,
+                Price = room.Price,
+                Status = room.Status
+            });
+            return Ok(result);
         }
 
         public async Task<Response> GetPagingAsync(RoomFilterModel filter)
@@ -101,6 +168,25 @@ namespace Motel.Application.Services.RoomService
             var data = await _repository.FindPagedAsync(query, filter.pageIndex, filter.pageSize);
             var result = data.ChangeType(RoomDto.FromEntity);
             return Ok(result);
+        }
+
+        public async Task<Response> GetRoomDeposit(Guid id)
+        {
+            var entity = await _repository.FindAsync<RoomDeposited>(c => c.RoomId.Equals(id));
+            if (entity is null)
+            {
+                return NotFound();
+            }
+            var data = _mapper.Map<RoomDeposited, DepositDto>(entity);
+
+            return Ok(data);
+        }
+
+        private async Task SetRoomStatus(Guid id, EnumRoomStatus status)
+        {
+            var room = await _repository.FindAsync<Room>(id);
+            room.Status = status;
+            await _repository.UpdateAsync(room);
         }
     }
 }

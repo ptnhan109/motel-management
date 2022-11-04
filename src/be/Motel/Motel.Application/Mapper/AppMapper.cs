@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Motel.Application.Services.BoardingHouseService.Dtos;
+using Motel.Application.Services.CustomerService.Dtos;
 using Motel.Application.Services.FitmentServices.Dtos;
 using Motel.Application.Services.RoomService.Dtos;
 using Motel.Application.Services.ServiceService.Dtos;
@@ -29,8 +30,21 @@ namespace Motel.Application.Mapper
             CreateMap<ProvideModel, Provide>();
 
             CreateMap<AddRoomModel, Room>();
-
+            CreateMap<DepositDto, RoomDeposited>()
+                .ForMember(dest => dest.Id, d => d.MapFrom(source => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
+                .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
+            CreateMap<RoomDeposited, DepositDto>();
             CreateMap<Fitment, FitmentDto>();
+
+            CreateMap<AddCustomerDto, Customer>()
+                .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
+                .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
+
+            CreateMap<VehicleDto,Vehicle>()
+                .ForMember(dest => dest.Id, d => d.MapFrom(source => Guid.NewGuid()))
+                .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
+                .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
         }
     }
 }

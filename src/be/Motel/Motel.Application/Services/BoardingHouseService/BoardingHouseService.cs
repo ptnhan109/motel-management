@@ -25,6 +25,8 @@ namespace Motel.Application.Services.BoardingHouseService
         {
             var entity = _mapper.Map<BoardingHouseDto,BoardingHouse>(request);
             entity.Id = Guid.NewGuid();
+            entity.CreatedAt = DateTime.Now;
+            entity.UpdatedAt = DateTime.Now;
             await _repository.AddAsync(entity);
 
             var serviceInboarding = request.Services.Select(c => new ProvideInBoardingHouse()

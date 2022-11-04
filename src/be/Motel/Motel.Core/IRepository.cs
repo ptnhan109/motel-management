@@ -36,6 +36,8 @@ namespace Motel.Core
 
         IQueryable<TEntity> GetQueryable<TEntity>() where TEntity : BaseEntity;
 
+        IQueryable<TEntity> GetQueryable<TEntity>(IEnumerable<string>? includes) where TEntity : BaseEntity;
+
         Task SaveChangeAsync();
 
         Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;

@@ -36,12 +36,37 @@ namespace Motel.Api.Controllers
 
         [Route("rooms")]
         [HttpGet]
-        [AllowAnonymous]
         public async Task<Response> GetPaging([FromQuery] RoomFilterModel request)
             => await _service.GetPagingAsync(request);
+
+        [Route("get-all")]
+        [HttpGet]
+        public async Task<Response> GetAll([FromQuery] RoomFilterModel request) => await _service.GetAllAsync(request);
 
         [Route("{id}")]
         [HttpDelete]
         public async Task<Response> Delete(Guid id) => await _service.DeleteAsync(id);
+
+        [Route("{id}/room-deposit")]
+        [HttpPost]
+        public async Task<Response> AddRoomDeposit(Guid id, [FromBody] DepositDto request)
+        {
+            request.RoomId = id;
+            return await _service.AddRoomDeposited(request);
+        }
+
+        [Route("{id}/room-deposit")]
+        [HttpDelete]
+        public async Task<Response> DeleteRoomDeposit(Guid id)
+        {
+            return await _service.DeleteRoomDeposited(id);
+        }
+
+        [Route("{id}/room-deposit")]
+        [HttpGet]
+        public async Task<Response> GetRoomDeposit(Guid id)
+        {
+            return await _service.GetRoomDeposit(id);
+        }
     }
 }

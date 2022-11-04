@@ -12,6 +12,14 @@ namespace Motel.Application.Services.RoomService
 
         Task<Response> GetPagingAsync(RoomFilterModel filter);
 
+        Task<Response> GetAllAsync(RoomFilterModel filter);
+
         Task<Response> DeleteAsync(Guid id);
+
+        Task<Response> AddRoomDeposited(DepositDto request);
+
+        Task<Response> DeleteRoomDeposited(Guid id);
+
+        Task<Response> GetRoomDeposit(Guid id);
     }
 }
