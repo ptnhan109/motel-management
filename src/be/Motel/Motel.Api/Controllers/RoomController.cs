@@ -36,9 +36,12 @@ namespace Motel.Api.Controllers
 
         [Route("rooms")]
         [HttpGet]
-        [AllowAnonymous]
         public async Task<Response> GetPaging([FromQuery] RoomFilterModel request)
             => await _service.GetPagingAsync(request);
+
+        [Route("get-all")]
+        [HttpGet]
+        public async Task<Response> GetAll([FromQuery] RoomFilterModel request) => await _service.GetAllAsync(request);
 
         [Route("{id}")]
         [HttpDelete]

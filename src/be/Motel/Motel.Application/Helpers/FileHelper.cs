@@ -18,16 +18,16 @@ namespace Motel.Application.Helpers
             {
                 Directory.CreateDirectory(folderPath);
             }
-            var fileName = $"{nameof(type)}_{Guid.NewGuid()}_{file.FileName}";
+            var fileName = $"{Guid.NewGuid()}_{file.FileName}";
             using (var stream = new FileStream(Path.Combine(folderPath,fileName), FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return fileName;
+            return GetPath(fileName,type);
         }
 
-        public static string GetPath(string fileName, EnumFileType type) => $"/Images/Room/{fileName}";
+        public static string GetPath(string fileName, EnumFileType type) => $"/{Enum.GetName(typeof(EnumFileType), type)}/{fileName}";
         
 
     }

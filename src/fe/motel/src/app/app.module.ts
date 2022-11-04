@@ -37,6 +37,7 @@ import { ServiceComponent } from './pages/service/service.component';
 import { BoardingHouseSingleComponent } from './pages/boarding-house-single/boarding-house-single.component';
 import { RoomsComponent } from './pages/rooms/rooms.component';
 import { RoomSingleComponent } from './pages/room-single/room-single.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { RoomSingleComponent } from './pages/room-single/room-single.component';
     ServiceComponent,
     BoardingHouseSingleComponent,
     RoomsComponent,
-    RoomSingleComponent
+    RoomSingleComponent,
+    CustomersComponent
   ],
   imports: [
     BrowserModule,

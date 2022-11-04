@@ -10,6 +10,7 @@ import { ServiceComponent } from './pages/service/service.component';
 import { BoardingHouseSingleComponent } from './pages/boarding-house-single/boarding-house-single.component';
 import { RoomsComponent } from './pages/rooms/rooms.component';
 import { RoomSingleComponent } from './pages/room-single/room-single.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
       {
         path:'add-room',
         component: RoomSingleComponent
+      },
+      {
+        path:'customers',
+        component: CustomersComponent
       }
     ]
   },

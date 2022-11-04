@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FormatCurrency, RemoveNullable } from 'src/app/common/stringFormat';
@@ -10,6 +11,9 @@ declare var bootbox: any;
   styleUrls: ['./rooms.component.scss']
 })
 export class RoomsComponent implements OnInit {
+  pipe = new DatePipe('en-US');
+
+
   isSearch = false;
   boardings = [];
   fitments = [];
@@ -147,6 +151,8 @@ export class RoomsComponent implements OnInit {
     this._service.getRoomDeposit(id).subscribe(
       response => {
         this.deposit = response.data;
+        this.deposit.dateStart = this.pipe.transform(response.data.dateStart,'yyyy-MM-dd');
+        this.deposit.dateEnd = this.pipe.transform(response.data.dateEnd,'yyyy-MM-dd');
         console.log(this.deposit);
       }
     )

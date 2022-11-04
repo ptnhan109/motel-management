@@ -80,6 +80,10 @@ namespace Motel.Core
 
         public async Task<IEnumerable<TEntity>> FindAllAsync<TEntity>(IQueryable<TEntity> query, Expression<Func<TEntity, TEntity>> selector = null) where TEntity : BaseEntity
         {
+            if(selector is null)
+            {
+                return await query.ToListAsync();
+            }
             return await query.Select(selector).ToListAsync();
         }
 
@@ -159,5 +163,18 @@ namespace Motel.Core
             return query;
         }
 
+        public IQueryable<TEntity> GetQueryable<TEntity>(IEnumerable<string> includes) where TEntity : BaseEntity
+        {
+            var query = GetQueryable<TEntity>();
+            if(includes?.FirstOrDefault() != null)
+            {
+                foreach(var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
+            return query;
+        }
     }
 }

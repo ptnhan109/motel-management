@@ -1,0 +1,182 @@
+<div class="page-header ng-star-inserted">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h5 class="m-b-10 ng-star-inserted">Khách thuê phòng</h5>
+                        </div>
+                        <div class="col-sm-6 ">
+
+                            <button type="button" class="btn btn-success float-right l-4"><i
+                                    class="icon feather icon-printer"></i> Excel</button>
+                            <button type="button" class="btn btn-info float-right l-4"><i
+                                    class="icon feather icon-target"></i> Đăng ký tạm trú</button>
+                            <button (click)="createCustomer.show()" class="btn btn-primary float-right l-4"><i
+                                    class="icon feather icon-user-plus"></i> Thêm mới khách thuê</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
+                                    class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Hợp đồng & Khách thuê</a>
+                            </li>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Khách thuê</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <input class="form-control" placeholder="Nhập tên khách thuê">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select [(ngModel)]="filter.boardingHouseId" (change)="getRooms()" class="form-control">
+                                    <option [ngValue]="null">Tất cả</option>
+                                    <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">
+                                        {{ boarding.name }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select [(ngModel)]="filter.roomId" class="form-control">
+                                    <option [ngValue]="null">Tất cả</option>
+                                    <option *ngFor="let room of rooms" [ngValue]="room.id">
+                                        {{ room.name }}</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-1">
+                                <button type="button" class="btn btn-info float-right l-4"><i
+                                        class="icon feather icon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<app-ui-modal #createCustomer [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Thêm mới khách thuê</h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="createCustomer.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Khu trọ</label>
+                    <select [(ngModel)]="filter.boardingHouseId" (change)="getRooms()" class="form-control">
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">
+                            {{ boarding.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="address">Nhà trọ</label>
+                    <select [(ngModel)]="filter.roomId" class="form-control">
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.id">
+                            {{ room.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="address">Họ tên</label>
+                    <input [(ngModel)]="addCustomerRequest.name" class="form-control" placeholder="Họ và tên khách thuê">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Giới tính</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                            value="option1">
+                        <label class="form-check-label" for="inlineRadio1">Nam</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                            value="option2">
+                        <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Số điện thoại</label>
+                    <input [(ngModel)]="addCustomerRequest.phone" type="text" class="form-control" placeholder="Số điện thoại khách thuê">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Email</label>
+                    <input [(ngModel)]="addCustomerRequest.email" type="text" class="form-control" placeholder="Email khách thuê">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Nghề nghiệp</label>
+                    <select [(ngModel)]="addCustomerRequest.career" class="form-control">
+                        <option [ngValue]="0">Sinh viên</option>
+                        <option [ngValue]="1">Người đi làm</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Ngày sinh</label>
+                    <input [(ngModel)]="addCustomerRequest.birthDay" type="date" class="form-control">
+                </div> 
+                <div class="form-group col-md-4">
+                    <label for="address">Số căn cước</label>
+                    <input [(ngModel)]="addCustomerRequest.identificationCitizen" type="text" class="form-control" placeholder="Số căn cước">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Nơi cấp</label>
+                    <input [(ngModel)]="addCustomerRequest.idFactory"  type="text" class="form-control" placeholder="Nơi cấp">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="address">Địa chỉ thường trú</label>
+                    <input [(ngModel)]="addCustomerRequest.address" type="text" class="form-control" placeholder="Địa chỉ thường trú">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Ảnh mặt trước</label>
+                    <input (change)="uploadFontIdentity($event.target.files)" type="file" class="form-control" placeholder="Nơi cấp">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Ảnh mặt sau</label>
+                    <input (change)="uploadBackIdentity($event.target.files)"  type="file" class="form-control" placeholder="Nơi cấp">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Ảnh chân dung</label>
+                    <input (change)="uploadAvatarIdentity($event.target.files)" type="file" class="form-control" placeholder="Nơi cấp">
+                </div>
+            </div>
+            <h6>Thông tin gửi xe</h6>
+            <hr>
+            <div class="form-row" *ngFor="let vehicle of addVehicles; let index=index">
+                <div class="form-group col-md-4">
+                    <select [(ngModel)]="addVehicles[index].type" class="form-control">
+                        <option [ngValue]="0">Xe đạp</option>
+                        <option [ngValue]="1">Xe máy</option>
+                        <option [ngValue]="2">Ô tô</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <input [(ngModel)]="addVehicles[index].licensePlate" type="text" class="form-control" placeholder="Biển kiểm soát">
+                </div>
+                <div class="form-group col-md-3">
+                    <input [(ngModel)]="addVehicles[index].color" type="text" class="form-control" placeholder="Màu xe">
+                </div>
+                <div class="form-group col-md-1">
+                    <button (click)="addVehicleElements()" type="button" class="btn btn-success btn-sm float-right l-4"><i
+                            class="icon feather icon-plus"></i></button>
+                    <button (click)="removeVehicles(index)" type="button" class="btn btn-danger btn-sm float-right l-4"><i
+                            class="icon feather icon-minus"></i></button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-default float-right" (click)="createCustomer.hide()">Hủy bỏ</button>
+            <button type="button" class="btn btn-primary float-right" (click)="createCustomer.hide();SaveCustomer();">Thêm mới</button>
+        </div>
+    </div>
+</app-ui-modal>

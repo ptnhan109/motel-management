@@ -41,6 +41,14 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
+        id: 'dashboard',
+        title: 'Báo cáo',
+        type: 'item',
+        url: '/dashboard',
+        icon: 'feather icon-inbox',
+        breadcrumbs: false
+      },
+      {
         id: 'category',
         title: 'Danh mục',
         type: 'collapse',
@@ -55,7 +63,7 @@ const NavigationItems = [
           },
           {
             id: 'fitment',
-            title: 'Tiện ích',
+            title: 'Thiết bị',
             type: 'item',
             url: '/fitment'
           }
@@ -82,6 +90,62 @@ const NavigationItems = [
             breadcrumbs: false
           }
         ]
+      },
+      {
+        id: 'contract',
+        title: 'Hợp đồng & khách thuê',
+        type: 'collapse',
+        url: '/contract',
+        icon: 'feather icon-box',
+        breadcrumbs: false,
+        children: [
+          {
+            id: 'service',
+            title: 'Hợp đồng',
+            type: 'item',
+            url: '/service',
+            breadcrumbs: false
+          },
+          {
+            id: 'customers',
+            title: 'Khách thuê',
+            type: 'item',
+            url: '/customers',
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'invoice',
+        title: 'Hóa đơn',
+        type: 'item',
+        url: '/contract',
+        icon: 'feather icon-disc',
+        breadcrumbs: false
+      },
+      {
+        id: 'invoice',
+        title: 'Nhân viên',
+        type: 'item',
+        url: '/contract',
+        icon: 'feather icon-users',
+        breadcrumbs: false
+      },
+      {
+        id: 'invoice',
+        title: 'Tiện ích',
+        type: 'item',
+        url: '/contract',
+        icon: 'feather icon-layers',
+        breadcrumbs: false
+      },
+      {
+        id: 'invoice',
+        title: 'Hệ thống',
+        type: 'item',
+        url: '/contract',
+        icon: 'feather icon-settings',
+        breadcrumbs: false
       },
     ]
   }
