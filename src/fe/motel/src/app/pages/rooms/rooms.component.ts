@@ -29,7 +29,7 @@ export class RoomsComponent implements OnInit {
     keyword: null,
     isSelfContainer: null,
     pageIndex: 1,
-    pageSize: 20
+    pageSize: 15
   }
 
   deposit = {

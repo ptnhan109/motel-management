@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import { environment } from "src/environments/environment";
 
 export function FormatCurrency(input) {
@@ -37,3 +38,9 @@ export function GetCareer(career){
             return "";
     }
 }
+
+export function toDateFormat(date){
+    let format = 'dd/MM/yyyy';
+    let locale = 'en-US';
+    return formatDate(date, format, locale);
+  }

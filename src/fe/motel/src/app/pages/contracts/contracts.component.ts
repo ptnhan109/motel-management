@@ -1,6 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { RemoveNullable, SetPropertyToNull } from 'src/app/common/stringFormat';
+import { FormatCurrency, RemoveNullable, SetPropertyToNull, toDateFormat } from 'src/app/common/stringFormat';
+import { contractType, roomStatus } from 'src/app/contants/roomStatus';
 import { AppService } from 'src/app/services/app.service';
 import { ToastService } from 'src/app/theme/shared/components/toast/toast.service';
 
@@ -14,6 +16,20 @@ export class ContractsComponent implements OnInit {
     boardingHouseId : null,
     roomId : null
   }
+
+  listFilter = {
+    status: null,
+    type : null,
+    keyword: null,
+    pageIndex : 1,
+    pageSize : 10
+  }
+
+  paging = null;
+  pageNumbers = [];
+  contracts = [];
+
+  isEnableType = false;
 
   addContract = {
     name : null,
@@ -42,6 +58,7 @@ export class ContractsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getContracts(1);
     this.addTerms();
     this.getMotels();
     this.getRooms();
@@ -80,7 +97,6 @@ export class ContractsComponent implements OnInit {
     this._service.getBoardings().subscribe(
       response => {
         this.boardings = response.data;
-        console.log(this.boardings);
       }
     )
   }
@@ -93,9 +109,34 @@ export class ContractsComponent implements OnInit {
   }
 
   getCustomers(){
+    let room = this.rooms.filter(x => x.id == this.filter.roomId)[0];
+    if(room != null){
+      if(room.status != roomStatus.hired){
+        this._toast.info("Phòng chưa có khách thuê, chỉ cho phép tạo hợp đồng đặt cọc.");
+        this.addContract.type = contractType.deposited;
+        this.isEnableType = false;
+      }else{
+        this.isEnableType = true;
+      }
+    }
     let request = RemoveNullable(this.filter);
     this._service.getAllCustomers(request).subscribe(
       response => this.customers = response.data
+    )
+  }
+
+  getContracts(page){
+    this.listFilter.pageIndex = page;
+    var request = RemoveNullable(this.listFilter);
+    this._service.getContracts(request).subscribe(
+      response => {
+        this.paging = response.data;
+        this.contracts = response.data.items;
+        console.log(this.contracts);
+        for (let i = 1; i <= this.paging.totalPage; i++) {
+          this.pageNumbers.push(i);
+        }
+      }
     )
   }
 
@@ -118,6 +159,34 @@ export class ContractsComponent implements OnInit {
       this.addContract.customerName = customer.name;
       this.addContract.customerPhone = customer.phone;
     }
+  }
+
+  getRoomStatus(status){
+    switch(status){
+      case roomStatus.available:
+        return "Phòng trống";
+      case roomStatus.deposited:
+        return "Đã đặt cọc";
+      case roomStatus.hired:
+        return "Đã cho thuê";
+      default:
+        return "";
+    }
+  }
+
+  formatExpiredDate(date){
+    return toDateFormat(date);
+  }
+
+  formatCurrency(value){
+    return FormatCurrency(value);
+  }
+
+  formatDuration(value){
+    if(value == null){
+      return "Không thời hạn";
+    }
+    return `${value} tháng`;
   }
 
 }

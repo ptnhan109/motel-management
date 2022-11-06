@@ -30,5 +30,7 @@ namespace Motel.Core.Entities
         public bool? IsSelfContainer { get; set; }
 
         public int? Count { get; set; }
+
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

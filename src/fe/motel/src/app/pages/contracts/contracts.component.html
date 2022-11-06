@@ -20,7 +20,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
                                     class="ng-star-inserted"><i class="feather icon-home"></i></a>
@@ -32,26 +32,30 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-5">
                         <div class="form-row">
                             <div class="form-group col-md-5">
-                                <select class="form-control">
+                                <input [(ngModel)]="listFilter.keyword" class="form-control"
+                                    placeholder="Tìm tên hợp đồng" type="text">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select [(ngModel)]="listFilter.type" class="form-control">
                                     <option [ngValue]="null">Tất cả</option>
-                                    <option [ngValue]="null">Thuê phòng</option>
-                                    <option [ngValue]="null">Đặt cọc</option>
+                                    <option [ngValue]="1">Thuê phòng</option>
+                                    <option [ngValue]="0">Đặt cọc</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-5">
-                                <select class="form-control">
+                            <div class="form-group col-md-3">
+                                <select [(ngModel)]="listFilter.status" class="form-control">
                                     <option [ngValue]="null">Tất cả</option>
-                                    <option [ngValue]="null">Còn hiệu lực</option>
-                                    <option [ngValue]="null">Đã hết hạn</option>
-                                    <option [ngValue]="null">Đã hủy</option>
+                                    <option [ngValue]="0">Còn hiệu lực</option>
+                                    <option [ngValue]="1">Đã hết hạn</option>
+                                    <option [ngValue]="2">Đã hủy</option>
 
                                 </select>
                             </div>
-                            <div class="form-group col-md-2">
-                                <button type="button" class="btn btn-info float-right l-4"><i
+                            <div class="form-group col-md-1">
+                                <button (click)="getContracts(1)" type="button" class="btn btn-info float-right l-4"><i
                                         class="icon feather icon-search"></i></button>
                             </div>
                         </div>
@@ -65,36 +69,67 @@
 </div>
 <!-- Customer datatable -->
 <div class="col-xl-12">
-    <app-card cardTitle="Danh sách khu trọ quản lý" blockClass="table-border-style">
+    <app-card cardTitle="Danh sách hợp đồng" blockClass="table-border-style">
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th class="text-center"></th>
-                        <th>Họ và tên</th>
-                        <th>Số điện thoại</th>
-                        <th>Khu trọ</th>
-                        <th>Phòng trọ</th>
-                        <th>Ảnh đại diện</th>
-                        <th>Nghề nghiệp</th>
+                        <th>Tên hợp đồng</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày hết hạn</th>
+                        <th>Người đại diện</th>
+                        <th>Loại hợp đồng</th>
+                        <th>Tiền đặt cọc</th>
                         <th></th>
                     </tr>
 
                 </thead>
                 <tbody>
+                    <tr *ngFor="let contract of contracts; index as index;">
+                        <td>{{ index + 1 }}</td>
+                        <td>{{ contract.name }}</td>
+                        <td>
+                            <span *ngIf="contract.status == 0" class="badge badge-success">Còn hạn</span>
+                            <span *ngIf="contract.status == 1" class="badge badge-warning">Đã hết hạn</span>
+                            <span *ngIf="contract.status == 2" class="badge badge-danger">Đã hủy</span>
 
+                        </td>
+                        <td>{{ formatExpiredDate(contract.expiredDate) }}</td>
+                        <td>{{ contract.customerName }}</td>
+                        <td>
+                            <span *ngIf="contract.type == 0" class="badge badge-warning">Hợp đồng đặt cọc</span>
+                            <span *ngIf="contract.type == 1" class="badge badge-info">Hợp đồng thuê phòng</span>
+                        </td>
+                        <td>{{ formatCurrency(contract.depositedAmount) }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon feather icon-more-vertical text-default f-20"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-edit text-primary f-20"></i> Sửa hợp đồng</button>
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-trash text-danger f-20"></i> Xóa hợp đồng</button>
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-download text-primary f-20"></i> Tải hợp đồng</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <hr>
-            <!-- <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
                     <li class="page-item" *ngFor="let page of pageNumbers">
-                        <a class="page-link" href="javascript:;" (click)="getCustomer(page)">{{
+                        <a class="page-link" href="javascript:;" (click)="getContracts(page)">{{
                             page }}</a>
                     </li>
                 </ul>
-            </nav> -->
+            </nav>
         </div>
     </app-card>
 
@@ -122,7 +157,8 @@
                     <select [(ngModel)]="filter.roomId" (change)="getCustomers();setContractName();"
                         class="form-control">
                         <option [ngValue]="null">Tất cả</option>
-                        <option *ngFor="let room of rooms" [ngValue]="room.id">{{ room.name }}</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.id"><span class="text-danger">{{ room.name
+                                }}</span> [ {{ getRoomStatus(room.status) }} ]</option>
                     </select>
                 </div>
                 <div class="form-group col-md-8">
@@ -141,7 +177,8 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Loại hợp đồng</label>
-                    <select [(ngModel)]="addContract.type" (change)="setContractName();" class="form-control">
+                    <select [(ngModel)]="addContract.type" [disabled]="isEnableType ? null : true"
+                        (change)="setContractName();" class="form-control">
                         <option [ngValue]="0">Đặt cọc</option>
                         <option [ngValue]="1">Thuê phòng</option>
 
@@ -149,8 +186,8 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Người đại diện</label>
-                    <select [(ngModel)]="addContract.customerId" [disabled]="addContract.type == 0 ? true : false" (change)="setCustomerName()"
-                        class="form-control">
+                    <select [(ngModel)]="addContract.customerId" [disabled]="addContract.type == 0 ? true : false"
+                        (change)="setCustomerName()" class="form-control">
                         <option [ngValue]="null">Chọn người đại diện</option>
                         <option *ngFor="let customer of customers" [ngValue]="customer.id">{{ customer.name }} - {{
                             customer.phone}}</option>
@@ -158,13 +195,13 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Tên người đặt cọc</label>
-                    <input [(ngModel)]="addContract.customerName" [disabled]="addContract.type == 1 ? true : false" type="text" class="form-control"
-                        placeholder="Người đại diện">
+                    <input [(ngModel)]="addContract.customerName" [disabled]="addContract.type == 1 ? true : false"
+                        type="text" class="form-control" placeholder="Người đại diện">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Số điện thoại</label>
-                    <input [(ngModel)]="addContract.customerPhone" [disabled]="addContract.type == 1 ? true : false" type="text" class="form-control"
-                        placeholder="Số điện thoại">
+                    <input [(ngModel)]="addContract.customerPhone" [disabled]="addContract.type == 1 ? true : false"
+                        type="text" class="form-control" placeholder="Số điện thoại">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="address">Ngày có hiệu lực</label>

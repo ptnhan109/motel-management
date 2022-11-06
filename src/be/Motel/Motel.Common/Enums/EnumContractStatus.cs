@@ -8,6 +8,6 @@ namespace Motel.Common.Enums
     {
         Unexpired = 0,
         Expired = 1,
-        Cancel = 3
+        Cancel = 2
     }
 }

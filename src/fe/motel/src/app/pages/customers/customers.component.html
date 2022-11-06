@@ -10,7 +10,7 @@
                         </div>
                         <div class="col-sm-6 ">
                             <button type="button" class="btn btn-danger float-right l-4"><i
-                                class="icon feather icon-user-minus"></i> Xóa</button>
+                                    class="icon feather icon-user-minus"></i> Xóa</button>
                             <button type="button" class="btn btn-success float-right l-4"><i
                                     class="icon feather icon-printer"></i> Xuất file</button>
                             <button type="button" class="btn btn-info float-right l-4"><i
@@ -68,7 +68,7 @@
 </div>
 <!-- Customer datatable -->
 <div class="col-xl-12">
-    <app-card cardTitle="Danh sách khu trọ quản lý" blockClass="table-border-style">
+    <app-card cardTitle="Danh sách khách thuê phòng trọ" blockClass="table-border-style">
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -88,10 +88,12 @@
                 <tbody>
                     <tr *ngFor="let customer of customers;index as index">
                         <td>{{index+1}}</td>
-                        <td><div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                            
-                          </div></td>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+
+                            </div>
+                        </td>
                         <td>{{ customer.name }}</td>
                         <td>{{ customer.phone }}</td>
                         <td>{{ customer.boardingHouseName }}</td>
@@ -101,14 +103,18 @@
                         <td>{{ getCareer(customer.career) }}</td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     <i class="icon feather icon-more-vertical text-default f-20"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                  <button class="dropdown-item" type="button"><i class="icon feather icon-edit text-primary f-20"></i> Sửa thông tin</button>
-                                  <button class="dropdown-item" type="button"><i class="icon feather icon-trash text-danger f-20"></i> Xóa khách thuê</button>
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-edit text-primary f-20"></i> Sửa thông tin</button>
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-trash text-danger f-20"></i> Xóa khách
+                                        thuê</button>
                                 </div>
-                              </div>
+                            </div>
 
                         </td>
                     </tr>
@@ -149,7 +155,8 @@
                     <select [(ngModel)]="filter.roomId" class="form-control">
                         <option [ngValue]="null">Tất cả</option>
                         <option *ngFor="let room of rooms" [ngValue]="room.id">
-                            <strong>{{ room.name }}</strong> - ({{ currenyFormat(room.price) }})</option>
+                            <strong>{{ room.name }}</strong> - ({{ currenyFormat(room.price) }})
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-8">
