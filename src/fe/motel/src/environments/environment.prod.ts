@@ -1,4 +1,5 @@
 export const environment = {
-  production: true,
-  apiServer: "https://api.nhanpt.com"
+  production: false,
+  apiServer: "https://localhost:44302",
+  apiFileServer:"https://localhost:44302/files/"
 };

@@ -144,11 +144,11 @@
                                         class="dropdown-item" *ngIf="(room.status == 0)"><i
                                             class="icon feather icon-box text-success f-20"></i> Đặt cọc</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
-                                            class="icon feather icon-user-check text-danger f-20"></i> Người thuê</a>
+                                            class="icon feather icon-user-check text-danger f-20"></i> Xem hợp đồng</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
                                             class="icon feather icon-box text-info f-20"></i> Trả phòng</a>
-                                    <a href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
-                                            class="icon feather icon-download text-warning f-20"></i> Nhận phòng</a>
+                                    <a href="javascript:;" routerLink="/customers?boarding={{room.boardingHouseId}}&room={{room.id}}"  *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                            class="icon feather icon-download text-warning f-20"></i> Nhận phòng (Tạo hợp đồng)</a>
                                     <a (click)="setRoomName(room);getRoomDeposit();viewDeposit.show();"
                                         href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-alert-circle text-primary f-20"></i> Xem đặt
@@ -246,6 +246,14 @@
                 <div class="form-group">
                     <label for="descripion">Mô tả</label>
                     <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="form-check">
+                        <input [(ngModel)]="deposit.isCreateContract" class="form-check-input" type="checkbox" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">Tạo hợp đồng đặt cọc</label>
+                    </div>
                 </div>
             </div>
             <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right">Hủy bỏ</button>

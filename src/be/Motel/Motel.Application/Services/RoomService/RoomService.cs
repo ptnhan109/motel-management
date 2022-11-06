@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Motel.Application.Helpers;
+using Motel.Application.Services.ContractService.Dtos;
 using Motel.Application.Services.RoomService.Dtos;
 using Motel.Application.Services.RoomService.Models;
 using Motel.Common.Enums;
@@ -62,9 +63,14 @@ namespace Motel.Application.Services.RoomService
         public async Task<Response> AddRoomDeposited(DepositDto request)
         {
             var entity = _mapper.Map<DepositDto, RoomDeposited>(request);
-            await _repository.AddAsync(entity);
+            var inserted = await _repository.AddAsync(entity);
             await SetRoomStatus(request.RoomId, EnumRoomStatus.Deposited);
-
+            
+            if (request.IsCreateContract.Value)
+            {
+                var contract = ContractDto.FromDeposited(inserted);
+                await _repository.AddAsync(_mapper.Map<ContractDto,AppContract>(contract));
+            }
             return Ok();
         }
 

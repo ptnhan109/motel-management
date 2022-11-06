@@ -100,10 +100,10 @@ const NavigationItems = [
         breadcrumbs: false,
         children: [
           {
-            id: 'service',
+            id: 'contracts',
             title: 'Hợp đồng',
             type: 'item',
-            url: '/service',
+            url: '/contracts',
             breadcrumbs: false
           },
           {

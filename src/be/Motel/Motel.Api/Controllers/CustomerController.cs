@@ -25,6 +25,7 @@ namespace Motel.Api.Controllers
         public async Task<Response> AddAsync([FromBody] AddCustomerDto request) => await _service.AddCustomer(request);
 
         [HttpGet("paging")]
+        [AllowAnonymous]
         public async Task<Response> GetPaging([FromQuery] CustomerFilter request) => await _service.GetPaging(request);
     }
 }

@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import {AppResponse} from 'src/app/common/response'
 import { getToken } from '../common/message';
 import { tap } from 'rxjs/operators';
+import { param } from 'jquery';
 
 @Injectable({
   providedIn: 'root'
@@ -125,5 +126,10 @@ export class AppService {
 
   addCustomer(param):Observable<AppResponse<any>>{
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/customer`,param,this.options)
+  }
+  
+  getCustomers(filter):Observable<AppResponse<any>>{
+    var options = this.queryParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/customer/paging`,options);
   }
 }
