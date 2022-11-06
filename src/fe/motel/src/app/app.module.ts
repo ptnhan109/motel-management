@@ -38,6 +38,7 @@ import { BoardingHouseSingleComponent } from './pages/boarding-house-single/boar
 import { RoomsComponent } from './pages/rooms/rooms.component';
 import { RoomSingleComponent } from './pages/room-single/room-single.component';
 import { CustomersComponent } from './pages/customers/customers.component';
+import { ContractsComponent } from './pages/contracts/contracts.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { CustomersComponent } from './pages/customers/customers.component';
     BoardingHouseSingleComponent,
     RoomsComponent,
     RoomSingleComponent,
-    CustomersComponent
+    CustomersComponent,
+    ContractsComponent
   ],
   imports: [
     BrowserModule,

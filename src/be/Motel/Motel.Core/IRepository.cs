@@ -10,7 +10,7 @@ namespace Motel.Core
 {
     public interface IRepository
     {
-        Task AddAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
+        Task<TEntity> AddAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
 
         Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities) where TEntity : BaseEntity;
 

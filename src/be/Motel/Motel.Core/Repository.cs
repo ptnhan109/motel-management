@@ -17,12 +17,14 @@ namespace Motel.Core
         {
             _context = context;
         }
-        public async Task AddAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
+        public async Task<TEntity> AddAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;
             _context.Set<TEntity>().Add(entity);
             await SaveChangeAsync();
+
+            return entity;
         }
 
         public async Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities) where TEntity : BaseEntity
@@ -135,7 +137,7 @@ namespace Motel.Core
 
             var total = await query.CountAsync();
 
-            query = query.Skip((pageIndex.Value - 1) * pageSize.Value).Take(pageSize.Value);
+            query = query.OrderByDescending(c => c.CreatedAt).Skip((pageIndex.Value - 1) * pageSize.Value).Take(pageSize.Value);
             var data = await query.ToListAsync();
             return new PagedResult<TEntity>()
             {

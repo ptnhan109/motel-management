@@ -26,5 +26,7 @@ namespace Motel.Application.Services.RoomService.Dtos
         public string Address { get; set; }
 
         public string IdentityNumber { get; set; }
+
+        public bool? IsCreateContract { get; set; }
     }
 }

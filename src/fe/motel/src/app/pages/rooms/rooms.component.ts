@@ -29,7 +29,7 @@ export class RoomsComponent implements OnInit {
     keyword: null,
     isSelfContainer: null,
     pageIndex: 1,
-    pageSize: 50
+    pageSize: 20
   }
 
   deposit = {
@@ -41,7 +41,8 @@ export class RoomsComponent implements OnInit {
     name: null,
     phone: null,
     address: null,
-    identityNumber: null
+    identityNumber: null,
+    isCreateContract:null
   }
 
   roomSelected = {
@@ -93,11 +94,11 @@ export class RoomsComponent implements OnInit {
     this.filter.pageIndex = page;
     this.pageNumber = [];
     let filters = RemoveNullable(this.filter);
-    console.log(filters);
     this._service.getRooms(filters).subscribe(
       response => {
         this.paging = response.data;
         this.rooms = response.data.items;
+        console.log(this.rooms);
         for (let i = 1; i <= this.paging.totalPage; i++) {
           this.pageNumber.push(i);
         }
@@ -167,7 +168,7 @@ export class RoomsComponent implements OnInit {
       case 0:
         return 'Phòng trống';
       case 1:
-        return 'Đã có cọc';
+        return 'Đã có đặt cọc';
       case 2:
         return 'Đã cho thuê';
       default:
