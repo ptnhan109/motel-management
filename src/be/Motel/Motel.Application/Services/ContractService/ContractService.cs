@@ -25,9 +25,17 @@ namespace Motel.Application.Services.ContractService
         public async Task<Response> AddAsync(ContractDto dto)
         {
             dto.Id = Guid.NewGuid();
-            var entity = _mapper.Map<ContractDto,AppContract>(dto);
+            var entity = _mapper.Map<ContractDto, AppContract>(dto);
             await _repository.AddAsync(entity);
-
+            if (dto.Terms.Count > 0)
+            {
+                var terms = _mapper.Map<List<AddTermDto>, List<ContractTerm>>(dto.Terms);
+                foreach(var term in terms)
+                {
+                    term.AppContractId = dto.Id.Value;
+                }
+                await _repository.AddRangeAsync(terms);
+            }
             return Ok();
         }
     }

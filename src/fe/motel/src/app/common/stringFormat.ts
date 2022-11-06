@@ -10,6 +10,12 @@ export function RemoveNullable(obj) {
         .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {});
 }
 
+export function SetPropertyToNull(obj) {
+    Object.keys(obj).forEach(function(index) {
+        obj[index] = null
+    });
+}
+
 export function GetAvatar(avatar){
     if(avatar == null || avatar == undefined || avatar == ""){
         return `${environment.apiServer}/Files/Images/avatar-default.jpg`

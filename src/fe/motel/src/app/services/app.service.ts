@@ -132,4 +132,12 @@ export class AppService {
     var options = this.queryParam(filter);
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/customer/paging`,options);
   }
+  getAllCustomers(filter):Observable<AppResponse<any>>{
+    var options = this.queryParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/customer/get-all`,options);
+  }
+
+  addContract(param):Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/contract`,param,this.options);
+  }
 }

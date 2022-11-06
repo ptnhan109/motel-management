@@ -13,5 +13,7 @@ namespace Motel.Application.Services.CustomerService
         Task<Response> GetPaging(CustomerFilter request);
 
         Task<Response> AddCustomer(AddCustomerDto request);
+
+        Task<Response> GetAllCustomer(CustomerFilter request);
     }
 }

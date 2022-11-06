@@ -110,14 +110,19 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="name">Khu trọ</label>
-                    <select class="form-control">
+                    <select [(ngModel)]="filter.boardingHouseId" class="form-control" (change)="getRooms()">
                         <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">
+                            {{ boarding.name}}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="address">Phòng trọ</label>
-                    <select class="form-control">
+                    <select [(ngModel)]="filter.roomId" (change)="getCustomers();setContractName();"
+                        class="form-control">
                         <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.id">{{ room.name }}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-8">
@@ -136,7 +141,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Loại hợp đồng</label>
-                    <select [(ngModel)]="addContract.type" class="form-control">
+                    <select [(ngModel)]="addContract.type" (change)="setContractName();" class="form-control">
                         <option [ngValue]="0">Đặt cọc</option>
                         <option [ngValue]="1">Thuê phòng</option>
 
@@ -144,55 +149,63 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Người đại diện</label>
-                    <select [(ngModel)]="addContract.customerId" class="form-control">
-                        <option [ngValue]="null">Tất cả</option>
+                    <select [(ngModel)]="addContract.customerId" [disabled]="addContract.type == 0 ? true : false" (change)="setCustomerName()"
+                        class="form-control">
+                        <option [ngValue]="null">Chọn người đại diện</option>
+                        <option *ngFor="let customer of customers" [ngValue]="customer.id">{{ customer.name }} - {{
+                            customer.phone}}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Tên người đặt cọc</label>
-                    <input [(ngModel)]="addContract.customerName" type="text" class="form-control" placeholder="Người đại diện">
+                    <input [(ngModel)]="addContract.customerName" [disabled]="addContract.type == 1 ? true : false" type="text" class="form-control"
+                        placeholder="Người đại diện">
                 </div>
                 <div class="form-group col-md-3">
                     <label for="address">Số điện thoại</label>
-                    <input [(ngModel)]="addContract.customerPhone" type="text" class="form-control" placeholder="Số điện thoại">
+                    <input [(ngModel)]="addContract.customerPhone" [disabled]="addContract.type == 1 ? true : false" type="text" class="form-control"
+                        placeholder="Số điện thoại">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="address">Ngày có hiệu lực</label>
-                    <input [(ngModel)]="addContract.createdDate" type="date" class="form-control" placeholder="Ngày có hiệu lực">
+                    <input [(ngModel)]="addContract.createdDate" type="date" class="form-control"
+                        placeholder="Ngày có hiệu lực">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="address">Ngày hết hạn</label>
-                    <input [(ngModel)]="addContract.expiredDate" type="date" class="form-control" placeholder="Ngày hết hiệu lực">
+                    <input [(ngModel)]="addContract.expiredDate" type="date" class="form-control"
+                        placeholder="Ngày hết hiệu lực">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="address">Số tiền đặt cọc</label>
-                    <input [(ngModel)]="addContract.depositedAmount" type="number" class="form-control" placeholder="Số tiền đặt cọc">
+                    <input [(ngModel)]="addContract.depositedAmount" type="number" class="form-control"
+                        placeholder="Số tiền đặt cọc">
                 </div>
             </div>
             <h6>Thêm điều khoản</h6>
             <hr>
-            <div class="form-row">
+            <div class="form-row" *ngFor="let term of terms; index as index">
                 <div class="form-group col-md-12">
-                    <select class="form-control">
+                    <select [(ngModel)]="terms[index].type" class="form-control">
                         <option [ngValue]="0">Điều khoản chung</option>
                         <option [ngValue]="0">Bên cho thuê</option>
                         <option [ngValue]="1">Bên thuê</option>
                     </select>
                 </div>
                 <div class="form-group col-md-12">
-                    <textarea rows="4" type="text" class="form-control" placeholder="Nội dung điều khoản"></textarea>
+                    <textarea [(ngModel)]="terms[index].content" rows="4" type="text" class="form-control"
+                        placeholder="Nội dung điều khoản"></textarea>
                 </div>
                 <div class="form-group col-md-12">
-                    <button type="button"
-                        class="btn btn-success btn-sm float-right l-4"><i class="icon feather icon-plus"></i> Thêm điều khoản</button>
-                    <button type="button"
-                        class="btn btn-danger btn-sm float-right l-4"><i class="icon feather icon-minus"></i> Xóa điều khoản</button>
+                    <button (click)="addTerms()" type="button" class="btn btn-success btn-sm float-right l-4"><i
+                            class="icon feather icon-plus"></i> Thêm điều khoản</button>
+                    <button (click)="removeTerms(index)" type="button" class="btn btn-danger btn-sm float-right l-4"><i
+                            class="icon feather icon-minus"></i> Xóa điều khoản</button>
                 </div>
             </div>
             <hr>
-            <button type="button" class="btn btn-default float-right">Hủy bỏ</button>
-            <button (click)="saveContract()" type="button" class="btn btn-primary float-right"
-                >Thêm mới</button>
+            <button (click)="createContract.hide()" type="button" class="btn btn-default float-right">Hủy bỏ</button>
+            <button (click)="saveContract()" type="button" class="btn btn-primary float-right">Thêm mới</button>
         </div>
     </div>
 </app-ui-modal>

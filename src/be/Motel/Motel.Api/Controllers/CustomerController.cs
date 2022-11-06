@@ -11,6 +11,7 @@ namespace Motel.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerService _service;
@@ -21,11 +22,12 @@ namespace Motel.Api.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<Response> AddAsync([FromBody] AddCustomerDto request) => await _service.AddCustomer(request);
 
         [HttpGet("paging")]
-        [AllowAnonymous]
         public async Task<Response> GetPaging([FromQuery] CustomerFilter request) => await _service.GetPaging(request);
+
+        [HttpGet("get-all")]
+        public async Task<Response> GetAll([FromQuery] CustomerFilter request) => await _service.GetAllCustomer(request);
     }
 }

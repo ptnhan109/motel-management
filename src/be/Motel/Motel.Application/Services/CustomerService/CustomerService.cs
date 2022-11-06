@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Motel.Application.Services.CustomerService.Dtos;
 using Motel.Application.Services.CustomerService.Models;
 using Motel.Common.Enums;
@@ -34,6 +35,17 @@ namespace Motel.Application.Services.CustomerService
             await _repository.AddRangeAsync(vehicles);
             await SetRoomStatus(request.RoomId.Value, EnumRoomStatus.Hired);
             return Ok();
+        }
+
+        public async Task<Response> GetAllCustomer(CustomerFilter request)
+        {
+            var query = _repository.GetQueryable<Customer>();
+            if(request.RoomId != null)
+            {
+                query = query.Where(c => c.RoomId.Equals(request.RoomId.Value));
+            }
+            var data = await query.ToListAsync();
+            return Ok(data.Select(c => CustomerItem.FromEntity(c)));
         }
 
         public async Task<Response> GetPaging(CustomerFilter request)
