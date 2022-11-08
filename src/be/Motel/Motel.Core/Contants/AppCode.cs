@@ -14,4 +14,6 @@ namespace Motel.Core.Contants
     {
         public const string UserWrongPassword = "Sai tên đăng nhập hoặc mật khẩu.";
     }
+
+
 }

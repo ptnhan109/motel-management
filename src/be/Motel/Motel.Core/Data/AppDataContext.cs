@@ -39,6 +39,8 @@ namespace Motel.Core.Data
         public DbSet<SystemFile> SystemFiles { get; set; }
 
         public DbSet<AppContract> AppContracts { get; set; }
+
+        public DbSet<UserInfo> UserInfos { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<AppUser>().HasData(
