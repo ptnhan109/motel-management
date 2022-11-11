@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Motel.Application.Auth;
 using Motel.Application.Services.BoardingHouseService;
 using Motel.Application.Services.ContractService;
@@ -19,6 +20,9 @@ namespace Motel.Application
     {
         public static void Registers(this IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+            services.AddScoped<IAppContextAccessor, AppContextAccessor>();
+
             services.AddScoped<IRepository, Repository>();
             services.AddScoped<ICryptorFactory, CryptorFactory>();
             services.AddScoped<IJwtTokenFactory, JwtTokenFactory>();

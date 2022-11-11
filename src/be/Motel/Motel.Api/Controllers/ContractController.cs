@@ -5,6 +5,8 @@ using Motel.Application.Services.ContractService;
 using Motel.Application.Services.ContractService.Dtos;
 using Motel.Application.Services.ContractService.Models;
 using Motel.Common.Generics;
+using Motel.Core.Contants;
+using System;
 using System.Threading.Tasks;
 
 namespace Motel.Api.Controllers
@@ -26,5 +28,17 @@ namespace Motel.Api.Controllers
 
         [HttpPost]
         public async Task<Response> CreateContract([FromBody] ContractDto request) => await _service.AddAsync(request);
-    }
+
+        [HttpPost("{id}/export")]
+        public async Task<IActionResult> ExportContract(Guid id)
+        {
+            var name = $"HopDongThueTro_{DateTime.Now.ToString("yyyyMMddhhss")}.docx";
+            var content = await _service.CreateContractFile(id);
+            return File(
+                fileContents: content,
+                contentType: MimeFile.Docx,
+                fileDownloadName: name
+                );
+        }
+    } 
 }

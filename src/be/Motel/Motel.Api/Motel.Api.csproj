@@ -35,5 +35,9 @@
     <ProjectReference Include="..\Motel.Core\Motel.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exports\" />
+  </ItemGroup>
+
 
 </Project>
