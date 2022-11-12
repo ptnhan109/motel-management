@@ -32,5 +32,7 @@ namespace Motel.Core.Entities
         public int? ContractDuration { get; set; }
 
         public EnumContractStatus Status { get; set; }
+
+        public virtual ICollection<ContractTerm> ContractTerms { get; set; }
     }
 }

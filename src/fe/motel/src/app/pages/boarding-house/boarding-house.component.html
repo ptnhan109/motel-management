@@ -9,9 +9,10 @@
               <h5 class="m-b-10 ng-star-inserted">Khu trọ</h5>
             </div>
             <div class="col-sm-6 ">
-              <button type="button" class="btn btn-success float-right l-1" style="margin-left: 4px;" data-toggle="modal"
-                (click)="createHouse.show()"><i class="icon feather icon-printer"></i> Excel</button>
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal"
+              <button type="button" class="btn btn-success float-right l-1" style="margin-left: 4px;"
+                data-toggle="modal" (click)="createHouse.show()"><i class="icon feather icon-printer"></i>
+                Excel</button>
+              <button type="button" class="btn btn-primary float-right" data-toggle="modal"
                 (click)="createHouse.show()"><i class="icon feather icon-plus"></i> Thêm mới</button>
             </div>
           </div>
@@ -21,7 +22,7 @@
           <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
               class="ng-star-inserted"><i class="feather icon-home"></i></a>
           <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
-            routerLink="/boarding-house">Khu trọ</a>
+              routerLink="/boarding-house">Khu trọ</a>
           </li>
 
         </ul>
@@ -48,18 +49,29 @@
         <tbody>
           <tr *ngFor="let boarding of boardings; index as i">
             <td style="width: 5%">{{ i + 1 }}</td>
-            <td style="width: 10%">
-              <a [routerLink]="[boarding.id]" href="javascript:;" (click)="getBoarding(boarding.id)"><i class="icon feather icon-edit text-primary f-20"></i></a>
-              <a href="javascript:;" ><i class="icon feather icon-external-link text-success f-20"></i></a>
-            
+            <td>
+              <div class="dropdown">
+                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="icon feather icon-menu text-default f-20"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <a [routerLink]="[boarding.id]" class="dropdown-item" href="javascript:;" (click)="getBoarding(boarding.id)"><i
+                      class="icon feather icon-edit text-primary f-20"></i> Sửa khu trọ</a>
+                  <a href="javascript:;" class="dropdown-item"><i class="icon feather icon-external-link text-success f-20"></i> Xem chi tiết</a>
+                </div>
+              </div>
+
             </td>
             <td style="width: 15%">{{ boarding.name }}</td>
-            <td style="width: 15%">Ngày {{ boarding.startDatePayment }} đến {{boarding.startDatePayment}} hàng tháng</td>
+            <td style="width: 15%">Ngày {{ boarding.startDatePayment }} đến {{boarding.startDatePayment}} hàng tháng
+            </td>
             <td style="width: 30%">{{ boarding.address }}</td>
             <td style="width: 10%">{{ boarding.months }}</td>
             <td style="width: 10%;">{{ boarding.descripion }}</td>
             <td style="width: 5%;" class="text-center">
-              <a href="javascript:;" (click)="removeBoarding(boarding.id)"><i class="icon feather icon-trash text-danger f-20"></i></a>
+              <a href="javascript:;" (click)="removeBoarding(boarding.id)"><i
+                  class="icon feather icon-trash text-danger f-20"></i></a>
             </td>
           </tr>
         </tbody>
@@ -210,7 +222,8 @@
       </div>
       <hr>
       <button type="button" class="btn btn-default float-right" (click)="createHouse.hide()">Hủy bỏ</button>
-      <button type="button" class="btn btn-primary float-right" (click)="createHouse.hide();addBoardingHouse()">Thêm mới</button>
+      <button type="button" class="btn btn-primary float-right" (click)="createHouse.hide();addBoardingHouse()">Thêm
+        mới</button>
     </div>
   </div>
 </app-ui-modal>

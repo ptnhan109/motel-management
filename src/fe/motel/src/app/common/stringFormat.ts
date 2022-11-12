@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import { environment } from "src/environments/environment";
 
 export function FormatCurrency(input) {
@@ -8,6 +9,12 @@ export function RemoveNullable(obj) {
     return Object.entries(obj)
         .filter(([_, v]) => v != null)
         .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {});
+}
+
+export function SetPropertyToNull(obj) {
+    Object.keys(obj).forEach(function(index) {
+        obj[index] = null
+    });
 }
 
 export function GetAvatar(avatar){
@@ -31,3 +38,9 @@ export function GetCareer(career){
             return "";
     }
 }
+
+export function toDateFormat(date){
+    let format = 'dd/MM/yyyy';
+    let locale = 'en-US';
+    return formatDate(date, format, locale);
+  }

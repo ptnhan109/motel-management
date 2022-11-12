@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Motel.Core.Data;
 
 namespace Motel.Core.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20221107143749___AddTableUserInfo")]
+    partial class __AddTableUserInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,16 +124,16 @@ namespace Motel.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fa3ca238-aeb2-4f30-a457-4a73fee6d75b"),
+                            Id = new Guid("8d4a26d2-ea25-4717-838e-99663d716a36"),
                             Address = "Cổ Nhuế, Từ Liêm",
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 755, DateTimeKind.Local).AddTicks(5560),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 313, DateTimeKind.Local).AddTicks(1480),
                             Gender = 1,
                             Mail = "trongnhan1110i@gmail.com",
                             Name = "Phạm Trọng Nhân",
                             Password = "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=",
                             Phone = "0775331777",
                             Role = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 756, DateTimeKind.Local).AddTicks(4876)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 314, DateTimeKind.Local).AddTicks(743)
                         });
                 });
 
@@ -388,93 +390,93 @@ namespace Motel.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("95603de5-5363-4f70-adde-a74cb281b24b"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(6383),
+                            Id = new Guid("91fee1ca-8961-4dfb-9375-67744a482674"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(1983),
                             DefaultPrice = 4000.0,
                             Name = "Tiền điện",
                             Type = 1,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(6417)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(2020)
                         },
                         new
                         {
-                            Id = new Guid("8da744e4-2d6c-4a03-bbde-2b02dcec03df"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7427),
+                            Id = new Guid("b996f248-77b6-479a-bbba-69093f5b3683"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3049),
                             DefaultPrice = 100000.0,
                             Name = "Tiền nước",
                             Type = 1,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7433)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3054)
                         },
                         new
                         {
-                            Id = new Guid("9859fc01-61f6-4390-a302-729df363c5ed"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7462),
+                            Id = new Guid("cf688ad3-ac60-4dd3-9588-d2ab16bf61c5"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3101),
                             DefaultPrice = 50000.0,
                             Name = "Gửi Xe máy",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7463)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3103)
                         },
                         new
                         {
-                            Id = new Guid("dbd31770-bac9-48ea-9ad4-310d56fbff6a"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7466),
+                            Id = new Guid("e387d799-458c-4887-b8b8-f5b89598309d"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3105),
                             DefaultPrice = 0.0,
                             Name = "Tiền xe đạp",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7467)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3106)
                         },
                         new
                         {
-                            Id = new Guid("03025572-2a60-4ed9-8db0-b496142a2ed8"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7469),
+                            Id = new Guid("be113a5f-fc71-4e62-9ae1-18895e759b88"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3108),
                             DefaultPrice = 100000.0,
                             Name = "Tiền xe điện",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7470)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3109)
                         },
                         new
                         {
-                            Id = new Guid("4bddd576-3658-4e5a-a563-12fcee2d92d4"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7472),
+                            Id = new Guid("077dd83b-fc02-42f3-8848-33c148973d5e"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3121),
                             DefaultPrice = 50000.0,
                             Name = "Internet",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7473)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3122)
                         },
                         new
                         {
-                            Id = new Guid("3f06fe4c-2cc8-43fd-a107-3eacc496da2a"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7486),
+                            Id = new Guid("e398e41e-2222-440d-a6f9-acd89e8b3364"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3125),
                             DefaultPrice = 10000.0,
                             Name = "Bảo vệ",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7487)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3126)
                         },
                         new
                         {
-                            Id = new Guid("1e468685-0490-43c3-a903-2b9d8fe92ba7"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7489),
+                            Id = new Guid("ad446cf8-8201-4eff-a5a6-d61768a2f793"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3128),
                             DefaultPrice = 0.0,
                             Name = "Máy giặt",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7490)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3129)
                         },
                         new
                         {
-                            Id = new Guid("f27420a1-2523-484f-a82a-250ccbc8aa92"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7492),
+                            Id = new Guid("b8605b58-343b-4dce-b5e9-621c835e72a5"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3131),
                             DefaultPrice = 0.0,
                             Name = "Truyền hình cáp",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7493)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3132)
                         },
                         new
                         {
-                            Id = new Guid("fc898971-88c0-4fda-a2c2-e1c9ad1101f7"),
-                            CreatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7496),
+                            Id = new Guid("60755bb0-6540-4cf1-b921-8bfb16219826"),
+                            CreatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3134),
                             DefaultPrice = 50000.0,
                             Name = "Thang máy",
                             Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 10, 21, 12, 30, 757, DateTimeKind.Local).AddTicks(7497)
+                            UpdatedAt = new DateTime(2022, 11, 7, 21, 37, 49, 315, DateTimeKind.Local).AddTicks(3135)
                         });
                 });
 
@@ -643,30 +645,16 @@ namespace Motel.Core.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
                     b.Property<string>("BankName")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DayOfBirth")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
-
-                    b.Property<string>("IdentityDate")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
 
                     b.Property<string>("IdentityNumber")
                         .HasColumnType("nvarchar(10)")

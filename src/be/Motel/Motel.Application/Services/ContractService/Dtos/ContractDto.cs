@@ -31,7 +31,7 @@ namespace Motel.Application.Services.ContractService.Dtos
 
         public int? ContractDuration { get; set; }
 
-        public IEnumerable<AddTermDto> Terms { get; set; }
+        public List<AddTermDto> Terms { get; set; }
 
         public static ContractDto FromDeposited(RoomDeposited deposited)
         {
