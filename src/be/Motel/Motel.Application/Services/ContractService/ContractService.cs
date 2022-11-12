@@ -58,23 +58,23 @@ namespace Motel.Application.Services.ContractService
             File.Copy(file, newPath);
             using (var word = WordprocessingDocument.Open(newPath, true))
             {
-                var texts = word.MainDocumentPart.Document.Descendants<Text>().ToList();
+                var texts = word.MainDocumentPart.Document.Descendants<Text>().Where(c => c.Text.Contains("{")).ToList();
                 foreach (var text in texts)
                 {
                     foreach (PropertyInfo property in typeof(AppContractExportModel).GetProperties())
                     {
-                        string keyword = $"{property.Name}";
+                        string keyword = $"{{{property.Name}}}";
                         if (text.Text.Contains(keyword))
                         {
-                            text.Text = GetPropValue(exportModel, property.Name).ToString();
+                            text.Text = text.Text.Replace(keyword,GetPropValue(exportModel, property.Name)?.ToString() ?? String.Empty);
                         }
                     }
                 }
                 word.Save();
-                var bytes = File.ReadAllBytes(newPath);
-                //File.Delete(newPath);
-                return bytes;
+                
             }
+            var bytes = File.ReadAllBytes(newPath);
+            return bytes;
         }
 
         public async Task<Response> GetContractPaging(ContractFilter filter)

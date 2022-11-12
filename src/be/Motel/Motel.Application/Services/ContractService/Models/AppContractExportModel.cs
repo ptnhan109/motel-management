@@ -1,7 +1,9 @@
 ﻿using Motel.Application.Extentions;
+using Motel.Common.Enums;
 using Motel.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Motel.Application.Services.ContractService.Models
@@ -22,6 +24,8 @@ namespace Motel.Application.Services.ContractService.Models
 
         public string OwnerAddress { get; set; }
 
+        public string OwnerPhone { get; set; }
+
         public string CustomerName { get; set; }
 
         public string CustomerDayOfBirth { get; set; }
@@ -33,6 +37,8 @@ namespace Motel.Application.Services.ContractService.Models
         public string CustomerIdentityProvider { get; set; }
 
         public string CustomerAddress { get; set; }
+
+        public string CustomerPhone { get; set; }
 
         public string BoardingAddress { get; set; }
 
@@ -54,16 +60,23 @@ namespace Motel.Application.Services.ContractService.Models
 
         public string ContractYear { get; set; }
 
+        public string OwnerTerms { get; set; }
+
+        public string CustomerTerms { get; set; }
+
+        public string CommonTerms { get; set; }
+
         public AppContractExportModel(UserInfo userInfo, Customer customer, AppContract contract, Room room)
         {
             ContractName = contract.Name;
 
             OwnerName = userInfo.Name;
-            OwnerIdentityNumber = userInfo.IdentityNumber;
+            OwnerIdentityNumber = userInfo?.IdentityNumber ?? String.Empty;
             OwnerDayOfBirth = userInfo?.DayOfBirth?.ToString("dd/MM/yyyy") ?? string.Empty;
             OwnerIdentityDate = userInfo?.IdentityDate ?? string.Empty;
             OwnerIdentityProvider = userInfo?.IdentityProvider ?? string.Empty;
             OwnerAddress = userInfo?.Address ?? string.Empty;
+            OwnerPhone = userInfo?.Phone ?? string.Empty;
 
             CustomerName = customer?.Name;
             CustomerAddress = customer.Address;
@@ -71,6 +84,7 @@ namespace Motel.Application.Services.ContractService.Models
             CustomerIdentityProvider = string.Empty;
             CustomerDayOfBirth = customer.BirthDay.ToString("dd/MM/yyyy");
             CustomerIdentityDate = string.Empty;
+            CustomerPhone = customer.Phone ?? string.Empty;
 
             BoardingAddress = room?.BoardingHouse?.Address ?? string.Empty;
             Month = contract.ContractDuration?.ToString() ?? string.Empty;
@@ -79,10 +93,21 @@ namespace Motel.Application.Services.ContractService.Models
             DatePrice = room?.BoardingHouse?.StartDatePayment?.ToString() ?? string.Empty;
             DepositedPrice = contract.DepositedAmount.ToCurrency();
 
-            ContractDate = contract.CreatedDate.Date.ToString("d");
+            ContractDate = contract.CreatedDate.ToString("dd");
             ContractYear = contract.CreatedDate.ToString("yyyy");
             ContractAddress = string.Empty;
 
+            var ownerTerms = contract.ContractTerms.Where(c => c.Type.Equals(EnumTermType.Owner)).Select(c => c.Content);
+            
+            OwnerTerms = ownerTerms.Any() ? string.Join("\n\r", ownerTerms) : string.Empty;
+
+            var customerTerms = contract.ContractTerms.Where(c => c.Type.Equals(EnumTermType.Customer)).Select(c => c.Content);
+
+            CustomerTerms = customerTerms.Any() ? string.Join("\n\r", customerTerms) : string.Empty;
+
+            var commonTerms = contract.ContractTerms.Where(c => c.Type.Equals(EnumTermType.Common)).Select(c => c.Content);
+
+            CommonTerms = commonTerms.Any() ? string.Join("\n\r", commonTerms) : string.Empty;
 
         }
     }
