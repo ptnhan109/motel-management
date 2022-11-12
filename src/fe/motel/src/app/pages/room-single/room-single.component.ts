@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { param } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/services/app.service';
@@ -11,6 +11,9 @@ declare var bootbox: any;
   styleUrls: ['./room-single.component.scss']
 })
 export class RoomSingleComponent implements OnInit {
+
+  header = 'Thêm mới'
+  action = 'Thêm mới phòng trọ'
 
   boardings = [];
   fitments = [];
@@ -33,13 +36,33 @@ export class RoomSingleComponent implements OnInit {
   constructor(
     private _service: AppService,
     private _toast: ToastrService,
-    private _route: Router
+    private _route: Router,
+    private _router : ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.getMotels();
     this.getFitments();
+    this.initAction();
+  }
 
+  initAction(){
+    this._router.paramMap.subscribe(
+      params =>{
+        let id = params.get('id');
+        if(id != null){
+          this.room.id = id;
+          this.action = 'Cập nhật nhà trọ';
+          this.header = 'Cập nhật';
+
+
+        }
+      }
+    )
+  }
+
+  getRoomById(id){
+    
   }
 
   getMotels() {
@@ -72,6 +95,9 @@ export class RoomSingleComponent implements OnInit {
     }
   }
   SaveRoom() {
+    if(!this.validate()){
+      return;
+    }
     var form = new FormData();
     // form.append("Id",this.room.id);
     form.append("BoardingHouseId", this.room.boardingHouseId);
@@ -97,10 +123,10 @@ export class RoomSingleComponent implements OnInit {
         if (response.isSucceeded) {
           if (this.room.id == null) {
             this._toast.success("Thêm mới phòng trọ thành công.");
-            if(!this.isContinue){
+            if (!this.isContinue) {
               this._route.navigateByUrl('/room');
             }
-          }else{
+          } else {
             this._toast.success("Cập nhật phòng trọ thành công.");
           }
         }
@@ -108,7 +134,18 @@ export class RoomSingleComponent implements OnInit {
     )
   }
 
-  goBack(){
+  validate() {
+    if (this.room.name == undefined || this.room.name == '' || this.room.name == null
+      || this.room.price == undefined || this.room.price == null
+    ) {
+      this._toast.error("Vui lòng điền đầy đủ thông tin");
+      return false;
+    }
+
+    return true;
+  }
+
+  goBack() {
     this._route.navigateByUrl('/room');
   }
 

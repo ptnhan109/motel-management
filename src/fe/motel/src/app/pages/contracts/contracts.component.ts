@@ -60,7 +60,6 @@ export class ContractsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContracts(1);
-    this.addTerms();
     this.getMotels();
     this.getRooms();
     this.getCustomers();
@@ -80,6 +79,9 @@ export class ContractsComponent implements OnInit {
   saveContract() {
     this.addContract.terms = this.terms;
     this.addContract.roomId = this.filter.roomId;
+    if(!this.validate()){
+      return false;
+    }
     let request = RemoveNullable(this.addContract);
     this._service.addContract(request).subscribe(
       response => {
@@ -89,8 +91,13 @@ export class ContractsComponent implements OnInit {
           this.addContract.type = 1;
           this.addTerms();
         }
+      },
+      error =>{
+        this._toast.error("Đã xảy ra lỗi.");
       }
     )
+
+    return true;
   }
 
 
@@ -113,11 +120,16 @@ export class ContractsComponent implements OnInit {
     let room = this.rooms.filter(x => x.id == this.filter.roomId)[0];
     if (room != null) {
       if (room.status != roomStatus.hired) {
-        this._toast.info("Phòng chưa có khách thuê, chỉ cho phép tạo hợp đồng đặt cọc.");
+        if (room.status == roomStatus.deposited) {
+          this._toast.warning("Khi tạo đặt cọc mới sẽ xóa đặt cọc trước đó");
+        } else {
+          this._toast.info("Phòng chưa có khách thuê, chỉ cho phép tạo hợp đồng đặt cọc.");
+        }
         this.addContract.type = contractType.deposited;
         this.isEnableType = false;
       } else {
-        this.isEnableType = true;
+        this.addContract.type = contractType.rent;
+        this.isEnableType = false;
       }
     }
     let request = RemoveNullable(this.filter);
@@ -162,10 +174,10 @@ export class ContractsComponent implements OnInit {
     }
   }
 
-  downloadContractFile(id,roomName) {
+  downloadContractFile(id, roomName) {
     this._service.downloadContractFile(id).subscribe(
-      response =>{
-        saveAs(response,`HopDongDatCoc_Phong ${roomName}.docx`)
+      response => {
+        saveAs(response, `HopDongDatCoc_Phong ${roomName}.docx`)
       }
     );
   }
@@ -196,6 +208,30 @@ export class ContractsComponent implements OnInit {
       return "Không thời hạn";
     }
     return `${value} tháng`;
+  }
+
+  validate(){
+    if(this.addContract.roomId == null || this.addContract.name == '' || this.addContract.name == null){
+      this._toast.error("Vui lòng điền đầy đủ thông tin.");
+      return false;
+    }
+
+    if(this.addContract.customerId == null && this.addContract.type == contractType.rent){
+      this._toast.error("Người đại diện không được để trống.");
+      return false;
+    }
+
+    if((this.addContract.customerName == null || this.addContract.customerName == '') && this.addContract.type == contractType.deposited){
+      this._toast.error("Người đặt cọc không được trống.");
+      return false;
+    }
+
+    if(this.addContract.type == contractType.deposited && this.addContract.expiredDate == null){
+      this._toast.error("Hợp đồng đặt cọc cần có thời hạn.");
+      return false;
+    }
+
+    return true;
   }
 
 }

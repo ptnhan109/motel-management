@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/services/app.service';
-declare var bootbox:any;
+declare var bootbox: any;
 
 @Component({
   selector: 'app-boarding-house',
@@ -13,30 +13,30 @@ export class BoardingHouseComponent implements OnInit {
   provides = [];
   boardings = [];
   boardingInfo = {
-    name:"",
-    address :"",
-    description:"",
+    name: "",
+    address: "",
+    description: "",
     startDatePayment: 1,
     endDatePayment: 5,
-    months : 1,
+    months: 1,
     services: []
   };
   boardingUpdate = {
-    id :"",
-    name :"",
-    address :"",
-    description:"",
+    id: "",
+    name: "",
+    address: "",
+    description: "",
     months: 0,
     startDatePayment: 1,
     endDatePayment: 5,
-    services : []
+    services: []
   }
   selectedProvides = [];
   constructor(
-    private _service : AppService,
-    private _toast : ToastrService
+    private _service: AppService,
+    private _toast: ToastrService
   ) {
-   
+
   }
 
   ngOnInit(): void {
@@ -45,84 +45,89 @@ export class BoardingHouseComponent implements OnInit {
     this.getProvides();
   }
 
-  addBoardingHouse(){
+  addBoardingHouse() {
+    if(!this.validate()){
+      return false;
+    }
     this.boardingInfo.services = this.selectedProvides;
     this._service.addBoardingHouse(this.boardingInfo).subscribe(
-      response =>{
-        if(response.isSucceeded == true){
+      response => {
+        if (response.isSucceeded == true) {
           this.getBoardings();
           this._toast.success("Thêm mới khu trọ thành công");
         }
       }
     )
+
+    return true;
   }
 
-  getProvides(){
+  getProvides() {
     this._service.getProvides().subscribe(
-      response =>{
+      response => {
         this.provides = response.data;
       }
     )
   }
 
-  getBoardings(){
+  getBoardings() {
     this._service.getBoardings().subscribe(
-      response =>{
+      response => {
         this.boardings = response.data;
       }
     )
   }
 
-  getBoarding(id){
+  getBoarding(id) {
     this._service.getBoarding(id).subscribe(
-      response =>{
+      response => {
         this.boardingUpdate = response.data;
         console.log(this.boardingUpdate);
       }
     )
   }
 
-  setSelectProvide(id){
+  setSelectProvide(id) {
     let element = {
       serviceId: id,
       price: 0
     }
     let index = this.selectedProvides.findIndex(x => x.id == id);
     console.log(index);
-    if( index > -1){
-      this.selectedProvides.splice(index,1);
-    }else{
+    if (index > -1) {
+      this.selectedProvides.splice(index, 1);
+    } else {
       this.selectedProvides.push(element);
     }
   }
 
-  getPlaceHolder(type){
-    switch(type) { 
-      case 0: { 
-         return "Số tiền hàng tháng"
-      } 
-      case 1: { 
-         return "Đơn giá 1 số"
+  getPlaceHolder(type) {
+    switch (type) {
+      case 0: {
+        return "Số tiền hàng tháng"
       }
-      case 2: { 
+      case 1: {
+        return "Đơn giá 1 số"
+      }
+      case 2: {
         return "Đơn giá 1 khách thuê"
-     }  
-     case 3: { 
-      return "Đơn giá 1 số"
-   }
-      default: { 
-         //statements; 
-         break; 
-      } 
-   } 
+      }
+      case 3: {
+        return "Đơn giá 1 số"
+      }
+      default: {
+        //statements; 
+        break;
+      }
+    }
   }
 
-  removeBoarding(id){
-    bootbox.confirm("Bạn chắc chắn muốn khu trọ này?",(result : boolean) =>{
-      if(result){
+  removeBoarding(id) {
+    bootbox.confirm("Bạn chắc chắn muốn khu trọ này?", (result: boolean) => {
+      if (result) {
         this._service.deleteBoardingHouse(id).subscribe(
-          response =>{
-            if(response.isSucceeded == true){
+          response => {
+            if (response.isSucceeded == true) {
               this._toast.success("Đã khu trọ thành công");
               this.getBoardings();
             }
@@ -133,7 +138,18 @@ export class BoardingHouseComponent implements OnInit {
     })
   }
 
-  
+  validate() {
+    if (this.boardingInfo.name == undefined || this.boardingInfo.name == '' || this.boardingInfo.name == null
+      || this.boardingInfo.address == undefined || this.boardingInfo.address == '' || this.boardingInfo.address == null) {
+        this._toast.error("Vui lòng điền đầy đủ thông tin.")
+
+        return false;
+    }
+
+    return true;
+  }
+
+
 
 
 

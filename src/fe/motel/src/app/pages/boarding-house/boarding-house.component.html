@@ -13,7 +13,7 @@
                 data-toggle="modal" (click)="createHouse.show()"><i class="icon feather icon-printer"></i>
                 Excel</button>
               <button type="button" class="btn btn-primary float-right" data-toggle="modal"
-                (click)="createHouse.show()"><i class="icon feather icon-plus"></i> Thêm mới</button>
+                (click)="createHouse.show()"><i class="icon feather icon-plus-circle"></i> Thêm mới</button>
             </div>
           </div>
 
@@ -57,8 +57,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                   <a [routerLink]="[boarding.id]" class="dropdown-item" href="javascript:;" (click)="getBoarding(boarding.id)"><i
-                      class="icon feather icon-edit text-primary f-20"></i> Sửa khu trọ</a>
-                  <a href="javascript:;" class="dropdown-item"><i class="icon feather icon-external-link text-success f-20"></i> Xem chi tiết</a>
+                      class="icon feather icon-edit text-primary f-20"></i> Chỉnh sửa</a>
+                  <a [routerLink]="['/room',boarding.id]" href="javascript:;" class="dropdown-item"><i class="icon feather icon-external-link text-success f-20"></i> Danh sách phòng</a>
                 </div>
               </div>
 
@@ -92,11 +92,11 @@
     <div>
       <div class="form-row">
         <div class="form-group col-md-12">
-          <label for="name">Tên khu trọ</label>
+          <label for="name">Tên khu trọ <span class="text-danger">*</span></label>
           <input [(ngModel)]="boardingInfo.name" type="text" class="form-control" id="name" placeholder="Tên khu trọ">
         </div>
         <div class="form-group col-md-12">
-          <label for="address">Địa chỉ</label>
+          <label for="address">Địa chỉ <span class="text-danger">*</span></label>
           <input [(ngModel)]="boardingInfo.address" type="text" class="form-control" id="address"
             placeholder="Địa chỉ chi tiết">
         </div>
@@ -222,7 +222,7 @@
       </div>
       <hr>
       <button type="button" class="btn btn-default float-right" (click)="createHouse.hide()">Hủy bỏ</button>
-      <button type="button" class="btn btn-primary float-right" (click)="createHouse.hide();addBoardingHouse()">Thêm
+      <button type="button" class="btn btn-primary float-right" (click)="addBoardingHouse() ? createHouse.hide() : false;">Thêm
         mới</button>
     </div>
   </div>

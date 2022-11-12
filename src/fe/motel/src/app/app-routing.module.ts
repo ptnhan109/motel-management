@@ -48,7 +48,16 @@ const routes: Routes = [
         component: RoomsComponent
       },
       {
-        path:'add-room',
+        path: 'room/:boardingId',
+        component: RoomsComponent
+      }
+      ,
+      {
+        path:'room-single',
+        component: RoomSingleComponent
+      },
+      {
+        path:'room-single/:id',
         component: RoomSingleComponent
       },
       {

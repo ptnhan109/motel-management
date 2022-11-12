@@ -12,8 +12,8 @@
 
                             <button type="button" class="btn btn-success float-right l-4"><i
                                     class="icon feather icon-printer"></i> Excel</button>
-                            <a class="btn btn-primary float-right l-4" routerLink="/add-room"><i
-                                    class="icon feather icon-plus"></i> Thêm mới</a>
+                            <a class="btn btn-primary float-right l-4" routerLink="/room-single"><i
+                                    class="icon feather icon-plus-circle"></i> Thêm mới</a>
                             <button type="button" class="btn btn-secondary float-right" (click)="showSearch()">
                                 <i class="icon feather icon-search">
                                 </i>
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="form-row float-right">
-                        <button class="btn btn-default float-right" (click)="isSearch = false"><i
+                        <button class="btn btn-default float-right" (click)="closeSearch()"><i
                                 class="icon feather icon-x"></i>
                             Đóng</button>
                         <button class="btn btn-primary float-right l-4" (click)="getRooms(1)"><i
@@ -138,7 +138,7 @@
                                     <i class="icon feather icon-menu text-default f-20"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <a href="javascript:;" class="dropdown-item"><i
+                                    <a [routerLink]="['/room-single',room.id]" href="javascript:;" class="dropdown-item"><i
                                             class="icon feather icon-edit text-primary f-20"></i> Chỉnh sửa</a>
                                     <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
                                         class="dropdown-item" *ngIf="(room.status == 0)"><i
@@ -147,8 +147,11 @@
                                             class="icon feather icon-user-check text-danger f-20"></i> Xem hợp đồng</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
                                             class="icon feather icon-box text-info f-20"></i> Trả phòng</a>
-                                    <a href="javascript:;" routerLink="/customers?boarding={{room.boardingHouseId}}&room={{room.id}}"  *ngIf="(room.status == 1)" class="dropdown-item"><i
-                                            class="icon feather icon-download text-warning f-20"></i> Nhận phòng (Tạo hợp đồng)</a>
+                                    <a href="javascript:;"
+                                        routerLink="/customers?boarding={{room.boardingHouseId}}&room={{room.id}}"
+                                        *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                            class="icon feather icon-download text-warning f-20"></i> Nhận phòng (Tạo
+                                        hợp đồng)</a>
                                     <a (click)="setRoomName(room);getRoomDeposit();viewDeposit.show();"
                                         href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-alert-circle text-primary f-20"></i> Xem đặt
@@ -176,8 +179,8 @@
             <hr>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
-                    <li class="page-item" *ngFor="let page of pageNumber"><a class="page-link" href="javascript:;"
-                            (click)="getRooms(page)">{{ page }}</a></li>
+                    <li [ngClass]="page == filter.pageIndex ? 'page-item active' : 'page-item'" *ngFor="let page of pageNumber"><a class="page-link"
+                            href="javascript:;" (click)="getRooms(page)">{{ page }}</a></li>
                 </ul>
             </nav>
         </div>
@@ -251,7 +254,8 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="form-check">
-                        <input [(ngModel)]="deposit.isCreateContract" class="form-check-input" type="checkbox" id="gridCheck">
+                        <input [(ngModel)]="deposit.isCreateContract" class="form-check-input" type="checkbox"
+                            id="gridCheck">
                         <label class="form-check-label" for="gridCheck">Tạo hợp đồng đặt cọc</label>
                     </div>
                 </div>
