@@ -74,14 +74,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th class="text-center"></th>
+                        <th></th>
                         <th>Họ và tên</th>
                         <th>Số điện thoại</th>
                         <th>Khu trọ</th>
                         <th>Phòng trọ</th>
                         <th>Ảnh đại diện</th>
                         <th>Nghề nghiệp</th>
-                        <th></th>
                     </tr>
 
                 </thead>
@@ -89,23 +88,10 @@
                     <tr *ngFor="let customer of customers;index as index">
                         <td>{{index+1}}</td>
                         <td>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-
-                            </div>
-                        </td>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.phone }}</td>
-                        <td>{{ customer.boardingHouseName }}</td>
-                        <td>{{ customer.room }}</td>
-                        <td><img _ngcontent-vec-c106="" src="{{ getAvatar(customer.avatarPath) }}"
-                                alt="User-Profile-Image" class="img-radius wid-40 ng-tns-c106-4"></td>
-                        <td>{{ getCareer(customer.career) }}</td>
-                        <td>
                             <div class="dropdown">
                                 <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
                                     aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon feather icon-more-vertical text-default f-20"></i>
+                                    <i class="icon feather icon-menu text-default f-20"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                     <button class="dropdown-item" type="button"><i
@@ -117,6 +103,14 @@
                             </div>
 
                         </td>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.phone }}</td>
+                        <td>{{ customer.boardingHouseName }}</td>
+                        <td>{{ customer.room }}</td>
+                        <td><img _ngcontent-vec-c106="" src="{{ getAvatar(customer.avatarPath) }}"
+                                alt="User-Profile-Image" class="img-radius wid-40 ng-tns-c106-4"></td>
+                        <td>{{ getCareer(customer.career) }}</td>
+                        
                     </tr>
                 </tbody>
             </table>

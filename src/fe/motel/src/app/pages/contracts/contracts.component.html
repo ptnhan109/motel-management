@@ -75,19 +75,35 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th></th>
                         <th>Tên hợp đồng</th>
                         <th>Trạng thái</th>
                         <th>Ngày hết hạn</th>
                         <th>Người đại diện</th>
                         <th>Loại hợp đồng</th>
                         <th>Tiền đặt cọc</th>
-                        <th></th>
                     </tr>
 
                 </thead>
                 <tbody>
                     <tr *ngFor="let contract of contracts; index as index;">
                         <td>{{ index + 1 }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon feather icon-menu text-default f-20"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-edit text-primary f-20"></i> Sửa hợp đồng</button>
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-trash text-danger f-20"></i> Xóa hợp đồng</button>
+                                    <button (click)="downloadContractFile(contract.id,contract.name)" class="dropdown-item" type="button"><i
+                                            class="icon feather icon-download text-primary f-20"></i> Tải hợp đồng</button>
+                                </div>
+                            </div>
+                        </td>
                         <td>{{ contract.name }}</td>
                         <td>
                             <span *ngIf="contract.status == 0" class="badge badge-success">Còn hạn</span>
@@ -102,22 +118,7 @@
                             <span *ngIf="contract.type == 1" class="badge badge-info">Hợp đồng thuê phòng</span>
                         </td>
                         <td>{{ formatCurrency(contract.depositedAmount) }}</td>
-                        <td>
-                            <div class="dropdown">
-                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    <i class="icon feather icon-more-vertical text-default f-20"></i>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <button class="dropdown-item" type="button"><i
-                                            class="icon feather icon-edit text-primary f-20"></i> Sửa hợp đồng</button>
-                                    <button class="dropdown-item" type="button"><i
-                                            class="icon feather icon-trash text-danger f-20"></i> Xóa hợp đồng</button>
-                                    <button class="dropdown-item" type="button"><i
-                                            class="icon feather icon-download text-primary f-20"></i> Tải hợp đồng</button>
-                                </div>
-                            </div>
-                        </td>
+                        
                     </tr>
                 </tbody>
             </table>

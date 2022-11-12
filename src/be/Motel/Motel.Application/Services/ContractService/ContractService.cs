@@ -74,6 +74,7 @@ namespace Motel.Application.Services.ContractService
                 
             }
             var bytes = File.ReadAllBytes(newPath);
+            File.Delete(newPath);
             return bytes;
         }
 

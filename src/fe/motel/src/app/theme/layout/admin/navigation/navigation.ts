@@ -73,7 +73,7 @@ const NavigationItems = [
         id: 'boarding',
         title: 'Khu trọ',
         type: 'collapse',
-        icon: 'feather icon-aperture',
+        icon: 'feather icon-server',
         children: [
           {
             id: 'boardings',
@@ -129,14 +129,6 @@ const NavigationItems = [
         type: 'item',
         url: '/contract',
         icon: 'feather icon-users',
-        breadcrumbs: false
-      },
-      {
-        id: 'invoice',
-        title: 'Tiện ích',
-        type: 'item',
-        url: '/contract',
-        icon: 'feather icon-layers',
         breadcrumbs: false
       },
       {

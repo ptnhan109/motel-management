@@ -24,11 +24,18 @@ export class AppService {
   };
   formDataOption = {
     headers: new HttpHeaders({
-      // 'Content-Type': 'multipart/form-data',
       'Authorization': getToken(),
       'Accept': '*/*'
     })
   };
+
+  fileDownloadOption = {
+    headers: new HttpHeaders({
+      'Authorization' : getToken(),
+      'Accept':'*/*'
+    }),
+    responseType: 'blob' as 'json'
+  }
 
   queryParam(param){
     return {
@@ -144,5 +151,9 @@ export class AppService {
   getContracts(filter):Observable<AppResponse<any>>{
     var options = this.queryParam(filter);
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/contract/paging`,options);
+  }
+
+  downloadContractFile(id):Observable<any>{
+    return this.http.get<any>(`${environment.apiServer}/api/contract/${id}/export`,this.fileDownloadOption);
   }
 }

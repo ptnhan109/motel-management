@@ -29,7 +29,7 @@ namespace Motel.Api.Controllers
         [HttpPost]
         public async Task<Response> CreateContract([FromBody] ContractDto request) => await _service.AddAsync(request);
 
-        [HttpPost("{id}/export")]
+        [HttpGet("{id}/export")]
         public async Task<IActionResult> ExportContract(Guid id)
         {
             var name = $"HopDongThueTro_{DateTime.Now.ToString("yyyyMMddhhss")}.docx";

@@ -5,6 +5,7 @@ import { FormatCurrency, RemoveNullable, SetPropertyToNull, toDateFormat } from 
 import { contractType, roomStatus } from 'src/app/contants/roomStatus';
 import { AppService } from 'src/app/services/app.service';
 import { ToastService } from 'src/app/theme/shared/components/toast/toast.service';
+import { saveAs } from 'file-saver'
 
 @Component({
   selector: 'app-contracts',
@@ -13,16 +14,16 @@ import { ToastService } from 'src/app/theme/shared/components/toast/toast.servic
 })
 export class ContractsComponent implements OnInit {
   filter = {
-    boardingHouseId : null,
-    roomId : null
+    boardingHouseId: null,
+    roomId: null
   }
 
   listFilter = {
     status: null,
-    type : null,
+    type: null,
     keyword: null,
-    pageIndex : 1,
-    pageSize : 10
+    pageIndex: 1,
+    pageSize: 10
   }
 
   paging = null;
@@ -32,17 +33,17 @@ export class ContractsComponent implements OnInit {
   isEnableType = false;
 
   addContract = {
-    name : null,
-    customerId : null,
-    customerName :null,
-    customerPhone : null,
-    roomId : null,
-    createdDate : null,
-    expiredDate : null,
-    depositedAmount : null,
-    type : 1,
+    name: null,
+    customerId: null,
+    customerName: null,
+    customerPhone: null,
+    roomId: null,
+    createdDate: null,
+    expiredDate: null,
+    depositedAmount: null,
+    type: 1,
     contractDuration: null,
-    terms : []
+    terms: []
   }
 
   boardingId = null;
@@ -53,8 +54,8 @@ export class ContractsComponent implements OnInit {
   terms = [];
 
   constructor(
-    private _service : AppService,
-    private _toast : ToastrService
+    private _service: AppService,
+    private _toast: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -65,24 +66,24 @@ export class ContractsComponent implements OnInit {
     this.getCustomers();
   }
 
-  addTerms(){
+  addTerms() {
     this.terms.push({
       type: 0,
-      content:""
+      content: ""
     });
   }
 
-  removeTerms(index){
-    this.terms.splice(index,1);
+  removeTerms(index) {
+    this.terms.splice(index, 1);
   }
 
-  saveContract(){
+  saveContract() {
     this.addContract.terms = this.terms;
     this.addContract.roomId = this.filter.roomId;
     let request = RemoveNullable(this.addContract);
     this._service.addContract(request).subscribe(
       response => {
-        if(response.isSucceeded){
+        if (response.isSucceeded) {
           this._toast.success("Thêm mới hợp đồng thành công.");
           SetPropertyToNull(this.addContract);
           this.addContract.type = 1;
@@ -108,14 +109,14 @@ export class ContractsComponent implements OnInit {
     )
   }
 
-  getCustomers(){
+  getCustomers() {
     let room = this.rooms.filter(x => x.id == this.filter.roomId)[0];
-    if(room != null){
-      if(room.status != roomStatus.hired){
+    if (room != null) {
+      if (room.status != roomStatus.hired) {
         this._toast.info("Phòng chưa có khách thuê, chỉ cho phép tạo hợp đồng đặt cọc.");
         this.addContract.type = contractType.deposited;
         this.isEnableType = false;
-      }else{
+      } else {
         this.isEnableType = true;
       }
     }
@@ -125,7 +126,7 @@ export class ContractsComponent implements OnInit {
     )
   }
 
-  getContracts(page){
+  getContracts(page) {
     this.listFilter.pageIndex = page;
     var request = RemoveNullable(this.listFilter);
     this._service.getContracts(request).subscribe(
@@ -140,9 +141,9 @@ export class ContractsComponent implements OnInit {
     )
   }
 
-  setContractName(){
+  setContractName() {
 
-    if(this.filter.roomId != null){
+    if (this.filter.roomId != null) {
       let room = this.rooms.filter(x => x.id == this.filter.roomId)[0];
       let name = room.name;
       let title = this.addContract.type == 0 ? "Hợp đồng đặt cọc phòng " : "Hợp đồng thuê phòng";
@@ -153,16 +154,24 @@ export class ContractsComponent implements OnInit {
     }
   }
 
-  setCustomerName(){
-    if(this.addContract.customerId != null){
+  setCustomerName() {
+    if (this.addContract.customerId != null) {
       let customer = this.customers.filter(x => x.id == this.addContract.customerId)[0];
       this.addContract.customerName = customer.name;
       this.addContract.customerPhone = customer.phone;
     }
   }
 
-  getRoomStatus(status){
-    switch(status){
+  downloadContractFile(id,roomName) {
+    this._service.downloadContractFile(id).subscribe(
+      response =>{
+        saveAs(response,`HopDongDatCoc_Phong ${roomName}.docx`)
+      }
+    );
+  }
+
+  getRoomStatus(status) {
+    switch (status) {
       case roomStatus.available:
         return "Phòng trống";
       case roomStatus.deposited:
@@ -174,16 +183,16 @@ export class ContractsComponent implements OnInit {
     }
   }
 
-  formatExpiredDate(date){
+  formatExpiredDate(date) {
     return toDateFormat(date);
   }
 
-  formatCurrency(value){
+  formatCurrency(value) {
     return FormatCurrency(value);
   }
 
-  formatDuration(value){
-    if(value == null){
+  formatDuration(value) {
+    if (value == null) {
       return "Không thời hạn";
     }
     return `${value} tháng`;
