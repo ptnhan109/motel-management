@@ -41,10 +41,10 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
-        id: 'dashboard',
+        id: 'report',
         title: 'Báo cáo',
         type: 'item',
-        url: '/dashboard',
+        url: '/report',
         icon: 'feather icon-inbox',
         breadcrumbs: false
       },

@@ -2,6 +2,8 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {GradientConfig} from '../../../../../app-config';
+import { LOCALSTORAGE } from 'src/app/contants/Storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-right',
@@ -35,7 +37,9 @@ export class NavRightComponent implements OnInit, DoCheck {
   public friendId: boolean;
   public gradientConfig: any;
 
-  constructor() {
+  constructor(
+    private _router: Router
+  ) {
     this.visibleUserList = false;
     this.chatMessage = false;
     this.gradientConfig = GradientConfig.config;
@@ -55,4 +59,10 @@ export class NavRightComponent implements OnInit, DoCheck {
       this.gradientConfig['rtl-layout'] = false;
     }
   }
+  logOut(){
+    localStorage.removeItem(LOCALSTORAGE.TOKEN);
+    this._router.navigateByUrl('/auth')
+  }
+
+
 }

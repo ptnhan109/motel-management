@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LOCALSTORAGE } from 'src/app/contants/Storage';
 import { AppService } from 'src/app/services/app.service';
 import { ToastService } from 'src/app/theme/shared/components/toast/toast.service';
 
@@ -29,7 +30,7 @@ export class AuthenticateComponent implements OnInit {
     this.appService.authenticate(this.user).subscribe(result =>{
       if(result.isSucceeded == true){
         let token = `Bearer ${result.data.token}`;
-        localStorage.setItem("imoma.token",token);
+        localStorage.setItem(LOCALSTORAGE.TOKEN,token);
         this.toast.success("Đăng nhập thành công.");
         window.location.href='/dashboard';
 
