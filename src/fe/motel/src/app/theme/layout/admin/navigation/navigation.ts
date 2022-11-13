@@ -132,6 +132,14 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
+        id: 'aftereffect',
+        title: 'Phản ánh',
+        type: 'item',
+        url: '/contract',
+        icon: 'feather icon-layers',
+        breadcrumbs: false
+      },
+      {
         id: 'invoice',
         title: 'Hệ thống',
         type: 'item',

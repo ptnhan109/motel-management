@@ -17,9 +17,9 @@ import { NavBarComponent } from './theme/layout/admin/nav-bar/nav-bar.component'
 import { NavLeftComponent } from './theme/layout/admin/nav-bar/nav-left/nav-left.component';
 import { NavSearchComponent } from './theme/layout/admin/nav-bar/nav-left/nav-search/nav-search.component';
 import { NavRightComponent } from './theme/layout/admin/nav-bar/nav-right/nav-right.component';
-import {ChatUserListComponent} from './theme/layout/admin/nav-bar/nav-right/chat-user-list/chat-user-list.component';
-import {FriendComponent} from './theme/layout/admin/nav-bar/nav-right/chat-user-list/friend/friend.component';
-import {ChatMsgComponent} from './theme/layout/admin/nav-bar/nav-right/chat-msg/chat-msg.component';
+import { ChatUserListComponent } from './theme/layout/admin/nav-bar/nav-right/chat-user-list/chat-user-list.component';
+import { FriendComponent } from './theme/layout/admin/nav-bar/nav-right/chat-user-list/friend/friend.component';
+import { ChatMsgComponent } from './theme/layout/admin/nav-bar/nav-right/chat-msg/chat-msg.component';
 import { ConfigurationComponent } from './theme/layout/admin/configuration/configuration.component';
 
 import { ToggleFullScreenDirective } from './theme/shared/full-screen/toggle-full-screen';
@@ -29,7 +29,7 @@ import { NavigationItem } from './theme/layout/admin/navigation/navigation';
 import { NgbButtonsModule, NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthenticateComponent } from './pages/authenticate/authenticate.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { BoardingHouseComponent } from './pages/boarding-house/boarding-house.component';
 import { FitmentComponent } from './pages/fitment/fitment.component';
@@ -39,6 +39,8 @@ import { RoomsComponent } from './pages/rooms/rooms.component';
 import { RoomSingleComponent } from './pages/room-single/room-single.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
+import { AuthInterceptor } from './services/auth-interceptor.service';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { ContractsComponent } from './pages/contracts/contracts.component';
     RoomsComponent,
     RoomSingleComponent,
     CustomersComponent,
-    ContractsComponent
+    ContractsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +89,9 @@ import { ContractsComponent } from './pages/contracts/contracts.component';
       preventDuplicates: true,
     })
   ],
-  providers: [NavigationItem],
+  providers: [NavigationItem,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,11 +1,13 @@
-export function getToken(){
-    let token = localStorage.getItem("imoma.token");
-    if(token == null){
+import { LOCALSTORAGE } from "../contants/Storage";
+
+export function getToken() {
+    let token = localStorage.getItem(LOCALSTORAGE.TOKEN);
+    if (token == null) {
         return '';
     }
-    return localStorage.getItem("imoma.token");
+    return localStorage.getItem(LOCALSTORAGE.TOKEN);
 }
 
-export function setToken(token){
-    localStorage.setItem("imoma.token",token);
+export function setToken(token) {
+    localStorage.setItem(LOCALSTORAGE.TOKEN, token);
 }

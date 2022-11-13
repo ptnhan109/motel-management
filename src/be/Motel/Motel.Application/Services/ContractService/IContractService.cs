@@ -13,5 +13,7 @@ namespace Motel.Application.Services.ContractService
         Task<Response> GetContractPaging(ContractFilter filter);
 
         Task<byte[]> CreateContractFile(Guid id);
+
+        Task<Response> DeleteAsync(Guid id);
     }
 }

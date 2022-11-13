@@ -40,5 +40,8 @@ namespace Motel.Api.Controllers
                 fileDownloadName: name
                 );
         }
+
+        [HttpDelete("{id}")]
+        public async Task<Response> DeleteContract(Guid id) => await _service.DeleteAsync(id);
     } 
 }

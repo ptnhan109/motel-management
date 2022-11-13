@@ -156,4 +156,8 @@ export class AppService {
   downloadContractFile(id):Observable<any>{
     return this.http.get<any>(`${environment.apiServer}/api/contract/${id}/export`,this.fileDownloadOption);
   }
+
+  deleteContract(id):Observable<AppResponse<any>>{
+    return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/contract/${id}`,this.options)
+  }
 }

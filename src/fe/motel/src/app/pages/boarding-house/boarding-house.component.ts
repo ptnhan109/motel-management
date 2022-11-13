@@ -123,7 +123,7 @@ export class BoardingHouseComponent implements OnInit {
   }
 
   removeBoarding(id) {
-    bootbox.confirm("Bạn chắc chắn muốn khu trọ này?", (result: boolean) => {
+    bootbox.confirm("Bạn chắc chắn muốn xóa khu trọ này, dữ liệu sau khi xóa sẽ không thể khôi phục?", (result: boolean) => {
       if (result) {
         this._service.deleteBoardingHouse(id).subscribe(
           response => {

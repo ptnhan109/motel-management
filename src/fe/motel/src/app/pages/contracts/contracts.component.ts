@@ -6,7 +6,7 @@ import { contractType, roomStatus } from 'src/app/contants/roomStatus';
 import { AppService } from 'src/app/services/app.service';
 import { ToastService } from 'src/app/theme/shared/components/toast/toast.service';
 import { saveAs } from 'file-saver'
-
+declare var bootbox: any;
 @Component({
   selector: 'app-contracts',
   templateUrl: './contracts.component.html',
@@ -151,6 +151,22 @@ export class ContractsComponent implements OnInit {
         }
       }
     )
+  }
+
+  removeContract(id){
+    bootbox.confirm("Bạn chắc chắn muốn hợp đồng này?", (result: boolean) => {
+      if (result) {
+        this._service.deleteContract(id).subscribe(
+          response => {
+            if (response.isSucceeded == true) {
+              this._toast.success("Đã hợp đồng thành công");
+              this.getContracts(1);
+            }
+          },
+          error => console.log(error)
+        )
+      }
+    })
   }
 
   setContractName() {

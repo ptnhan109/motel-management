@@ -122,5 +122,13 @@ namespace Motel.Application.Services.ContractService
 
             return model;
         }
+
+        public async Task<Response> DeleteAsync(Guid id)
+        {
+            await _repository.DeleteRangeAsync<ContractTerm>(c => c.AppContractId.Equals(id));
+            await _repository.DeleteAsync<AppContract>(id);
+
+            return Ok();
+        }
     }
 }
