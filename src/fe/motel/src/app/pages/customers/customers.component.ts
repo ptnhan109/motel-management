@@ -136,15 +136,33 @@ export class CustomersComponent implements OnInit {
     );
   }
   saveCustomer() {
+    if(!this.validateAddCustomer()){
+      return false;
+    }
     this.addCustomerRequest.roomId = this.filter.roomId;
     this.addCustomerRequest.vehicles = this.addVehicles;
     this._service.addCustomer(this.addCustomerRequest).subscribe(
       response => {
         if (response.isSucceeded) {
-          this._toast.success("Thêm mới khách thuê thành công.")
+          this._toast.success("Thêm mới khách thuê thành công.");
+          this.getCustomer(1);
+          return true;
         }
       }
     )
+  }
+
+  validateAddCustomer(){
+    if(this.addCustomerRequest.name == undefined || this.addCustomerRequest.name == null || this.addCustomerRequest.name == ''
+    || this.addCustomerRequest.roomId == null
+    || this.addCustomerRequest.phone == null || this.addCustomerRequest.phone == ''
+    || this.addCustomerRequest.identificationCitizen == null || this.addCustomerRequest.identificationCitizen == ''
+    ){
+      this._toast.error("Vui lòng điền đẩy đủ thông tin cần thiết.");
+      return false;
+      
+    }
+    return true;
   }
 
 }

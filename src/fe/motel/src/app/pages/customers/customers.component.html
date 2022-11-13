@@ -145,7 +145,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="address">Phòng trọ</label>
+                    <label for="address">Phòng trọ <span class="text-danger">*</span></label>
                     <select [(ngModel)]="filter.roomId" class="form-control">
                         <option [ngValue]="null">Tất cả</option>
                         <option *ngFor="let room of rooms" [ngValue]="room.id">
@@ -154,7 +154,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-8">
-                    <label for="address">Họ tên</label>
+                    <label for="address">Họ tên <span class="text-danger">*</span></label>
                     <input [(ngModel)]="addCustomerRequest.name" class="form-control"
                         placeholder="Họ và tên khách thuê">
                 </div>
@@ -173,7 +173,7 @@
                     </div>
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="address">Số điện thoại</label>
+                    <label for="address">Số điện thoại <span class="text-danger">*</span></label>
                     <input [(ngModel)]="addCustomerRequest.phone" type="text" class="form-control"
                         placeholder="Số điện thoại khách thuê">
                 </div>
@@ -194,7 +194,7 @@
                     <input [(ngModel)]="addCustomerRequest.birthDay" type="date" class="form-control">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="address">Số căn cước</label>
+                    <label for="address">Số căn cước <span class="text-danger">*</span></label>
                     <input [(ngModel)]="addCustomerRequest.identificationCitizen" type="text" class="form-control"
                         placeholder="Số căn cước">
                 </div>
@@ -252,7 +252,7 @@
             </div>
             <button type="button" class="btn btn-default float-right" (click)="createCustomer.hide()">Hủy bỏ</button>
             <button type="button" class="btn btn-primary float-right"
-                (click)="createCustomer.hide();saveCustomer();getCustomer(1);">Thêm mới</button>
+                (click)="saveCustomer() ? createCustomer.hide() : false">Thêm mới</button>
         </div>
     </div>
 </app-ui-modal>
