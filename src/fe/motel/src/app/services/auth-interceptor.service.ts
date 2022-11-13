@@ -1,6 +1,7 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { getToken } from '../common/message';
@@ -9,7 +10,8 @@ import { getToken } from '../common/message';
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private _toast : ToastrService
   ) {
 
   }
@@ -19,7 +21,13 @@ export class AuthInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
 
           if (err.status === 401 || err.status === 403) {
+              this._toast.warning("Phiên đăng nhập đã hết hạn.");
               this.redirectToLoginPage();
+          }
+
+          if(err.status === 500){
+            this._toast.error("Lỗi hệ thống");
+            this.redirectToLoginPage();
           }
           return throwError(err);
         }

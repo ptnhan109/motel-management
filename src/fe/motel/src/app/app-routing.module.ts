@@ -13,6 +13,7 @@ import { RoomSingleComponent } from './pages/room-single/room-single.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { AddContractComponent } from './pages/add-contract/add-contract.component';
 
 const routes: Routes = [
   {
@@ -54,20 +55,24 @@ const routes: Routes = [
       }
       ,
       {
-        path:'room-single',
+        path: 'room-single',
         component: RoomSingleComponent
       },
       {
-        path:'room-single/:id',
+        path: 'room-single/:id',
         component: RoomSingleComponent
       },
       {
-        path:'customers',
+        path: 'customers',
         component: CustomersComponent
       },
       {
         path: 'contracts',
         component: ContractsComponent
+      },
+      {
+        path: 'add-contract-customer',
+        component: AddContractComponent
       }
     ]
   },

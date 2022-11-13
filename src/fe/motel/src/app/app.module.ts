@@ -41,6 +41,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 import { RegisterComponent } from './pages/register/register.component';
+import { AddContractComponent } from './pages/add-contract/add-contract.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { RegisterComponent } from './pages/register/register.component';
     RoomSingleComponent,
     CustomersComponent,
     ContractsComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddContractComponent
   ],
   imports: [
     BrowserModule,
