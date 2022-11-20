@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormatCurrency, RemoveNullable } from 'src/app/common/stringFormat';
+import { FormatCurrency, RemoveNullable, SetPropertyToNull } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
 declare var bootbox: any;
 
@@ -33,41 +34,60 @@ export class RoomsComponent implements OnInit {
   }
 
   deposit = {
-    roomId: null,
-    dateStart: null,
-    dateEnd: null,
-    despositedValue: null,
-    note: null,
     name: null,
-    phone: null,
-    address: null,
-    identityNumber: null,
-    isCreateContract:null
+    customerName: null,
+    customerPhone: null,
+    roomId: null,
+    createdDate: null,
+    expiredDate: null,
+    type: 0,
+    status: 0,
+    depositedAmount: 0
   }
 
   roomSelected = {
     name: null,
-    id: null
+    id: null,
+    display: null
   };
 
   constructor(
     private _service: AppService,
     private _toast: ToastrService,
+    private _route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getRooms(1);
-    this.getMotels();
+
+    this.Init();
+  }
+
+  Init() {
+    this._route.paramMap.subscribe(
+      parms => {
+        this.getMotels();
+        this.filter.boardingHouseId = parms.get('boardingId');
+        this.getRooms(1);
+      }
+    )
+
   }
 
   showSearch() {
     if (this.isSearch) {
       this.isSearch = false;
+
     } else {
       this.isSearch = true;
     }
   }
 
+  closeSearch() {
+    this.isSearch = false;
+    SetPropertyToNull(this.filter);
+    this.filter.pageIndex = 1;
+    this.filter.pageSize = 15;
+  }
   getMotels() {
     this._service.getBoardings().subscribe(
       response => this.boardings = response.data
@@ -98,7 +118,6 @@ export class RoomsComponent implements OnInit {
       response => {
         this.paging = response.data;
         this.rooms = response.data.items;
-        console.log(this.rooms);
         for (let i = 1; i <= this.paging.totalPage; i++) {
           this.pageNumber.push(i);
         }
@@ -123,16 +142,24 @@ export class RoomsComponent implements OnInit {
   }
 
   saveDeposit() {
-    this.deposit.roomId = this.roomSelected.id;
-    console.log(this.deposit);
-    this._service.addDeposit(this.deposit).subscribe(
-      response => {
-        if (response.isSucceeded) {
-          this.getRooms(1);
-          this._toast.success("Đã đặt cọc phòng.");
+    if (this.validateDeposit()) {
+      console.log(this.deposit);
+      let request = RemoveNullable(this.deposit);
+      this._service.addContract(request).subscribe(
+        response => {
+          if (response.isSucceeded) {
+            this._toast.success("Phòng đã được đặt cọc thành công.");
+            SetPropertyToNull(this.deposit);
+          }
+        },
+        error => {
+          this._toast.error("Đã xảy ra lỗi.");
         }
-      }
-    )
+      )
+      return true;
+    }
+
+    return false;
   }
 
   deleteRoomDeposit() {
@@ -148,15 +175,15 @@ export class RoomsComponent implements OnInit {
   }
 
   getRoomDeposit() {
-    let id = this.roomSelected.id;
-    this._service.getRoomDeposit(id).subscribe(
-      response => {
-        this.deposit = response.data;
-        this.deposit.dateStart = this.pipe.transform(response.data.dateStart,'yyyy-MM-dd');
-        this.deposit.dateEnd = this.pipe.transform(response.data.dateEnd,'yyyy-MM-dd');
-        console.log(this.deposit);
-      }
-    )
+    // let id = this.roomSelected.id;
+    // this._service.getRoomDeposit(id).subscribe(
+    //   response => {
+    //     this.deposit = response.data;
+    //     this.deposit.dateStart = this.pipe.transform(response.data.dateStart, 'yyyy-MM-dd');
+    //     this.deposit.dateEnd = this.pipe.transform(response.data.dateEnd, 'yyyy-MM-dd');
+    //     console.log(this.deposit);
+    //   }
+    // )
   }
 
   formatCurrency(input) {
@@ -192,6 +219,25 @@ export class RoomsComponent implements OnInit {
   setRoomName(room) {
     this.roomSelected.name = room.name;
     this.roomSelected.id = room.id;
+    if (room.description !== null && room.description !== '') {
+      this.roomSelected.display = `${room.name} - ${room.description}`;
+    } else {
+      this.roomSelected.display = room.name;
+    }
+    this.deposit.name = `Hợp đồng đặt cọc phòng ${room.name}`;
+    this.deposit.roomId = room.id;
+  }
+
+  validateDeposit() {
+    if (this.deposit.name == '' || this.deposit.name == undefined || this.deposit.name == null
+      || this.deposit.customerName == '' || this.deposit.customerName == undefined || this.deposit.customerName == null
+      || this.deposit.createdDate == null
+      || this.deposit.depositedAmount == null || this.deposit.depositedAmount == undefined
+    ) {
+      this._toast.error("Vui lòng điền đẩy đủ thông tin.");
+      return false;
+    }
+    return true;
   }
 
 }

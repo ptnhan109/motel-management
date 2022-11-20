@@ -9,6 +9,7 @@ using Motel.Application.Services.RoomService;
 using Motel.Application.Services.ServiceService;
 using Motel.Application.Services.UserService;
 using Motel.Core;
+using Motel.Core.Repositories.RoomRepository;
 using mps.Core.Auth;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,8 @@ namespace Motel.Application
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IContractService, ContractService>();
+
+            services.AddScoped<IRoomRepository, RoomRepository>();
         }
         public static void EnableCors(this IServiceCollection services)
         {

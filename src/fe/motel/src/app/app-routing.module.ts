@@ -12,6 +12,9 @@ import { RoomsComponent } from './pages/rooms/rooms.component';
 import { RoomSingleComponent } from './pages/room-single/room-single.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { ContractsComponent } from './pages/contracts/contracts.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { AddContractComponent } from './pages/add-contract/add-contract.component';
+import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
 
 const routes: Routes = [
   {
@@ -48,17 +51,35 @@ const routes: Routes = [
         component: RoomsComponent
       },
       {
-        path:'add-room',
+        path: 'room/:boardingId',
+        component: RoomsComponent
+      }
+      ,
+      {
+        path: 'room-single',
         component: RoomSingleComponent
       },
       {
-        path:'customers',
+        path: 'room-single/:id',
+        component: RoomSingleComponent
+      },
+      {
+        path: 'customers',
         component: CustomersComponent
       },
       {
         path: 'contracts',
         component: ContractsComponent
+      },
+      {
+        path: 'add-contract-customer',
+        component: AddContractComponent
+      },
+      {
+        path: 'add-contract-customer/:roomId',
+        component: AddContractComponent
       }
+
     ]
   },
   {
@@ -68,6 +89,14 @@ const routes: Routes = [
       {
         path: 'auth',
         component: AuthenticateComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'bad-request',
+        component: BadrequestComponent
       }
     ]
   }

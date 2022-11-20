@@ -1,0 +1,252 @@
+<div class="page-header ng-star-inserted">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h5 class="m-b-10 ng-star-inserted">Tạo hợp đồng thuê phòng</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" href="/dashboard"
+                            class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                            routerLink="/boarding-house">Hợp đồng</a>
+                    </li>
+                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                            href="/boarding-house">Tạo hợp đồng và khách thuê</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div *ngIf="step == 'SelectRoom'" class="col-sm-12">
+        <app-card [options]="false" cardTitle="Chọn phòng cần tạo hợp đồng">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Khu trọ</label>
+                    <select [(ngModel)]="filter.boardingHouseId" (change)="getRooms()" class="form-control" disabled>
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="filter.roomId" class="form-control" disabled>
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.id">{{ room.name }}</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="form-group col-md-12">
+                    <button (click)="changeStep('AddCustomer')" type="button" class="btn btn-primary float-right">Tiếp
+                        theo <i class="icon feather icon-skip-forward"></i></button>
+                </div>
+            </div>
+        </app-card>
+    </div>
+    <div *ngIf="step == 'AddCustomer'" class="col-sm-12">
+        <app-card cardTitle="Khách thuê" [options]="false">
+            <div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-8">
+                        <label for="address">Họ tên <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="addCustomerRequest.name" class="form-control"
+                            placeholder="Họ và tên khách thuê">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Giới tính</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
+                                value="option1">
+                            <label class="form-check-label" for="inlineRadio1">Nam</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
+                                value="option2">
+                            <label class="form-check-label" for="inlineRadio2">Nữ</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Số điện thoại <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="addCustomerRequest.phone" type="text" class="form-control"
+                            placeholder="Số điện thoại khách thuê">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Email</label>
+                        <input [(ngModel)]="addCustomerRequest.email" type="text" class="form-control"
+                            placeholder="Email khách thuê">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Nghề nghiệp</label>
+                        <select [(ngModel)]="addCustomerRequest.career" class="form-control">
+                            <option [ngValue]="0">Sinh viên</option>
+                            <option [ngValue]="1">Người đi làm</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Ngày sinh</label>
+                        <input [(ngModel)]="addCustomerRequest.birthDay" type="date" class="form-control">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Số căn cước <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="addCustomerRequest.identificationCitizen" type="text" class="form-control"
+                            placeholder="Số căn cước">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Nơi cấp</label>
+                        <input [(ngModel)]="addCustomerRequest.idFactory" type="text" class="form-control"
+                            placeholder="Nơi cấp">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="address">Địa chỉ thường trú</label>
+                        <input [(ngModel)]="addCustomerRequest.address" type="text" class="form-control"
+                            placeholder="Địa chỉ thường trú">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="address">Ảnh chân dung</label>
+                        <input (change)="uploadAvatarIdentity($event.target.files)" type="file" class="form-control"
+                            placeholder="Nơi cấp">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="address">Ảnh mặt trước</label>
+                        <input (change)="uploadFontIdentity($event.target.files)" type="file" class="form-control"
+                            placeholder="Nơi cấp">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="address">Ảnh mặt sau</label>
+                        <input (change)="uploadBackIdentity($event.target.files)" type="file" class="form-control"
+                            placeholder="Nơi cấp">
+                    </div>
+                </div>
+                <h6>Thông tin gửi xe <button *ngIf="addCustomerRequest.vehicles.length == 0" (click)="addVehicleElements()" type="button"
+                    class="btn btn-success btn-sm l-4">Thêm xe</button></h6>
+                <hr>
+                <div class="form-row" *ngFor="let vehicle of addCustomerRequest.vehicles; let index=index">
+                    <div class="form-group col-md-4">
+                        <select [(ngModel)]="addCustomerRequest.vehicles[index].type" class="form-control">
+                            <option [ngValue]="0">Xe đạp</option>
+                            <option [ngValue]="1">Xe máy</option>
+                            <option [ngValue]="2">Ô tô</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input [(ngModel)]="addCustomerRequest.vehicles[index].licensePlate" type="text" class="form-control" placeholder="Biển kiểm soát">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <input [(ngModel)]="addCustomerRequest.vehicles[index].color" type="text" class="form-control" placeholder="Màu xe">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button (click)="addVehicleElements()" type="button"
+                            class="btn btn-success btn-sm float-right l-4"><i
+                                class="icon feather icon-plus"></i></button>
+                        <button (click)="removeVehicles(index)" type="button"
+                            class="btn btn-danger btn-sm float-right l-4"><i
+                                class="icon feather icon-minus"></i></button>
+                    </div>
+                </div>
+                <button (click)="changeStep('AddContract')" type="button" class="btn btn-primary float-right l-4">Tiếp
+                    theo <i class="icon feather icon-skip-forward"></i></button>
+                <button (click)="changeStep('SelectRoom')" type="button" style="margin-left: 4px;"
+                    class="btn btn-default float-right l-4"><i class="icon feather icon-skip-back"></i> Quay
+                    lại</button>
+            </div>
+        </app-card>
+    </div>
+    <div *ngIf="step == 'AddContract'" class="col-sm-12">
+        <app-card cardTitle="Tạo hợp đồng" [options]="false">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Khu trọ</label>
+                    <select [(ngModel)]="filter.boardingHouseId" (change)="getRooms()" class="form-control" disabled>
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="filter.roomId" class="form-control" disabled>
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.id">{{ room.name }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="address">Tên hợp đồng <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.name" type="text" class="form-control" placeholder="Tên hợp đồng">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Thời hạn hợp đồng <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="addContract.contractDuration" class="form-control">
+                        <option [ngValue]="1">1 tháng</option>
+                        <option [ngValue]="6">6 tháng</option>
+                        <option [ngValue]="12">12 tháng</option>
+                        <option [ngValue]="null">Không thời hạn</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Loại hợp đồng <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="addContract.type" class="form-control" disabled>
+                        <option [ngValue]="1">Thuê phòng</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.customerName" type="text" class="form-control" placeholder="Người đại diện">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Số điện thoại</label>
+                    <input [(ngModel)]="addContract.customerPhone" type="text" class="form-control" placeholder="Số điện thoại">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Ngày có hiệu lực <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.createdDate" type="date" class="form-control" placeholder="Ngày có hiệu lực">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Ngày hết hạn </label>
+                    <input [(ngModel)]="addContract.expiredDate" type="date" class="form-control" placeholder="Ngày hết hiệu lực">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Số tiền đặt cọc</label>
+                    <input [(ngModel)]="addContract.depositedAmount" type="number" class="form-control" placeholder="Số tiền đặt cọc">
+                </div>
+            </div>
+            <h6>Thêm điều khoản</h6>
+            <button *ngIf="addContract.terms.length == 0" (click)="addTerms()" type="button" class="btn btn-success"><i class="icon feather icon-plus-circle"></i> Thêm điều
+                khoản</button>
+            <hr>
+            <div class="form-row" *ngFor="let term of addContract.terms; index as index">
+                <div class="form-group col-md-12">
+                    <select [(ngModel)]="addContract.terms[index].type" class="form-control">
+                        <option [ngValue]="0">Điều khoản chung</option>
+                        <option [ngValue]="0">Bên cho thuê</option>
+                        <option [ngValue]="1">Bên thuê</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <textarea [(ngModel)]="addContract.terms[index].content" rows="3" type="text" class="form-control" placeholder="Nội dung điều khoản"></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-success btn-sm float-right l-4"><i
+                            class="icon feather icon-plus"></i> </button>
+                    <button type="button" class="btn btn-danger btn-sm float-right l-4"><i
+                            class="icon feather icon-minus"></i> </button>
+                </div>
+            </div>
+            <button (click)="saveContract()" type="button" class="btn btn-primary float-right l-4">Tạo hợp đồng </button>
+            <button (click)="changeStep('AddCustomer')" type="button" style="margin-left: 4px;"
+                class="btn btn-default float-right l-4"><i class="icon feather icon-skip-back"></i> Quay lại</button>
+        </app-card>
+    </div>
+</div>

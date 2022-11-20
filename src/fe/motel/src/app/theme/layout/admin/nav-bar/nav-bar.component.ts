@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Router } from '@angular/router';
+import { LOCALSTORAGE } from 'src/app/contants/Storage';
 import {GradientConfig} from '../../../../app-config';
 
 @Component({
@@ -15,7 +17,9 @@ export class NavBarComponent implements OnInit {
   @Output() onNavCollapse = new EventEmitter();
   @Output() onNavHeaderMobCollapse = new EventEmitter();
 
-  constructor() {
+  constructor(
+    private _router: Router
+  ) {
     this.gradientConfig = GradientConfig.config;
     this.menuClass = false;
     this.collapseStyle = 'none';
@@ -35,6 +39,11 @@ export class NavBarComponent implements OnInit {
     } else {
       this.onNavHeaderMobCollapse.emit();
     }
+  }
+
+  logOut(){
+    localStorage.removeItem(LOCALSTORAGE.TOKEN);
+    this._router.navigateByUrl('/login')
   }
 
 }

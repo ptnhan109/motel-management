@@ -66,6 +66,9 @@ export class BoardingHouseSingleComponent implements OnInit {
   }
 
   updateBoardingHouse(){
+    if(!this.validate()){
+      return false;
+    }
     this.boarding.services = this.provides.filter(c => c.checked == true);
     let services = [];
     this.boarding.services.forEach((service) => {
@@ -86,7 +89,6 @@ export class BoardingHouseSingleComponent implements OnInit {
       endDatePayment: this.boarding.endDatePayment,
       services: services
     }
-    console.log(request)
     this._service.updateBoardingHouse(request).subscribe(
       response =>{
         console.log(response)
@@ -97,6 +99,17 @@ export class BoardingHouseSingleComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  validate(){
+    if (this.boarding.name == undefined || this.boarding.name == '' || this.boarding.name == null
+      || this.boarding.address == undefined || this.boarding.address == '' || this.boarding.address == null) {
+        this._toast.error("Vui lòng điền đầy đủ thông tin.")
+
+        return false;
+    }
+
+    return true;
   }
 
 

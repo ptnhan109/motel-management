@@ -14,7 +14,7 @@
                             <button type="button" class="btn btn-success float-right l-4"><i
                                     class="icon feather icon-printer"></i> Xuất file hợp đồng</button>
                             <button (click)="createContract.show()" class="btn btn-primary float-right l-4"><i
-                                    class="icon feather icon-plus"></i> Thêm mới Hợp đồng</button>
+                                    class="icon feather icon-file-plus"></i> Thêm mới Hợp đồng</button>
                         </div>
                     </div>
 
@@ -82,6 +82,7 @@
                         <th>Người đại diện</th>
                         <th>Loại hợp đồng</th>
                         <th>Tiền đặt cọc</th>
+                        <th></th>
                     </tr>
 
                 </thead>
@@ -97,8 +98,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
                                     <button class="dropdown-item" type="button"><i
                                             class="icon feather icon-edit text-primary f-20"></i> Sửa hợp đồng</button>
-                                    <button class="dropdown-item" type="button"><i
-                                            class="icon feather icon-trash text-danger f-20"></i> Xóa hợp đồng</button>
+                                    
                                     <button (click)="downloadContractFile(contract.id,contract.name)" class="dropdown-item" type="button"><i
                                             class="icon feather icon-download text-primary f-20"></i> Tải hợp đồng</button>
                                 </div>
@@ -118,7 +118,8 @@
                             <span *ngIf="contract.type == 1" class="badge badge-info">Hợp đồng thuê phòng</span>
                         </td>
                         <td>{{ formatCurrency(contract.depositedAmount) }}</td>
-                        
+                        <td><button (click)="removeContract(contract.id)" class="dropdown-item" type="button"><i
+                            class="icon feather icon-trash text-danger f-20"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -154,7 +155,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="address">Phòng trọ</label>
+                    <label for="address">Phòng trọ <span class="text-danger">*</span></label>
                     <select [(ngModel)]="filter.roomId" (change)="getCustomers();setContractName();"
                         class="form-control">
                         <option [ngValue]="null">Tất cả</option>
@@ -163,11 +164,11 @@
                     </select>
                 </div>
                 <div class="form-group col-md-8">
-                    <label for="address">Tên hợp đồng</label>
+                    <label for="address">Tên hợp đồng <span class="text-danger">*</span></label>
                     <input [(ngModel)]="addContract.name" type="text" class="form-control" placeholder="Tên hợp đồng">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="address">Thời hạn hợp đồng</label>
+                    <label for="address">Thời hạn hợp đồng <span class="text-danger">*</span></label>
                     <select [(ngModel)]="addContract.contractDuration" class="form-control">
                         <option [ngValue]="1">1 tháng</option>
                         <option [ngValue]="6">6 tháng</option>
@@ -177,7 +178,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="address">Loại hợp đồng</label>
+                    <label for="address">Loại hợp đồng <span class="text-danger">*</span></label>
                     <select [(ngModel)]="addContract.type" [disabled]="isEnableType ? null : true"
                         (change)="setContractName();" class="form-control">
                         <option [ngValue]="0">Đặt cọc</option>
@@ -186,7 +187,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="address">Người đại diện</label>
+                    <label for="address">Người đại diện <span *ngIf="addContract.type == 1" class="text-danger">*</span></label>
                     <select [(ngModel)]="addContract.customerId" [disabled]="addContract.type == 0 ? true : false"
                         (change)="setCustomerName()" class="form-control">
                         <option [ngValue]="null">Chọn người đại diện</option>
@@ -195,7 +196,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="address">Tên người đặt cọc</label>
+                    <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
                     <input [(ngModel)]="addContract.customerName" [disabled]="addContract.type == 1 ? true : false"
                         type="text" class="form-control" placeholder="Người đại diện">
                 </div>
@@ -205,12 +206,12 @@
                         type="text" class="form-control" placeholder="Số điện thoại">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="address">Ngày có hiệu lực</label>
+                    <label for="address">Ngày có hiệu lực <span class="text-danger">*</span></label>
                     <input [(ngModel)]="addContract.createdDate" type="date" class="form-control"
                         placeholder="Ngày có hiệu lực">
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="address">Ngày hết hạn</label>
+                    <label for="address">Ngày hết hạn <span *ngIf="addContract.type == 0" class="text-danger">*</span></label>
                     <input [(ngModel)]="addContract.expiredDate" type="date" class="form-control"
                         placeholder="Ngày hết hiệu lực">
                 </div>
@@ -221,7 +222,9 @@
                 </div>
             </div>
             <h6>Thêm điều khoản</h6>
-            <hr>
+            <button *ngIf="terms.length == 0" (click)="addTerms()" type="button" class="btn btn-success"><i
+                class="icon feather icon-plus-circle"></i> Thêm điều khoản</button>
+            <hr *ngIf="terms.length == 0">
             <div class="form-row" *ngFor="let term of terms; index as index">
                 <div class="form-group col-md-12">
                     <select [(ngModel)]="terms[index].type" class="form-control">
@@ -231,19 +234,19 @@
                     </select>
                 </div>
                 <div class="form-group col-md-12">
-                    <textarea [(ngModel)]="terms[index].content" rows="4" type="text" class="form-control"
+                    <textarea [(ngModel)]="terms[index].content" rows="3" type="text" class="form-control"
                         placeholder="Nội dung điều khoản"></textarea>
                 </div>
                 <div class="form-group col-md-12">
                     <button (click)="addTerms()" type="button" class="btn btn-success btn-sm float-right l-4"><i
-                            class="icon feather icon-plus"></i> Thêm điều khoản</button>
+                            class="icon feather icon-plus"></i> </button>
                     <button (click)="removeTerms(index)" type="button" class="btn btn-danger btn-sm float-right l-4"><i
-                            class="icon feather icon-minus"></i> Xóa điều khoản</button>
+                            class="icon feather icon-minus"></i> </button>
                 </div>
             </div>
             <hr>
             <button (click)="createContract.hide()" type="button" class="btn btn-default float-right">Hủy bỏ</button>
-            <button (click)="saveContract()" type="button" class="btn btn-primary float-right">Thêm mới</button>
+            <button (click)="saveContract() == true ? createContract.hide() : false" type="button" class="btn btn-primary float-right">Thêm mới</button>
         </div>
     </div>
 </app-ui-modal>

@@ -6,15 +6,7 @@
                     <div class="row">
                         <div class="col-sm-6">
 
-                            <h5 class="m-b-10 ng-star-inserted">Phòng trọ</h5>
-                        </div>
-                        <div class="col-sm-6 ">
-
-                            <button type="button" class="btn btn-success float-right l-4"><i
-                                    class="icon feather icon-printer"></i> Excel</button>
-                            <button type="button" class="btn btn-primary float-right l-4"><i
-                                    class="icon feather icon-plus"></i> Thêm mới</button>
-
+                            <h5 class="m-b-10 ng-star-inserted">{{header}} phòng trọ</h5>
                         </div>
                     </div>
 
@@ -29,7 +21,7 @@
                             routerLink="/room">Phòng trọ</a>
                     </li>
                     <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
-                            routerLink="/add-room">Thêm mới</a>
+                            routerLink="/add-room">{{header}}</a>
                     </li>
                 </ul>
             </div>
@@ -42,14 +34,16 @@
             <div action="javascript:">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="name">Khu trọ</label>
-                        <select [(ngModel)] = "room.boardingHouseId" class="form-control" >
-                            <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name }}</option>
+                        <label for="name">Khu trọ <span class="text-danger">*</span></label>
+                        <select [(ngModel)]="room.boardingHouseId" class="form-control">
+                            <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">{{ boarding.name }}
+                            </option>
                         </select>
                     </div>
                     <div class="form-group col-md-8">
-                        <label for="name">Tên phòng</label>
-                        <input [(ngModel)]="room.name" type="text" class="form-control" id="name" placeholder="Số tầng - số thứ tự phòng">
+                        <label for="name">Tên phòng <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="room.name" type="text" class="form-control" id="name"
+                            placeholder="Số tầng - số thứ tự phòng">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="name">Trạng thái</label>
@@ -60,25 +54,29 @@
                         </select>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="address">Giá tiền</label>
-                        <input [(ngModel)]="room.price" type="number" class="form-control" id="address" placeholder="Giá tiền">
+                        <label for="address">Giá tiền <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="room.price" type="number" class="form-control" id="address"
+                            placeholder="Giá tiền">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="address">Vị trí tầng</label>
-                        <input [(ngModel)]="room.floor" type="number" class="form-control" id="address" placeholder="Vị trí tầng">
+                        <input [(ngModel)]="room.floor" type="number" class="form-control" id="address"
+                            placeholder="Vị trí tầng">
                     </div>
                     <div class="form-group col-md-4">
                         <label for="address">Số người ở tối đa</label>
-                        <input [(ngModel)]="room.maxHuman" type="number" class="form-control" id="address" placeholder="Số người ở tối đa">
+                        <input [(ngModel)]="room.maxHuman" type="number" class="form-control" id="address"
+                            placeholder="Số người ở tối đa">
                     </div>
                     <div class="form-group col-md-12">
                         <label for="descripion">Mô tả</label>
-                        <textarea [(ngModel)]="room.description" rows="4" type="text" class="form-control" id="descripion"
-                            placeholder="Mô tả"></textarea>
+                        <textarea [(ngModel)]="room.description" rows="4" type="text" class="form-control"
+                            id="descripion" placeholder="Mô tả"></textarea>
                     </div>
                     <div class="form-group col-md-12">
                         <label class="form-label" for="customFile">Hình ảnh phòng trọ</label>
-                        <input type="file" class="form-control" id="customFile" multiple  (change)="selectedFiles($event.target.files)"/>
+                        <input type="file" class="form-control" id="customFile" multiple
+                            (change)="selectedFiles($event.target.files)" />
                     </div>
 
                 </div>
@@ -108,19 +106,20 @@
                         <div class="form-row">
                             <div class="form-group col-md-3">
                                 <br>
-                                <input type="number" class="form-control" id="address" placeholder="Số phòng sử dụng chung nhà vệ sinh">
+                                <input type="number" class="form-control" id="address"
+                                    placeholder="Số phòng sử dụng chung nhà vệ sinh">
                             </div>
                         </div>
                     </div>
                     <br>
-                    
+
                 </div>
                 <hr>
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="continue" [(ngModel)]="isContinue">
                     <label class="custom-control-label" for="continue">Tiếp tục thêm các phòng khác</label>
                 </div>
-                <button type="button" class="btn btn-primary float-right" (click)="SaveRoom()">Thêm mới</button>
+                <button type="button" class="btn btn-primary float-right" (click)="SaveRoom()">{{action}}</button>
                 <button type="button" class="btn btn-default float-right" (click)="goBack()">Hủy bỏ</button>
             </div>
         </app-card>

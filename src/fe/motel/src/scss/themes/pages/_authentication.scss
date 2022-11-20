@@ -210,10 +210,13 @@
 }
 
 .login-wallpaper {
-    background-image: url('assets/images/login-wallpaper.jpg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+    background-color: #fff;
+}
+.login-wallpaper img{
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle;
+    border-style: none;
 }
 
 /* image varient End */

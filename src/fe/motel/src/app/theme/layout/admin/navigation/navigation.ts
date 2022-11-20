@@ -41,10 +41,10 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
-        id: 'dashboard',
+        id: 'report',
         title: 'Báo cáo',
         type: 'item',
-        url: '/dashboard',
+        url: '/report',
         icon: 'feather icon-inbox',
         breadcrumbs: false
       },
@@ -129,6 +129,14 @@ const NavigationItems = [
         type: 'item',
         url: '/contract',
         icon: 'feather icon-users',
+        breadcrumbs: false
+      },
+      {
+        id: 'aftereffect',
+        title: 'Phản ánh',
+        type: 'item',
+        url: '/contract',
+        icon: 'feather icon-layers',
         breadcrumbs: false
       },
       {

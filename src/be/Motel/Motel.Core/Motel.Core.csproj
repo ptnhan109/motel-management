@@ -25,8 +25,4 @@
     <ProjectReference Include="..\Motel.Common\Motel.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
 </Project>

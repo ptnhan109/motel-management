@@ -42,6 +42,9 @@ export class ServiceComponent implements OnInit {
   }
 
   addProvide(){
+    if(!this.validateInsert()){
+      return false;
+    }
     this._service.addProvide(this.provideInsert).subscribe(
       response =>{
         if(response.isSucceeded == true){
@@ -50,6 +53,7 @@ export class ServiceComponent implements OnInit {
         }
       }
     )
+    return true;
   }
 
   removeProvide(id){
@@ -70,10 +74,16 @@ export class ServiceComponent implements OnInit {
   }
 
   getProvideUpdate(provide){
-    this.provideUpdate = provide;
+    this.provideUpdate.defaultPrice = provide.defaultPrice;
+    this.provideUpdate.id = provide.id;
+    this.provideUpdate.name = provide.name;
+    this.provideUpdate.type = provide.type;
   }
 
   updateProvide(){
+    if(!this.validateUpdate()){
+      return false;
+    }
     this._service.updateProvide(this.provideUpdate).subscribe(
       response =>{
         if(response.isSucceeded == true){
@@ -82,9 +92,29 @@ export class ServiceComponent implements OnInit {
         }
       }
     )
+
+    return true;
   }
   formatCurrency(input){
     return FormatCurrency(input);
+  }
+
+  validateInsert(){
+    if(this.provideInsert.name == undefined || this.provideInsert.name == ""){
+      this._toast.error("Tên dịch vụ không được để trống.");
+      return false;
+    }
+
+    return true;
+  }
+
+  validateUpdate(){
+    if(this.provideUpdate.name == undefined || this.provideUpdate.name == ""){
+      this._toast.error("Tên dịch vụ không được để trống.");
+      return false;
+    }
+
+    return true;
   }
 
 }
