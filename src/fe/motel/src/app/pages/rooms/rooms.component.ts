@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ContractType } from 'src/app/common/contractType';
 import { FormatCurrency, RemoveNullable, SetPropertyToNull } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
 declare var bootbox: any;
@@ -44,7 +45,18 @@ export class RoomsComponent implements OnInit {
     status: 0,
     depositedAmount: 0
   }
-
+  depositShow = {
+    id: null,
+    name: null,
+    customerName: null,
+    customerPhone: null,
+    roomId: null,
+    createdDate: null,
+    expiredDate: null,
+    type: 0,
+    status: 0,
+    depositedAmount: 0
+  }
   roomSelected = {
     name: null,
     id: null,
@@ -149,6 +161,7 @@ export class RoomsComponent implements OnInit {
         response => {
           if (response.isSucceeded) {
             this._toast.success("Phòng đã được đặt cọc thành công.");
+            this.getRooms(1);
             SetPropertyToNull(this.deposit);
           }
         },
@@ -174,18 +187,6 @@ export class RoomsComponent implements OnInit {
     )
   }
 
-  getRoomDeposit() {
-    // let id = this.roomSelected.id;
-    // this._service.getRoomDeposit(id).subscribe(
-    //   response => {
-    //     this.deposit = response.data;
-    //     this.deposit.dateStart = this.pipe.transform(response.data.dateStart, 'yyyy-MM-dd');
-    //     this.deposit.dateEnd = this.pipe.transform(response.data.dateEnd, 'yyyy-MM-dd');
-    //     console.log(this.deposit);
-    //   }
-    // )
-  }
-
   formatCurrency(input) {
     return FormatCurrency(input);
   }
@@ -198,6 +199,8 @@ export class RoomsComponent implements OnInit {
         return 'Đã có đặt cọc';
       case 2:
         return 'Đã cho thuê';
+      case 3:
+        return 'Tạm dừng cho thuê'
       default:
         return '';
     }
@@ -211,6 +214,8 @@ export class RoomsComponent implements OnInit {
         return 'badge badge-warning';
       case 2:
         return 'badge badge-secondary';
+      case 3:
+        return 'badge badge-danger'
       default:
         return '';
     }
@@ -238,6 +243,34 @@ export class RoomsComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  getContract() {
+
+    this._service.getContractByRoomId(this.roomSelected.id, ContractType.Deposited).subscribe(
+      response => {
+        this.depositShow.id = response.data.id;
+        this.depositShow.name = response.data.name;
+        this.depositShow.createdDate = response.data.createdDate;
+        this.depositShow.expiredDate = response.data.expiredDate;
+        this.depositShow.customerName = response.data.customerName;
+        this.depositShow.customerPhone = response.data.customerPhone;
+        this.depositShow.depositedAmount = response.data.depositedAmount;
+      }
+    )
+  }
+
+  cancelDeposited() {
+    this._service.getContractByRoomId(this.roomSelected.id,ContractType.Deposited).subscribe(
+      response=>{
+        this._service.deleteContract(response.data.id).subscribe(
+          response =>{
+            this._toast.success("Hủy đặt cọc thành công");
+            this.getRooms(1);
+          }
+        )
+      }
+    )
   }
 
 }

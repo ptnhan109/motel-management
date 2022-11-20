@@ -8,6 +8,7 @@ namespace Motel.Common.Enums
     {
         Available = 0,
         Deposited = 1,
-        Hired = 2
+        Hired = 2,
+        Pending = 3
     }
 }

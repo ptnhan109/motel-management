@@ -90,6 +90,7 @@ export class ContractsComponent implements OnInit {
           SetPropertyToNull(this.addContract);
           this.addContract.type = 1;
           this.addTerms();
+          this.getContracts(1);
         }
       },
       error =>{

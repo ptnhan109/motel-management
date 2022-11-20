@@ -138,27 +138,33 @@
                                     <i class="icon feather icon-menu text-default f-20"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <a [routerLink]="['/room-single',room.id]" href="javascript:;" class="dropdown-item"><i
-                                            class="icon feather icon-edit text-primary f-20"></i> Chỉnh sửa</a>
+                                    <a [routerLink]="['/room-single',room.id]" href="javascript:;"
+                                        class="dropdown-item"><i class="icon feather icon-edit text-primary f-20"></i>
+                                        Chỉnh sửa</a>
                                     <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
                                         class="dropdown-item" *ngIf="(room.status == 0)"><i
                                             class="icon feather icon-box text-success f-20"></i> Đặt cọc</a>
+                                    <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
+                                        class="dropdown-item" *ngIf="(room.status == 0)"><i
+                                            class="icon feather icon-lock text-danger f-20"></i> Tạm dừng cho thuê</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
                                             class="icon feather icon-user-check text-danger f-20"></i> Xem hợp đồng</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
                                             class="icon feather icon-box text-info f-20"></i> Trả phòng</a>
                                     <a [routerLink]="['/add-contract-customer',room.id]" href="javascript:;"
-                                        
                                         *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-download text-warning f-20"></i> Nhận phòng (Tạo
                                         hợp đồng)</a>
-                                    <a (click)="setRoomName(room);getRoomDeposit();viewDeposit.show();"
-                                        href="javascript:;" *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                    <a (click)="setRoomName(room);getContract();viewDeposit.show();" href="javascript:;"
+                                        *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-alert-circle text-primary f-20"></i> Xem đặt
                                         cọc</a>
                                     <a (click)="setRoomName(room);deleteDeposit.show()" href="javascript:;"
                                         *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-x text-danger f-20"></i> Hủy cọc</a>
+                                    <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
+                                        class="dropdown-item" *ngIf="(room.status == 3)"><i
+                                            class="icon feather icon-unlock text-success f-20"></i> Tiếp tục cho thuê</a>
                                 </div>
                             </div>
                         </td>
@@ -179,8 +185,9 @@
             <hr>
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-end">
-                    <li [ngClass]="page == filter.pageIndex ? 'page-item active' : 'page-item'" *ngFor="let page of pageNumber"><a class="page-link"
-                            href="javascript:;" (click)="getRooms(page)">{{ page }}</a></li>
+                    <li [ngClass]="page == filter.pageIndex ? 'page-item active' : 'page-item'"
+                        *ngFor="let page of pageNumber"><a class="page-link" href="javascript:;"
+                            (click)="getRooms(page)">{{ page }}</a></li>
                 </ul>
             </nav>
         </div>
@@ -208,7 +215,8 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="address">Phòng trọ <span class="text-danger">*</span></label>
-                        <input [(ngModel)]="roomSelected.display" type="text" class="form-control" id="address" disabled>
+                        <input [(ngModel)]="roomSelected.display" type="text" class="form-control" id="address"
+                            disabled>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
@@ -245,14 +253,15 @@
                 </div>
             </div>
             <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right ">Hủy bỏ</button>
-            <button (click)="saveDeposit() == true? createDeposit.hide() : false" type="button" class="btn btn-primary float-right">Nhận
+            <button (click)="saveDeposit() == true? createDeposit.hide() : false" type="button"
+                class="btn btn-primary float-right">Nhận
                 cọc</button>
         </div>
     </div>
 </app-ui-modal>
 <app-ui-modal #deleteDeposit [hideFooter]="true" [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h6 class="modal-title">Lý do hủy cọc</h6>
+        <h6 class="modal-title">Hủy đặt cọc phòng - {{ roomSelected.name }}</h6>
         <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
             (click)="deleteDeposit.hide()"><span aria-hidden="true">&times;</span></button>
     </div>
@@ -260,12 +269,22 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="form-group">
+                    <label for="address">Lý do hủy cọc<span class="text-danger">*</span></label>
+                    <select class="form-control">
+                        <option>Khách thuê hủy cọc</option>
+                        <option>Quá hạn</option>
+                        <option>Lý do khác</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
                     <textarea rows="4" type="text" class="form-control" id="descripion"
                         placeholder="Khách hủy, quá hạn,.."></textarea>
                 </div>
             </div>
             <button (click)="deleteDeposit.hide();" type="button" class="btn btn-default float-right">Hủy bỏ</button>
-            <button (click)="deleteRoomDeposit();deleteDeposit.hide();" type="button"
+            <button (click)="cancelDeposited();deleteDeposit.hide();" type="button"
                 class="btn btn-primary float-right">Hủy cọc</button>
         </div>
     </div>
@@ -275,6 +294,64 @@
     <div class="app-modal-header">
         <h6 class="modal-title">Thông tin đặt cọc phòng</h6>
         <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
-            (click)="viewDeposit.hide()"><span aria-hidden="true">&times;</span></button>
+            (click)="viewDeposit.hide();"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="address">Tên hợp đồng đặt cọc<span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.name" type="text" class="form-control" id="address" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="roomSelected.display" type="text" class="form-control" id="address"
+                            disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.customerName" type="text" class="form-control" id="address"
+                            placeholder="Tên người đặt cọc" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Số điện thoại <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.customerPhone" type="text" class="form-control" id="address"
+                            placeholder="Số điện thoại" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.createdDate" type="date" class="form-control" id="address"
+                            placeholder="Địa chỉ chi tiết" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày hết hạn</label>
+                        <input [(ngModel)]="depositShow.expiredDate" type="date" format="yyyy-MM-dd"
+                            class="form-control" id="address" placeholder="Địa chỉ chi tiết" disabled>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="address">Số tiền đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.depositedAmount" type="number" class="form-control" id="address"
+                            placeholder="Số tiền đặt cọc" disabled>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="descripion">Ghi chú</label>
+                    <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"
+                        disabled></textarea>
+                </div>
+            </div>
+            <button (click)="viewDeposit.hide();" type="button" class="btn btn-default float-right l-4"><i
+                    class="icon feather icon-x"></i> Đóng</button>
+            <button type="button" class="btn btn-primary float-right l-4"><i class="icon feather icon-log-in"></i> Nhận
+                phòng</button>
+        </div>
     </div>
 </app-ui-modal>
