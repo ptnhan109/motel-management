@@ -133,6 +133,23 @@ namespace Motel.Application.Services.ContractService
 
         public async Task<Response> DeleteAsync(Guid id)
         {
+            //TODO: send mail to customer
+            var contract = await _repository.FindAsync<AppContract>(id, new string[] { "Room" });
+            if(contract.Type.Equals(EnumContractType.Deposited) 
+                && contract.Room.Status.Equals(EnumRoomStatus.Deposited))
+            {
+                contract.Room.Status = EnumRoomStatus.Available;
+            }
+
+            if(contract.Type.Equals(EnumContractType.Rent)
+                && contract.Room.Status.Equals(EnumRoomStatus.Hired))
+            {
+                contract.Room.Status = EnumRoomStatus.Available;
+            }
+
+            await _repository.UpdateAsync(contract.Room);
+
+
             await _repository.DeleteRangeAsync<ContractTerm>(c => c.AppContractId.Equals(id));
             await _repository.DeleteAsync<AppContract>(id);
 
@@ -174,6 +191,22 @@ namespace Motel.Application.Services.ContractService
                 default:
                     return;
             }
+        }
+
+        public async Task<Response> SetContractStatus(ContractStatus status)
+        {
+            var contract = await _repository.FindAsync<AppContract>(c => c.RoomId.Equals(status.RoomId)
+            && c.Type.Equals(status.Type), new string[] { "Room" });
+            if (contract is null) return NotFound();
+            if (status.Status.Equals(EnumContractStatus.Cancel))
+            {
+                if (contract.Status.Equals(EnumRoomStatus.Deposited))
+                {
+                    contract.Room.Status = EnumRoomStatus.Available;
+                }
+            }
+            contract.Status = status.Status;
+            return Ok();
         }
     }
 }

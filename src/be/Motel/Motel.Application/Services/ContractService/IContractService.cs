@@ -20,5 +20,7 @@ namespace Motel.Application.Services.ContractService
         Task<Response> GetByIdAsync(Guid id);
 
         Task<Response> GetByRoomIdAsync(Guid id, EnumContractType? type);
+
+        Task<Response> SetContractStatus(ContractStatus status);
     }
 }
