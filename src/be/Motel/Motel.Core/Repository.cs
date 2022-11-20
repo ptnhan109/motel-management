@@ -97,12 +97,12 @@ namespace Motel.Core
 
         public async Task<TEntity> FindAsync<TEntity>(Guid id) where TEntity : BaseEntity
         {
-            return await AsQueryable<TEntity>().FirstOrDefaultAsync(c => c.Id.Equals(id));
+            return await AsQueryable<TEntity>().AsNoTracking().FirstOrDefaultAsync(c => c.Id.Equals(id));
         }
 
         public async Task<TEntity> FindAsync<TEntity>(Guid id, IEnumerable<string> includes = null) where TEntity : BaseEntity
         {
-            return await AsQueryable<TEntity>(includes).FirstOrDefaultAsync(c => c.Id.Equals(id));
+            return await AsQueryable<TEntity>(includes).AsNoTracking().FirstOrDefaultAsync(c => c.Id.Equals(id));
 
         }
 

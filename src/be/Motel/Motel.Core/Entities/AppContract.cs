@@ -23,7 +23,7 @@ namespace Motel.Core.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
+        public DateTime? ExpiredDate { get; set; }
 
         public double DepositedAmount { get; set; }
 

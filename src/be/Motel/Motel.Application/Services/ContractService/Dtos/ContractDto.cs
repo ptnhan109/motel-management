@@ -23,13 +23,15 @@ namespace Motel.Application.Services.ContractService.Dtos
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
+        public DateTime? ExpiredDate { get; set; }
 
         public double DepositedAmount { get; set; }
 
         public EnumContractType Type { get; set; }
 
         public int? ContractDuration { get; set; }
+
+        public EnumContractStatus Status { get; set; }
 
         public List<AddTermDto> Terms { get; set; }
 
@@ -50,5 +52,22 @@ namespace Motel.Application.Services.ContractService.Dtos
                 Name = $"Hợp đồng đặt cọc phòng {deposited?.Room?.Name}"
             };
         }
+
+        public static ContractDto FromEntity(AppContract entity)
+            => new ContractDto()
+            {
+                Id = entity.Id,
+                ContractDuration = entity.ContractDuration,
+                CreatedDate = entity.CreatedDate,
+                CustomerId = entity.CustomerId,
+                CustomerName = entity.CustomerName,
+                DepositedAmount = entity.DepositedAmount,
+                CustomerPhone = entity.CustomerPhone,
+                ExpiredDate = entity.ExpiredDate,
+                Name = entity.Name,
+                RoomId = entity.RoomId,
+                Status = entity.Status,
+                Type = entity.Type
+            };
     }
 }

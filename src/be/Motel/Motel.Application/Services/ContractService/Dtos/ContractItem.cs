@@ -23,7 +23,7 @@ namespace Motel.Application.Services.ContractService.Dtos
 
         public DateTime CreatedDate { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
+        public DateTime? ExpiredDate { get; set; }
 
         public double DepositedAmount { get; set; }
 

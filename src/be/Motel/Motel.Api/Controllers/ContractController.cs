@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Motel.Application.Services.ContractService;
 using Motel.Application.Services.ContractService.Dtos;
 using Motel.Application.Services.ContractService.Models;
+using Motel.Common.Enums;
 using Motel.Common.Generics;
 using Motel.Core.Contants;
 using System;
@@ -29,6 +30,15 @@ namespace Motel.Api.Controllers
         [HttpPost]
         public async Task<Response> CreateContract([FromBody] ContractDto request) => await _service.AddAsync(request);
 
+        [HttpGet("{id}")]
+        public async Task<Response> GetById(Guid id) => await _service.GetByIdAsync(id);
+
+        [HttpDelete("{id}")]
+        public async Task<Response> DeleteContract(Guid id) => await _service.DeleteAsync(id);
+
+        [HttpGet("{id}/room")]
+        public async Task<Response> GetByRoomId(Guid id, [FromQuery] EnumContractType? type) => await _service.GetByRoomIdAsync(id, type);
+
         [HttpGet("{id}/export")]
         public async Task<IActionResult> ExportContract(Guid id)
         {
@@ -40,8 +50,5 @@ namespace Motel.Api.Controllers
                 fileDownloadName: name
                 );
         }
-
-        [HttpDelete("{id}")]
-        public async Task<Response> DeleteContract(Guid id) => await _service.DeleteAsync(id);
     } 
 }

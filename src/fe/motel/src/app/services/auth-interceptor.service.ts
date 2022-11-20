@@ -27,7 +27,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
           if(err.status === 500){
             this._toast.error("Lỗi hệ thống");
-            this.redirectToLoginPage();
+            this.redirectToBadRequestPage();
           }
           return throwError(err);
         }
@@ -39,5 +39,9 @@ export class AuthInterceptor implements HttpInterceptor {
 
   redirectToLoginPage() {
     this._router.navigate(['/auth']);
+  }
+
+  redirectToBadRequestPage() {
+    this._router.navigate(['/bad-request']);
   }
 }

@@ -30,11 +30,15 @@ namespace Motel.Application.Services.CustomerService
         {
             request.Id = Guid.NewGuid();
             var entity = _mapper.Map<AddCustomerDto, Customer>(request);
-            await _repository.AddAsync(entity);
+            var customer = await _repository.AddAsync(entity);
             var vehicles = _mapper.Map<List<VehicleDto>, List<Vehicle>>(request.Vehicles);
+            foreach(var vehicle in vehicles)
+            {
+                vehicle.CustomerId = customer.Id;
+            }
             await _repository.AddRangeAsync(vehicles);
             await SetRoomStatus(request.RoomId.Value, EnumRoomStatus.Hired);
-            return Ok();
+            return Ok(customer.Id);
         }
 
         public async Task<Response> GetAllCustomer(CustomerFilter request)

@@ -147,8 +147,8 @@
                                             class="icon feather icon-user-check text-danger f-20"></i> Xem hợp đồng</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
                                             class="icon feather icon-box text-info f-20"></i> Trả phòng</a>
-                                    <a href="javascript:;"
-                                        routerLink="/customers?boarding={{room.boardingHouseId}}&room={{room.id}}"
+                                    <a [routerLink]="['/add-contract-customer',room.id]" href="javascript:;"
+                                        
                                         *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-download text-warning f-20"></i> Nhận phòng (Tạo
                                         hợp đồng)</a>
@@ -190,78 +190,62 @@
 
 <app-ui-modal #createDeposit [hideFooter]="true" [dialogClass]="'modal-xl'">
     <div class="app-modal-header">
-        <h6 class="modal-title">Thêm mới đặt cọc phòng</h6>
+        <h6 class="modal-title">Tạo hợp đồng đặt cọc phòng</h6>
         <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
             (click)="createDeposit.hide()"><span aria-hidden="true">&times;</span></button>
     </div>
     <div class="app-modal-body">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="address">Phòng trọ</label>
-                        <input [(ngModel)]="roomSelected.name" type="text" class="form-control" id="address" disabled>
+                        <label for="address">Tên hợp đồng <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.name" type="text" class="form-control" id="address">
                     </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="address">Ngày đặt cọc</label>
-                        <input [(ngModel)]="deposit.dateStart" type="date" class="form-control" id="address"
+                        <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="roomSelected.display" type="text" class="form-control" id="address" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.customerName" type="text" class="form-control" id="address"
+                            placeholder="Tên người đặt cọc">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Số điện thoại <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.customerPhone" type="text" class="form-control" id="address"
+                            placeholder="Số điện thoại">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.createdDate" type="date" class="form-control" id="address"
                             placeholder="Địa chỉ chi tiết">
                     </div>
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label for="address">Ngày hết hạn</label>
-                        <input [(ngModel)]="deposit.dateEnd" type="date" format="yyyy-MM-dd" class="form-control"
+                        <input [(ngModel)]="deposit.expiredDate" type="date" format="yyyy-MM-dd" class="form-control"
                             id="address" placeholder="Địa chỉ chi tiết">
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="address">Số tiền đặt cọc</label>
-                        <input [(ngModel)]="deposit.despositedValue" type="number" class="form-control" id="address"
+                        <label for="address">Số tiền đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.depositedAmount" type="number" class="form-control" id="address"
                             placeholder="Số tiền đặt cọc">
                     </div>
                 </div>
 
             </div>
-            <div class="col-sm-6">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="address">Tên người đặt cọc</label>
-                        <input [(ngModel)]="deposit.name" type="text" class="form-control" id="address"
-                            placeholder="Tên người đặt cọc">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Số điện thoại</label>
-                        <input [(ngModel)]="deposit.phone" type="text" class="form-control" id="address"
-                            placeholder="Số điện thoại">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Số căn cước</label>
-                        <input [(ngModel)]="deposit.identityNumber" type="text" class="form-control" id="address"
-                            placeholder="Số thẻ căn cước">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Địa chỉ</label>
-                        <input [(ngModel)]="deposit.address" type="text" class="form-control" id="address"
-                            placeholder="Địa chỉ chi tiết">
-                    </div>
-                </div>
-
-            </div>
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label for="descripion">Mô tả</label>
+                    <label for="descripion">Ghi chú</label>
                     <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <div class="form-check">
-                        <input [(ngModel)]="deposit.isCreateContract" class="form-check-input" type="checkbox"
-                            id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">Tạo hợp đồng đặt cọc</label>
-                    </div>
-                </div>
-            </div>
-            <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right">Hủy bỏ</button>
-            <button (click)="saveDeposit();createDeposit.hide();" type="button" class="btn btn-primary float-right">Nhận
+            <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right ">Hủy bỏ</button>
+            <button (click)="saveDeposit() == true? createDeposit.hide() : false" type="button" class="btn btn-primary float-right">Nhận
                 cọc</button>
         </div>
     </div>
@@ -292,66 +276,5 @@
         <h6 class="modal-title">Thông tin đặt cọc phòng</h6>
         <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
             (click)="viewDeposit.hide()"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="app-modal-body">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="address">Phòng trọ</label>
-                        <input [(ngModel)]="roomSelected.name" type="text" class="form-control" id="address" disabled>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Ngày đặt cọc</label>
-                        <input [(ngModel)]="deposit.dateStart" type="date" class="form-control" id="address">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Ngày hết hạn</label>
-                        <input [(ngModel)]="deposit.dateEnd" type="date" class="form-control" id="address">
-                        <!-- <p-calendar [(ngModel)]="deposit.dateEnd" type="date" class="form-control" id="address"
-                            placeholder="Địa chỉ chi tiết"></p-calendar> -->
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Số tiền đặt cọc</label>
-                        <input [(ngModel)]="deposit.despositedValue" type="number" class="form-control" id="address"
-                            placeholder="Số tiền đặt cọc">
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-6">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="address">Tên người đặt cọc</label>
-                        <input [(ngModel)]="deposit.name" type="text" class="form-control" id="address"
-                            placeholder="Tên người đặt cọc">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Số điện thoại</label>
-                        <input [(ngModel)]="deposit.phone" type="text" class="form-control" id="address"
-                            placeholder="Số điện thoại">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Số căn cước</label>
-                        <input [(ngModel)]="deposit.identityNumber" type="text" class="form-control" id="address"
-                            placeholder="Số thẻ căn cước">
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label for="address">Địa chỉ</label>
-                        <input [(ngModel)]="deposit.address" type="text" class="form-control" id="address"
-                            placeholder="Địa chỉ chi tiết">
-                    </div>
-                </div>
-
-            </div>
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label for="descripion">Mô tả</label>
-                    <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
-                </div>
-            </div>
-            <button (click)="viewDeposit.hide();" type="button" class="btn btn-default float-right">Hủy bỏ</button>
-            <button (click)="viewDeposit.hide();" type="button" class="btn btn-primary float-right">Cập nhật</button>
-        </div>
     </div>
 </app-ui-modal>

@@ -42,6 +42,7 @@ import { ContractsComponent } from './pages/contracts/contracts.component';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 import { RegisterComponent } from './pages/register/register.component';
 import { AddContractComponent } from './pages/add-contract/add-contract.component';
+import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { AddContractComponent } from './pages/add-contract/add-contract.componen
     CustomersComponent,
     ContractsComponent,
     RegisterComponent,
-    AddContractComponent
+    AddContractComponent,
+    BadrequestComponent
   ],
   imports: [
     BrowserModule,

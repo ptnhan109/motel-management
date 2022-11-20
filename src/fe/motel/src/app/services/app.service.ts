@@ -160,4 +160,8 @@ export class AppService {
   deleteContract(id):Observable<AppResponse<any>>{
     return this.http.delete<AppResponse<any>>(`${environment.apiServer}/api/contract/${id}`,this.options)
   }
+
+  getContractByRoomId(id, type):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/contract/${id}/room?type=${type}`,this.options);
+  }
 }

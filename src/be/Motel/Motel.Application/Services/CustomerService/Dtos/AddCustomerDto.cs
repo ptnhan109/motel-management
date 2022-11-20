@@ -16,7 +16,7 @@ namespace Motel.Application.Services.CustomerService.Dtos
 
         public string Phone { get; set; }
 
-        public DateTime BirthDay { get; set; }
+        public DateTime? BirthDay { get; set; }
 
         public string IdentificationCitizen { get; set; }
 

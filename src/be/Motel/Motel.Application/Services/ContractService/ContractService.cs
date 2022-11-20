@@ -4,12 +4,15 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using Motel.Application.Auth;
 using Motel.Application.Services.ContractService.Dtos;
 using Motel.Application.Services.ContractService.Models;
+using Motel.Common.Enums;
 using Motel.Common.Generics;
 using Motel.Core;
 using Motel.Core.Contants;
 using Motel.Core.Entities;
+using Motel.Core.Repositories.RoomRepository;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,20 +25,24 @@ namespace Motel.Application.Services.ContractService
         private readonly IRepository _repository;
         private readonly IMapper _mapper;
         private readonly IAppContextAccessor _contextAccessor;
+        private readonly IRoomRepository _roomRepository;
 
         public ContractService(IRepository repository,
-            IMapper mapper, IAppContextAccessor contextAccessor)
+            IMapper mapper,
+            IAppContextAccessor contextAccessor,
+            IRoomRepository roomRepository)
         {
             _repository = repository;
             _mapper = mapper;
             _contextAccessor = contextAccessor;
+            _roomRepository = roomRepository;
         }
         public async Task<Response> AddAsync(ContractDto dto)
         {
             dto.Id = Guid.NewGuid();
             var entity = _mapper.Map<ContractDto, AppContract>(dto);
             await _repository.AddAsync(entity);
-            if (dto.Terms.Count > 0)
+            if (dto?.Terms?.FirstOrDefault() != null)
             {
                 var terms = _mapper.Map<List<AddTermDto>, List<ContractTerm>>(dto.Terms);
                 foreach (var term in terms)
@@ -44,6 +51,7 @@ namespace Motel.Application.Services.ContractService
                 }
                 await _repository.AddRangeAsync(terms);
             }
+            await SetRoomStatus(dto.RoomId, dto.Type);
             return Ok();
         }
 
@@ -129,6 +137,43 @@ namespace Motel.Application.Services.ContractService
             await _repository.DeleteAsync<AppContract>(id);
 
             return Ok();
+        }
+
+        public async Task<Response> GetByIdAsync(Guid id)
+        {
+            var contract = await _repository.FindAsync<AppContract>(id);
+            if(contract is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ContractDto.FromEntity(contract));
+        }
+
+        public async Task<Response> GetByRoomIdAsync(Guid id, EnumContractType? type)
+        {
+            var contract = await _repository.FindAsync<AppContract>(c => c.RoomId.Equals(id) && (!type.HasValue || c.Type.Equals(type.Value)));
+            if(contract is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ContractDto.FromEntity(contract));
+        }
+
+        private async Task SetRoomStatus(Guid id,EnumContractType type)
+        {
+            switch (type)
+            {
+                case EnumContractType.Deposited:
+                    await _roomRepository.SetRoomStatusAsync(id, EnumRoomStatus.Deposited);
+                    return;
+                case EnumContractType.Rent:
+                    await _roomRepository.SetRoomStatusAsync(id, EnumRoomStatus.Hired);
+                    return;
+                default:
+                    return;
+            }
         }
     }
 }
