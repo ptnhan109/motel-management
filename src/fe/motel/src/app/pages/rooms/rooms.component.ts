@@ -261,14 +261,23 @@ export class RoomsComponent implements OnInit {
   }
 
   cancelDeposited() {
-    this._service.getContractByRoomId(this.roomSelected.id,ContractType.Deposited).subscribe(
-      response=>{
+    this._service.getContractByRoomId(this.roomSelected.id, ContractType.Deposited).subscribe(
+      response => {
         this._service.deleteContract(response.data.id).subscribe(
-          response =>{
+          response => {
             this._toast.success("Hủy đặt cọc thành công");
             this.getRooms(1);
           }
         )
+      }
+    )
+  }
+
+  setRoomStatus(id, status) {
+    this._service.setRoomStatus(id, status).subscribe(
+      response => {
+        this.getRooms(1);
+        this._toast.success("Đã cập nhật trạng thái phòng");
       }
     )
   }

@@ -207,6 +207,8 @@ export class ContractsComponent implements OnInit {
         return "Đã đặt cọc";
       case roomStatus.hired:
         return "Đã cho thuê";
+      case roomStatus.pending:
+        return "Tạm dừng cho thuê"
       default:
         return "";
     }

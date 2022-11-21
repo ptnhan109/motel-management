@@ -160,7 +160,7 @@
                         class="form-control">
                         <option [ngValue]="null">Tất cả</option>
                         <option *ngFor="let room of rooms" [ngValue]="room.id"><span class="text-danger">{{ room.name
-                                }}</span> [ {{ getRoomStatus(room.status) }} ]</option>
+                                }}</span> [ {{ getRoomStatus(room.status) }} ] {{ room.description }}</option>
                     </select>
                 </div>
                 <div class="form-group col-md-8">

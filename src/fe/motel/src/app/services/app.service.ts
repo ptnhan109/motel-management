@@ -164,4 +164,12 @@ export class AppService {
   getContractByRoomId(id, type):Observable<AppResponse<any>>{
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/contract/${id}/room?type=${type}`,this.options);
   }
+
+  setRoomStatus(id, status): Observable<AppResponse<any>>{
+    let request = {
+      status : status,
+      id: id
+    };
+    return this.http.patch<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/status`,request,this.options)
+  }
 }
