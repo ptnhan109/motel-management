@@ -6,11 +6,10 @@ namespace Motel.Core.Entities
 {
     public class Invoice : BaseEntity
     {
+        public string InvoiceNo { get; set; }
+
         public string Name { get; set; }
 
-        public DateTime Created { get; set; }
-        
-
-
+        public DateTime InvoiceDate { get; set; }
     }
 }

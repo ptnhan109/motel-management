@@ -146,7 +146,7 @@ export class ContractsComponent implements OnInit {
       response => {
         this.paging = response.data;
         this.contracts = response.data.items;
-        console.log(this.contracts);
+        this.pageNumbers = [];
         for (let i = 1; i <= this.paging.totalPage; i++) {
           this.pageNumbers.push(i);
         }

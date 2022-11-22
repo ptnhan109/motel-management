@@ -8,6 +8,8 @@ namespace Motel.Core.Entities
 {
     public class AppContract : BaseEntity
     {
+        public string ContractNo { get; set; }
+
         public Guid? CustomerId { get; set; }
 
         public string Name { get; set; }
