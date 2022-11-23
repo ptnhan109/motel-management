@@ -172,4 +172,12 @@ export class AppService {
     };
     return this.http.patch<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/status`,request,this.options)
   }
+
+  getStageCode() : Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/code`,this.options);
+  }
+
+  addStage(param): Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/stage`,param,this.options);
+  }
 }

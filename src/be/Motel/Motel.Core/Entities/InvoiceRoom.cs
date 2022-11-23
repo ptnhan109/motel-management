@@ -1,5 +1,4 @@
-﻿using Motel.Common.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -8,17 +7,25 @@ namespace Motel.Core.Entities
 {
     public class InvoiceRoom : BaseEntity
     {
-        public Guid InvoiceId { get; set; }
+        public Guid StageRoomId { get; set; }
 
-        [ForeignKey(nameof(InvoiceId))]
-        public virtual Invoice Invoice { get; set; }
+        [ForeignKey(nameof(StageRoomId))]
+        public virtual StageRoom StageRoom { get; set; }
 
-        public Guid RoomId { get; set; }
-        [ForeignKey(nameof(RoomId))]
-        public virtual Room Room { get; set; }
+        public Guid? ProvideId { get; set; }
 
-        public EnumInvoicePaymentStatus PaymentStatus { get; set; }
+        [ForeignKey(nameof(ProvideId))]
+        public virtual Provide Provide { get; set; }
 
-        public double InvoiceAmount { get; set; }
+        public double? LastValue { get; set; }
+
+        public double? NewValue { get; set; }
+
+        public double Price { get; set; }
+
+        public double? Amount { get; set; }
+
+        public string Name { get; set; }
+
     }
 }

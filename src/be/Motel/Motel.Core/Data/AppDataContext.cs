@@ -41,6 +41,16 @@ namespace Motel.Core.Data
         public DbSet<AppContract> AppContracts { get; set; }
 
         public DbSet<UserInfo> UserInfos { get; set; }
+
+        public DbSet<StagePayment> StagePayments { get; set; }
+
+        public DbSet<StageRoom> StageRooms { get; set; }
+
+        public DbSet<InvoiceRoom> Invoices { get; set; }
+
+        public DbSet<SystemConfig> Systems { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<AppUser>().HasData(

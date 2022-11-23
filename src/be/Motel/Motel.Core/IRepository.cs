@@ -43,5 +43,7 @@ namespace Motel.Core
         Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
 
         Task UpdateRangeAsync<TEntity>(IEnumerable<TEntity> entites) where TEntity : BaseEntity;
+
+        Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity;
     }
 }

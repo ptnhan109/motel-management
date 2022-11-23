@@ -1,0 +1,29 @@
+﻿using DocumentFormat.OpenXml.Office2021.DocumentTasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Motel.Application.Services.StageService;
+using Motel.Application.Services.StageService.Dtos;
+using Motel.Common.Generics;
+using System.Threading.Tasks;
+
+namespace Motel.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class StageController : ControllerBase
+    {
+        private readonly IStageService _service;
+
+        public StageController(IStageService service)
+        {
+            _service = service;
+        }
+        [HttpGet("code")]
+        public async Task<Response> GetCode() => await _service.GetStageCodeAsync();
+
+        [HttpPost]
+        public async Task<Response> AddAsync(AddStage request) => await _service.AddStageAsync(request);
+    }
+}

@@ -178,5 +178,16 @@ namespace Motel.Core
 
             return query;
         }
+
+        public async Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity
+        {
+            var query = GetQueryable<TEntity>();
+            if(where != null)
+            {
+                query = query.Where(where);
+            }
+
+            return await query.CountAsync();
+        }
     }
 }

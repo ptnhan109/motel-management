@@ -35,6 +35,8 @@ namespace Motel.Core.Entities
 
         public EnumContractStatus Status { get; set; }
 
+        public double? AdvanceAmount { get; set; }
+
         public virtual ICollection<ContractTerm> ContractTerms { get; set; }
     }
 }

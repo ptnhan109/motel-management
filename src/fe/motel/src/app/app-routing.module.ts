@@ -15,6 +15,7 @@ import { ContractsComponent } from './pages/contracts/contracts.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AddContractComponent } from './pages/add-contract/add-contract.component';
 import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
+import { InvoicesComponent } from './pages/invoices/invoices.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
       {
         path: 'add-contract-customer/:roomId',
         component: AddContractComponent
+      },
+      {
+        path: 'invoice',
+        component: InvoicesComponent
       }
 
     ]

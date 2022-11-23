@@ -119,7 +119,7 @@ const NavigationItems = [
         id: 'invoice',
         title: 'Hóa đơn',
         type: 'item',
-        url: '/contract',
+        url: '/invoice',
         icon: 'feather icon-disc',
         breadcrumbs: false
       },
