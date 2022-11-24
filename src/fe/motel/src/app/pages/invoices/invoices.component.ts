@@ -15,6 +15,12 @@ export class InvoicesComponent implements OnInit {
     status: 2
   }
 
+  invoiceFilter = {
+    keyword : null,
+    pageIndex : 1,
+    pageSize : 100
+  }
+
   boardings = [];
   stage = {
     name: null,
@@ -26,6 +32,7 @@ export class InvoicesComponent implements OnInit {
   checkAll = false;
   rooms = [];
   selectedRooms = [];
+  stages = [];
   constructor(
     private _service: AppService,
     private _toast : ToastrService
@@ -34,6 +41,7 @@ export class InvoicesComponent implements OnInit {
     this.onInitCreate();
     this.getMotels();
     this.getRooms();
+    this.getStagePaymentPaging();
   }
 
   onInitCreate() {
@@ -66,6 +74,16 @@ export class InvoicesComponent implements OnInit {
     )
   }
 
+  getStagePaymentPaging(){
+    let request = RemoveNullable(this.invoiceFilter);
+    this._service.getStagePaging(request).subscribe(
+      response =>{
+        this.stages = response.data.items;
+        console.log(this.stages);
+      }
+    )
+  }
+
   formatCurrency(input) {
     return FormatCurrency(input);
   }
@@ -93,6 +111,8 @@ export class InvoicesComponent implements OnInit {
     }
   }
 
+
+
   saveStage(){
     if(!this.validate()){
       return false;
@@ -101,10 +121,9 @@ export class InvoicesComponent implements OnInit {
     var request = RemoveNullable(this.stage);
     this._service.addStage(request).subscribe(
       response =>{
-        
+        this._toast.success("Tạo đợt thanh toán thành công.");
       }
     )
-    this._toast.success("Tạo đợt thanh toán thành công.");
     return true;
   }
 
@@ -120,5 +139,6 @@ export class InvoicesComponent implements OnInit {
     }
     return true;
   }
+
 
 }

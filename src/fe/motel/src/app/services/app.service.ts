@@ -180,4 +180,9 @@ export class AppService {
   addStage(param): Observable<AppResponse<any>>{
     return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/stage`,param,this.options);
   }
+
+  getStagePaging(filter) : Observable<AppResponse<any>>{
+    var options = this.queryParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/paging`,options);
+  }
 }
