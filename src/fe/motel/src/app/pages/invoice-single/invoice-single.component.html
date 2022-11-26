@@ -1,0 +1,139 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-4">
+                <h5 class="mb-0">
+                    <span class="badge badge-success">Đang diễn ra</span>
+
+                    <a href="javascript:;" class="">
+                        Đợt thanh toán tiền nhà tháng 11 / 2022
+                    </a>
+                </h5>
+            </div>
+            <div class="col-sm-2">
+                50 % hoàn thành
+                <div class="progress mt-1" style="height:4px;">
+                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                50 % hoàn thành
+                <div class="progress mt-1" style="height:4px;">
+                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                50 % hoàn thành
+                <div class="progress mt-1" style="height:4px;">
+                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                50 % hoàn thành
+                <div class="progress mt-1" style="height:4px;">
+                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <button class="btn btn-primary"><i class="icon feather icon-arrow-left"></i> Quay lại</button>
+            </div>
+            <div class="col-sm-8 float-right" >
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <select class="form-control">
+                            <option [ngValue]="null">Tất cả</option>
+                            <option [ngValue]="0"> Đã nhập số liệu</option>
+                            <option [ngValue]="1"> Chưa nhập số liệu</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="form-control">
+                            <option [ngValue]="null">Tất cả</option>
+                            <option [ngValue]="0"> Đã nhập số liệu</option>
+                            <option [ngValue]="1"> Chưa nhập số liệu</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="form-control">
+                            <option [ngValue]="null">Tất cả</option>
+                            <option [ngValue]="0"> Đã nhập số liệu</option>
+                            <option [ngValue]="1"> Chưa nhập số liệu</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <button type="button" class="btn btn-success float-right l-4"><i class="icon feather icon-navigation"></i>Gửi hóa đơn</button>
+                        <button type="button" class="btn btn-info float-right l-4"><i class="icon feather icon-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <h5>Danh sách phòng trong đợt thanh toán</h5>
+        <span class="d-block m-t-5">Nhập số liệu hóa đơn <span class="text-danger">tiền điện, tiền nước ..</span> cho
+            từng phòng nằm trong đợt thanh toán</span>
+    </div>
+    <div class="card-body table-border-style">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th></th>
+                        <th></th>
+                        <th>Khu trọ</th>
+                        <th>Tên phòng</th>
+                        <th>Số tiền cần đóng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let invoice of invoices; index as i">
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon feather icon-menu text-default f-20"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <a href="javascript:;" class="dropdown-item"><i
+                                            class="icon feather icon-download text-primary f-20"></i>
+                                        Nhập số liệu</a>
+                                    <a href="javascript:;" class="dropdown-item"><i
+                                            class="icon feather icon-package text-success f-20"></i>
+                                        Đã thanh toán</a>
+                                    <a href="javascript:;" class="dropdown-item"><i
+                                            class="icon feather icon-trash text-danger f-20"></i>
+                                        Xóa khỏi đợt</a>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td>
+                            <span *ngIf="invoice.isComplete == true" class="badge badge-success">Đã nhập dữ liệu</span>
+                            <span *ngIf="invoice.isComplete == false" class="badge badge-danger">Chưa nhập dữ
+                                liệu</span>
+
+                        </td>
+
+                        <td>{{ invoice.boardingName }}</td>
+                        <td>{{ invoice.name }}</td>
+                        <td>{{ invoice.amount }}</td>
+                        <td> <span *ngIf="invoice.paymentStatus == 0" class="badge badge-danger">Chưa đóng tiền</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

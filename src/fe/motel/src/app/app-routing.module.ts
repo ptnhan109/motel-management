@@ -16,6 +16,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AddContractComponent } from './pages/add-contract/add-contract.component';
 import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
 import { InvoicesComponent } from './pages/invoices/invoices.component';
+import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.component';
 
 const routes: Routes = [
   {
@@ -102,6 +103,10 @@ const routes: Routes = [
       {
         path: 'bad-request',
         component: BadrequestComponent
+      },
+      {
+        path: 'invoice-single/:id',
+        component: InvoiceSingleComponent
       }
     ]
   }

@@ -12,6 +12,18 @@ namespace Motel.Core.Entities
 
         public DateTime StageDate { get; set; }
 
+        public DateTime EndDate { get; set; }
+
+        public double TotalAmount { get; set; }
+
+        public double AmountPaid { get; set; }
+
+        public int TotalRooms { get; set; }
+
+        public int RoomPaid { get; set; }
+
         public bool IsComplete { get; set; }
+
+        public virtual ICollection<StageRoom> StageRooms { get; set; }
     }
 }

@@ -27,7 +27,8 @@ namespace Motel.Application.Services.StageService.Dtos
                 RoomId = RoomId,
                 StagePaymentId = StagePaymentId,
                 TotalAmount = 0,
-                UpdatedAt = DateTime.Now
+                UpdatedAt = DateTime.Now,
+                IsCompleted = false
             };
     }
 }

@@ -12,6 +12,8 @@ namespace Motel.Application.Services.StageService.Dtos
 
         public DateTime StageDate { get; set; }
 
+        public DateTime EndDate { get; set; }
+
         public List<Guid> Rooms { get; set; }
     }
 }

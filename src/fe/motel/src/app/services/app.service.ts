@@ -185,4 +185,9 @@ export class AppService {
     var options = this.queryParam(filter);
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/paging`,options);
   }
+
+  getRoomInStagePaging(id,filter): Observable<AppResponse<any>>{
+    var options = this.queryParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/${id}/rooms`,options)
+  }
 }

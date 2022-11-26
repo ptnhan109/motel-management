@@ -26,6 +26,7 @@ export class InvoicesComponent implements OnInit {
     name: null,
     code: null,
     stageDate: null,
+    endDate : null,
     rooms : []
   }
 
@@ -138,6 +139,13 @@ export class InvoicesComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  getPercent(sub, total){
+    if(total == 0){
+      return 0;
+    }
+    return Math.round((sub * 100)/total);
   }
 
 

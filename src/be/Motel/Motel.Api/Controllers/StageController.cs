@@ -6,6 +6,7 @@ using Motel.Application.Services.StageService;
 using Motel.Application.Services.StageService.Dtos;
 using Motel.Application.Services.StageService.Models;
 using Motel.Common.Generics;
+using System;
 using System.Threading.Tasks;
 
 namespace Motel.Api.Controllers
@@ -29,5 +30,8 @@ namespace Motel.Api.Controllers
 
         [HttpPost]
         public async Task<Response> AddAsync(AddStage request) => await _service.AddStageAsync(request);
+
+        [HttpGet("{id}/rooms")]
+        public async Task<Response> GetRoomInStageAsync(Guid id, [FromQuery] RoomInStageFilterModel request) => await _service.GetRoomsPagingAsync(id, request);
     }
 }

@@ -11,5 +11,7 @@ namespace Motel.Core.Repositories.RoomRepository
     public interface IRoomRepository
     {
         Task<Room> SetRoomStatusAsync(Guid id, EnumRoomStatus status);
+
+        Task<List<StageRoom>> GetNewestRoomPayments(IEnumerable<Guid> ids);
     }
 }

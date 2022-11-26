@@ -22,5 +22,7 @@ namespace Motel.Core.Entities
         public double TotalAmount { get; set; }
 
         public virtual ICollection<InvoiceRoom> InvoiceRooms { get; set; }
+
+        public bool IsCompleted { get; set; }
     }
 }

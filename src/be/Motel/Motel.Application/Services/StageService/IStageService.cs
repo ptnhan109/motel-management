@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Office2021.DocumentTasks;
+using Motel.Application.Services.RoomService.Models;
 using Motel.Application.Services.StageService.Dtos;
 using Motel.Application.Services.StageService.Models;
 using Motel.Common.Generics;
@@ -16,5 +17,7 @@ namespace Motel.Application.Services.StageService
         Task<Response> AddStageAsync(AddStage request);
 
         Task<Response> GetPaging(StageFilterModel filter);
+
+        Task<Response> GetRoomsPagingAsync(Guid id, RoomInStageFilterModel filter);
     }
 }
