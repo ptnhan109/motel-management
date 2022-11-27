@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Motel.Common.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -26,6 +27,8 @@ namespace Motel.Core.Entities
         public double? Amount { get; set; }
 
         public string Name { get; set; }
+
+        public EnumServiceType ProvideType { get; set; }
 
     }
 }

@@ -42,6 +42,7 @@ namespace Motel.Application.Services.StageService
                 EndDate = request.EndDate,
                 RoomPaid = 0,
                 TotalAmount = 0,
+                RoomData = 0,
                 TotalRooms = request.Rooms?.Count ?? 0,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
@@ -84,7 +85,8 @@ namespace Motel.Application.Services.StageService
                         LastValue = lastValue,
                         NewValue = lastValue,
                         Price = prd.Provide.DefaultPrice,
-                        StageRoomId = stageRoomId
+                        StageRoomId = stageRoomId,
+                        ProvideType = prd.Provide.Type
                     };
                     invoices.Add(inv);
                 }
@@ -93,6 +95,13 @@ namespace Motel.Application.Services.StageService
             }
             await _repository.AddRangeAsync(invoices);
             return Ok();
+        }
+
+        public async Task<Response> GetByIdAsync(Guid id)
+        {
+            var stage = await _repository.FindAsync<StagePayment>(id);
+
+            return Ok(StageDto.FromEntity(stage));
         }
 
         public async Task<Response> GetPaging(StageFilterModel filter)

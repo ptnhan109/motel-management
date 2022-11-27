@@ -3,74 +3,44 @@
         <div class="row">
             <div class="col-sm-4">
                 <h5 class="mb-0">
-                    <span class="badge badge-success">Đang diễn ra</span>
+                    <span *ngIf="stage.isComplete == false" class="badge badge-success">Đang diễn ra</span>
+                    <span *ngIf="stage.isComplete == true" class="badge badge-success">Đã kết thúc</span>
 
                     <a href="javascript:;" class="">
-                        Đợt thanh toán tiền nhà tháng 11 / 2022
+                        {{ stage.name }}
                     </a>
                 </h5>
             </div>
             <div class="col-sm-2">
-                50 % hoàn thành
+                {{ getPercent(stage.roomPaid,stage.totalRooms) }} % hoàn thành
                 <div class="progress mt-1" style="height:4px;">
-                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
-                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-primary rounded" role="progressbar"
+                        [style.width.%]="getPercent(stage.roomPaid,stage.totalRooms)" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
             <div class="col-sm-2">
-                50 % hoàn thành
+                {{ stage.roomData }} / {{ stage.totalRooms }} phòng đã nhập dữ liệu
                 <div class="progress mt-1" style="height:4px;">
-                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
-                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-warning rounded" role="progressbar"
+                        [style.width.%]="getPercent(stage.roomData,stage.totalRooms)" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
             <div class="col-sm-2">
-                50 % hoàn thành
+                {{stage.roomPaid}} / {{stage.totalRooms}} đã thanh toán
                 <div class="progress mt-1" style="height:4px;">
-                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
-                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-success rounded" role="progressbar"
+                        [style.width.%]="getPercent(stage.roomPaid,stage.totalRooms)" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
             <div class="col-sm-2">
-                50 % hoàn thành
+                {{stage.amountPaid}} / {{stage.totalAmount}} đã thu
                 <div class="progress mt-1" style="height:4px;">
-                    <div class="progress-bar bg-primary rounded" role="progressbar" [style.width.%]="50"
-                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                <button class="btn btn-primary"><i class="icon feather icon-arrow-left"></i> Quay lại</button>
-            </div>
-            <div class="col-sm-8 float-right" >
-                <div class="form-row">
-                    <div class="form-group col-md-5">
-                        <select class="form-control">
-                            <option [ngValue]="null">Tất cả</option>
-                            <option [ngValue]="0"> Đã nhập số liệu</option>
-                            <option [ngValue]="1"> Chưa nhập số liệu</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <select class="form-control">
-                            <option [ngValue]="null">Tất cả</option>
-                            <option [ngValue]="0"> Đã nhập số liệu</option>
-                            <option [ngValue]="1"> Chưa nhập số liệu</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <select class="form-control">
-                            <option [ngValue]="null">Tất cả</option>
-                            <option [ngValue]="0"> Đã nhập số liệu</option>
-                            <option [ngValue]="1"> Chưa nhập số liệu</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-3">
-                        <button type="button" class="btn btn-success float-right l-4"><i class="icon feather icon-navigation"></i>Gửi hóa đơn</button>
-                        <button type="button" class="btn btn-info float-right l-4"><i class="icon feather icon-search"></i></button>
-                    </div>
+                    <div class="progress-bar bg-primary rounded" role="progressbar"
+                        [style.width.%]="getPercent(stage.amountPaid,stage.totalAmount)" aria-valuenow="50"
+                        aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -78,9 +48,41 @@
 </div>
 <div class="card">
     <div class="card-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <a [routerLink]="['/invoice']" class="btn btn-primary"><i class="icon feather icon-arrow-left"></i> Quay
+                    lại</a>
+                <a [routerLink]="['/invoice']" class="btn btn-warning l-4"><i class="icon feather icon-bell"></i> Gửi
+                    hóa đơn</a>
+            </div>
+            <div class="col-sm-6 ">
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <input class="form-control" placeholder="Tìm kiếm theo tên phòng">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <select class="form-control float-right">
+                            <option [ngValue]="null">Tất cả</option>
+                            <option [ngValue]="0"> Đã nhập số liệu</option>
+                            <option [ngValue]="1"> Chưa nhập số liệu</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <select class="form-control float-right">
+                            <option [ngValue]="null">Tất cả</option>
+                            <option [ngValue]="0"> Đã thanh toán</option>
+                            <option [ngValue]="1"> Chưa thanh toán</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-info l-4 float-right"><i
+                                class="icon feather icon-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h5>Danh sách phòng trong đợt thanh toán</h5>
-        <span class="d-block m-t-5">Nhập số liệu hóa đơn <span class="text-danger">tiền điện, tiền nước ..</span> cho
-            từng phòng nằm trong đợt thanh toán</span>
+
     </div>
     <div class="card-body table-border-style">
         <div class="table-responsive">
@@ -106,7 +108,7 @@
                                     <i class="icon feather icon-menu text-default f-20"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <a href="javascript:;" class="dropdown-item"><i
+                                    <a (click)="getInvoiceRoomById(invoice.id);inputRoomData.show()" href="javascript:;" class="dropdown-item"><i
                                             class="icon feather icon-download text-primary f-20"></i>
                                         Nhập số liệu</a>
                                     <a href="javascript:;" class="dropdown-item"><i
@@ -137,3 +139,81 @@
         </div>
     </div>
 </div>
+
+
+
+<app-ui-modal #inputRoomData [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Nhập số liệu hóa đơn cho phòng {{ invoiceDetail.invoice.name }} - {{ invoiceDetail.invoice.boardingName }} </h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="inputRoomData.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="name">Khu trọ <span class="text-danger">*</span></label>
+                <input [(ngModel)]="invoiceDetail.invoice.boardingName" type="text" class="form-control" id="name" disabled>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="name">Phòng trọ <span class="text-danger">*</span></label>
+                <input [(ngModel)]="invoiceDetail.invoice.name" type="text" class="form-control" id="name" disabled>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="name">Người đại diện <span class="text-danger">*</span></label>
+                <input [(ngModel)]="invoiceDetail.contract.customerName" type="text" class="form-control" id="name" disabled>
+            </div>
+        </div>
+        <hr>
+        <div class="form-row float-right">
+            <h6>Số tiền nhà đã trả trước: <span class="text-danger">{{formatCurrency(invoiceDetail.contract.depositedAmount)}} đ</span> </h6>
+        </div>
+        <h6>Số liệu các dịch vụ trong tháng</h6>
+        <hr>
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <strong for="name">Tên dịch vụ </strong>
+            </div>
+            <div class="form-group col-md-1">
+                <label for="name">Số cũ </label>
+            </div>
+            <div class="form-group col-md-1">
+                <strong for="name">Số mới</strong>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="name">Đơn giá</label>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="name">Thành tiền</label>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="name">Ghi chú</label>
+            </div>
+            <div class="form-group col-md-1">
+            </div>
+        </div>
+        <div *ngFor="let item of invoiceDetail.items; index as i" class="form-row">
+            <div class="form-group col-md-3">
+                <input [(ngModel)]="invoiceDetail.items[i].name" type="text" class="form-control " id="name" disabled>
+            </div>
+            <div class="form-group col-md-1">
+                <input [(ngModel)]="invoiceDetail.items[i].lastValue" type="text" class="form-control " id="name">
+            </div>
+            <div class="form-group col-md-1">
+                <input [(ngModel)]="invoiceDetail.items[i].newValue" type="text" class="form-control " id="name">
+            </div>
+            <div class="form-group col-md-2">
+                <input [(ngModel)]="invoiceDetail.items[i].price" type="text" class="form-control " id="name">
+            </div>
+            <div class="form-group col-md-2">
+                <input [(ngModel)]="invoiceDetail.items[i].price" type="text" class="form-control " id="name">
+            </div>
+            <div class="form-group col-md-2">
+                <span>Tính theo số người</span>
+            </div>
+        </div>
+        <button type="button" class="btn btn-default float-right">Hủy
+            bỏ</button>
+        <button  type="button"
+            class="btn btn-primary float-right"> Lưu hóa đơn</button>
+    </div>
+</app-ui-modal>

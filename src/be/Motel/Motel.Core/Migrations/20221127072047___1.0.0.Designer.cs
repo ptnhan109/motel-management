@@ -10,8 +10,8 @@ using Motel.Core.Data;
 namespace Motel.Core.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20221126044522___1.0.2")]
-    partial class __102
+    [Migration("20221127072047___1.0.0")]
+    partial class __100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,16 +130,16 @@ namespace Motel.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("793dbc45-b344-4091-a940-276d5ba34582"),
+                            Id = new Guid("0255d37c-bdbf-478a-affc-37952c8ba79a"),
                             Address = "Cổ Nhuế, Từ Liêm",
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 687, DateTimeKind.Local).AddTicks(3768),
+                            CreatedAt = new DateTime(2022, 11, 27, 14, 20, 47, 135, DateTimeKind.Local).AddTicks(7162),
                             Gender = 1,
                             Mail = "trongnhan1110i@gmail.com",
                             Name = "Phạm Trọng Nhân",
                             Password = "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=",
                             Phone = "0775331777",
                             Role = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 688, DateTimeKind.Local).AddTicks(4430)
+                            UpdatedAt = new DateTime(2022, 11, 27, 14, 20, 47, 136, DateTimeKind.Local).AddTicks(6478)
                         });
                 });
 
@@ -395,6 +395,9 @@ namespace Motel.Core.Migrations
                     b.Property<Guid?>("ProvideId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("ProvideType")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("StageRoomId")
                         .HasColumnType("uniqueidentifier");
 
@@ -434,98 +437,6 @@ namespace Motel.Core.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Provides");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("71966447-34d7-44af-8455-31a69b899d8c"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(6746),
-                            DefaultPrice = 4000.0,
-                            Name = "Tiền điện",
-                            Type = 1,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(6781)
-                        },
-                        new
-                        {
-                            Id = new Guid("7eefc752-5ce1-4a02-a6ad-c88d6a1cdf4d"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7782),
-                            DefaultPrice = 100000.0,
-                            Name = "Tiền nước",
-                            Type = 1,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7787)
-                        },
-                        new
-                        {
-                            Id = new Guid("c08b3fe6-2190-4722-b51a-aacd53cdbb02"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7814),
-                            DefaultPrice = 50000.0,
-                            Name = "Gửi Xe máy",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7815)
-                        },
-                        new
-                        {
-                            Id = new Guid("9d954725-31b1-4646-aa2e-6209aa0aa4f7"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7818),
-                            DefaultPrice = 0.0,
-                            Name = "Tiền xe đạp",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7819)
-                        },
-                        new
-                        {
-                            Id = new Guid("08339eaa-98f3-46b6-ab8f-5135bbc869d5"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7821),
-                            DefaultPrice = 100000.0,
-                            Name = "Tiền xe điện",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7822)
-                        },
-                        new
-                        {
-                            Id = new Guid("ca506956-c33c-48a1-8734-94206855a99d"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7824),
-                            DefaultPrice = 50000.0,
-                            Name = "Internet",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7825)
-                        },
-                        new
-                        {
-                            Id = new Guid("f1fedc0d-c9ec-4254-a2d3-eaf087bff0fd"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7828),
-                            DefaultPrice = 10000.0,
-                            Name = "Bảo vệ",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7829)
-                        },
-                        new
-                        {
-                            Id = new Guid("a9634515-08e5-4b2a-8d9d-ec2cb1426a5e"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7831),
-                            DefaultPrice = 0.0,
-                            Name = "Máy giặt",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7832)
-                        },
-                        new
-                        {
-                            Id = new Guid("66b7513f-bdb7-4a27-abba-24f49368a015"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7844),
-                            DefaultPrice = 0.0,
-                            Name = "Truyền hình cáp",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7845)
-                        },
-                        new
-                        {
-                            Id = new Guid("1c57f686-a7d1-40ee-a419-193ef79f79a9"),
-                            CreatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7847),
-                            DefaultPrice = 50000.0,
-                            Name = "Thang máy",
-                            Type = 0,
-                            UpdatedAt = new DateTime(2022, 11, 26, 11, 45, 21, 689, DateTimeKind.Local).AddTicks(7848)
-                        });
                 });
 
             modelBuilder.Entity("Motel.Core.Entities.ProvideInBoardingHouse", b =>
@@ -675,6 +586,9 @@ namespace Motel.Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomData")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoomPaid")
                         .HasColumnType("int");
 
@@ -703,6 +617,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("int");

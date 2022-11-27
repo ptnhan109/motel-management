@@ -22,6 +22,9 @@ namespace Motel.Api.Controllers
         {
             _service = service;
         }
+        [HttpGet("{id}")]
+        public async Task<Response> GetById(Guid id) => await _service.GetByIdAsync(id);
+
         [HttpGet("code")]
         public async Task<Response> GetCode() => await _service.GetStageCodeAsync();
 

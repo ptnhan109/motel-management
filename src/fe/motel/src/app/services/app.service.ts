@@ -190,4 +190,12 @@ export class AppService {
     var options = this.queryParam(filter);
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/${id}/rooms`,options)
   }
+
+  getStageById(id):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/${id}`,this.options);
+  }
+
+  getInvoiceById(id):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/invoice/${id}`,this.options);
+  }
 }

@@ -30,6 +30,8 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public bool? IsSelfContainer { get; set; }
 
+        public int Area { get; set; }
+
         public static RoomDto FromEntity(Room room)
             => new RoomDto()
             {
@@ -42,7 +44,8 @@ namespace Motel.Application.Services.RoomService.Dtos
                 MaxHuman = room.MaxHuman,
                 Name = room.Name,
                 Price = room.Price,
-                Status = room.Status
+                Status = room.Status,
+                Area = room.Area
             };
     }
 

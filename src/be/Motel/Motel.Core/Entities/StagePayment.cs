@@ -18,6 +18,8 @@ namespace Motel.Core.Entities
 
         public double AmountPaid { get; set; }
 
+        public int RoomData { get; set; }
+
         public int TotalRooms { get; set; }
 
         public int RoomPaid { get; set; }

@@ -19,5 +19,7 @@ namespace Motel.Application.Services.StageService
         Task<Response> GetPaging(StageFilterModel filter);
 
         Task<Response> GetRoomsPagingAsync(Guid id, RoomInStageFilterModel filter);
+
+        Task<Response> GetByIdAsync(Guid id);
     }
 }

@@ -15,6 +15,8 @@ namespace Motel.Application.Services.StageService.Dtos
 
         public double AmountPaid { get; set; }
 
+        public int RoomData { get; set; }
+
         public int TotalRooms { get; set; }
 
         public int RoomPaid { get; set; }
@@ -30,7 +32,8 @@ namespace Motel.Application.Services.StageService.Dtos
                 TotalRooms = stage.TotalRooms,
                 TotalAmount = stage.TotalAmount,
                 RoomPaid = stage.RoomPaid,
-                IsComplete = stage.IsComplete
+                IsComplete = stage.IsComplete,
+                RoomData = stage.RoomData
             };
     }
 }
