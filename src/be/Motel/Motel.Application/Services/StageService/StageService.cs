@@ -2,6 +2,7 @@
 using Motel.Application.Services.RoomService.Models;
 using Motel.Application.Services.StageService.Dtos;
 using Motel.Application.Services.StageService.Models;
+using Motel.Common.Enums;
 using Motel.Common.Generics;
 using Motel.Core;
 using Motel.Core.Contants;
@@ -57,7 +58,7 @@ namespace Motel.Application.Services.StageService
 
             // find add rooms
             var rooms = await _repository.FindAllAsync<Room>
-                (room => request.Rooms.Contains(room.Id));
+                (room => request.Rooms.Contains(room.Id),null, new string[] { "Customers" });
 
             var invoices = new List<InvoiceRoom>();
             // find provide used in room
@@ -83,7 +84,7 @@ namespace Motel.Application.Services.StageService
                         Name = prd.Provide.Name,
                         Amount = 0,
                         LastValue = lastValue,
-                        NewValue = lastValue,
+                        NewValue = GetNewValueByType(prd.Provide.Type,room.Customers.Count),
                         Price = prd.Provide.DefaultPrice,
                         StageRoomId = stageRoomId,
                         ProvideType = prd.Provide.Type
@@ -140,6 +141,21 @@ namespace Motel.Application.Services.StageService
         {
             var count = await _repository.CountAsync<StagePayment>();
             return Ok(count.ToCode(AppPrefix.Stage));
+        }
+
+        private int GetNewValueByType(EnumServiceType type, int customers)
+        {
+            switch (type)
+            {
+                case EnumServiceType.ByMonth:
+                    return 1;
+                case EnumServiceType.ByCustomer:
+                    return customers;
+                case EnumServiceType.ByNumber:
+                    return 0;
+                default:
+                    return 0;
+            }
         }
     }
 }

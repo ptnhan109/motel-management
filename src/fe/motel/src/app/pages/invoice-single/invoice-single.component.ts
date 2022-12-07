@@ -10,6 +10,7 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class InvoiceSingleComponent implements OnInit {
 
+  isDeposited = false;
   filter = {
     boardingId : null,
     pageIndex : 1,
@@ -49,6 +50,9 @@ export class InvoiceSingleComponent implements OnInit {
       status : null,
       terms : null,
       type : null
+    },
+    room:{
+      price : 0
     },
     items : []
   }
@@ -100,6 +104,29 @@ export class InvoiceSingleComponent implements OnInit {
     )
   }
 
+  getProvideType(type){
+    switch(type){
+      case 0:
+        return "Thu theo phòng / tháng"
+      case 1: 
+        return "Thu theo số"
+      case 2:
+        return "Thu theo khách thuê"
+      case 3:
+        return "Thu theo số lượng"
+      default:
+        return "Miễn phí"
+    }
+  }
+
+  onChangeNumber(){
+    this.invoiceDetail.items.forEach(
+      element =>{
+        element.amount = (element.newValue - element.lastValue) * element.price;
+      }
+    )
+  }
+
 
 
   getPercent(sub, total){
@@ -111,6 +138,14 @@ export class InvoiceSingleComponent implements OnInit {
 
   formatCurrency(input){
     return FormatCurrency(input);
+  }
+
+  roomPrice(){
+    if(this.isDeposited){
+      this.invoiceDetail.contract.depositedAmount = this.invoiceDetail.contract.depositedAmount - this.invoiceDetail.room.price;
+    }else{
+      this.invoiceDetail.contract.depositedAmount = this.invoiceDetail.contract.depositedAmount - this.invoiceDetail.room.price;
+    }
   }
 
 }
