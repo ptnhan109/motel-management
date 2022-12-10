@@ -54,6 +54,10 @@ export class InvoiceSingleComponent implements OnInit {
     room:{
       price : 0
     },
+    boardingHouse:{
+      id: null,
+      months: null
+    },
     items : []
   }
   constructor(

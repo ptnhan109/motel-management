@@ -1,4 +1,5 @@
-﻿using Motel.Application.Services.ContractService.Dtos;
+﻿using Motel.Application.Services.BoardingHouseService.Dtos;
+using Motel.Application.Services.ContractService.Dtos;
 using Motel.Application.Services.RoomService.Dtos;
 using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Application.Services.StageService.Dtos;
@@ -22,6 +23,8 @@ namespace Motel.Application.Services.InvoiceService.Dtos
 
         public RoomDto Room { get; set; }
 
+        public BoardingHouseDto BoardingHouse { get; set; }
+
         public IEnumerable<InvoiceRoomDto> Items { get; set; }
 
         public static InvoiceDto FromEntity(StageRoom entity)
@@ -29,12 +32,14 @@ namespace Motel.Application.Services.InvoiceService.Dtos
             var stageRoom = StageRoomDto.FromEntity(entity);
             var items = entity.InvoiceRooms.Select(invoice => InvoiceRoomDto.FromEntity(invoice));
             var room = RoomDto.FromEntity(entity.Room);
+            var boading = BoardingHouseDto.FromEntity(entity.Room.BoardingHouse);
             return new InvoiceDto()
             {
                 Id = entity.Id,
                 Items = items,
                 Invoice = stageRoom,
-                Room = room
+                Room = room,
+                BoardingHouse = boading
             };
         }
     }
