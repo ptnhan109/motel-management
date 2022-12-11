@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LOCALSTORAGE } from 'src/app/contants/Storage';
 import { AppService } from 'src/app/services/app.service';
+import { UserServiceService } from 'src/app/services/user-service.service';
 import { ToastService } from 'src/app/theme/shared/components/toast/toast.service';
 
 @Component({
@@ -19,11 +20,13 @@ export class AuthenticateComponent implements OnInit {
   constructor(
     private appService: AppService,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private userService : UserServiceService
 
   ) { }
 
   ngOnInit(): void {
+    this.isAuthenticated();
   }
 
   login() {
@@ -33,7 +36,7 @@ export class AuthenticateComponent implements OnInit {
     this.appService.authenticate(this.user).subscribe(result => {
       if (result.isSucceeded == true) {
         let token = `Bearer ${result.data.token}`;
-        localStorage.setItem(LOCALSTORAGE.TOKEN, token);
+        this.userService.setToken(token);
         this.toast.success("Đăng nhập thành công.");
         window.location.href = '/dashboard';
 
@@ -45,6 +48,14 @@ export class AuthenticateComponent implements OnInit {
       error => {
         console.log(error);
       })
+  }
+
+  isAuthenticated(){
+    let token = this.userService.getToken();
+    console.log(token);
+    if(token != null){
+      window.location.href = '/dashboard';
+    }
   }
 
   validate() {

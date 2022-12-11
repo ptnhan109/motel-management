@@ -100,6 +100,14 @@ namespace Motel.Core
             return await AsQueryable<TEntity>().AsNoTracking().FirstOrDefaultAsync(c => c.Id.Equals(id));
         }
 
+        public async Task<TEntity> FindNewestAsync<TEntity>(IEnumerable<string> includes) where TEntity : BaseEntity
+        {
+            var query = GetQueryable<TEntity>(includes);
+            query = query.OrderByDescending(c => c.CreatedAt);
+
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<TEntity> FindAsync<TEntity>(Guid id, IEnumerable<string> includes = null) where TEntity : BaseEntity
         {
             return await AsQueryable<TEntity>(includes).AsNoTracking().FirstOrDefaultAsync(c => c.Id.Equals(id));
@@ -177,6 +185,17 @@ namespace Motel.Core
             }
 
             return query;
+        }
+
+        public async Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity
+        {
+            var query = GetQueryable<TEntity>();
+            if(where != null)
+            {
+                query = query.Where(where);
+            }
+
+            return await query.CountAsync();
         }
     }
 }

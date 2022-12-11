@@ -164,4 +164,42 @@ export class AppService {
   getContractByRoomId(id, type):Observable<AppResponse<any>>{
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/contract/${id}/room?type=${type}`,this.options);
   }
+
+  setRoomStatus(id, status): Observable<AppResponse<any>>{
+    let request = {
+      status : status,
+      id: id
+    };
+    return this.http.patch<AppResponse<any>>(`${environment.apiServer}/api/room/${id}/status`,request,this.options)
+  }
+
+  getStageCode() : Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/code`,this.options);
+  }
+
+  addStage(param): Observable<AppResponse<any>>{
+    return this.http.post<AppResponse<any>>(`${environment.apiServer}/api/stage`,param,this.options);
+  }
+
+  getStagePaging(filter) : Observable<AppResponse<any>>{
+    var options = this.queryParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/paging`,options);
+  }
+
+  getRoomInStagePaging(id,filter): Observable<AppResponse<any>>{
+    var options = this.queryParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/${id}/rooms`,options)
+  }
+
+  getStageById(id):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/stage/${id}`,this.options);
+  }
+
+  getInvoiceById(id):Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/invoice/${id}`,this.options);
+  }
+
+  updateInvoice(request):Observable<AppResponse<any>>{
+    return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/invoice/${request.id}`,request,this.options)
+  }
 }

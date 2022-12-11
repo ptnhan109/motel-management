@@ -8,6 +8,8 @@ namespace Motel.Core.Entities
 {
     public class AppContract : BaseEntity
     {
+        public string ContractNo { get; set; }
+
         public Guid? CustomerId { get; set; }
 
         public string Name { get; set; }
@@ -32,6 +34,8 @@ namespace Motel.Core.Entities
         public int? ContractDuration { get; set; }
 
         public EnumContractStatus Status { get; set; }
+
+        public double? AdvanceAmount { get; set; }
 
         public virtual ICollection<ContractTerm> ContractTerms { get; set; }
     }

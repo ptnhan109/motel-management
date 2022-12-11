@@ -15,9 +15,9 @@ namespace Motel.Common.Enums
                 case EnumServiceType.ByQuantity:
                     return "Thu theo số lượng";
                 case EnumServiceType.ByMonth:
-                    return "Thu theo tháng";
+                    return "Thu theo phòng / tháng";
                 case EnumServiceType.ByNumber:
-                    return "Thu theo số";
+                    return "Thu theo số đồng hồ";
                 default:
                     return string.Empty;
             }

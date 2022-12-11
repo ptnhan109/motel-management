@@ -5,8 +5,10 @@ using Motel.Application.Services.BoardingHouseService;
 using Motel.Application.Services.ContractService;
 using Motel.Application.Services.CustomerService;
 using Motel.Application.Services.FitmentServices;
+using Motel.Application.Services.InvoiceService;
 using Motel.Application.Services.RoomService;
 using Motel.Application.Services.ServiceService;
+using Motel.Application.Services.StageService;
 using Motel.Application.Services.UserService;
 using Motel.Core;
 using Motel.Core.Repositories.RoomRepository;
@@ -35,6 +37,8 @@ namespace Motel.Application
             services.AddScoped<IRoomService, RoomService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IContractService, ContractService>();
+            services.AddScoped<IStageService, StageService>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
 
             services.AddScoped<IRoomRepository, RoomRepository>();
         }

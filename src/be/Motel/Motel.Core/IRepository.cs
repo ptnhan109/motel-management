@@ -32,6 +32,8 @@ namespace Motel.Core
 
         Task<TEntity> FindAsync<TEntity>(Guid id, IEnumerable<string> includes = null) where TEntity : BaseEntity;
 
+        Task<TEntity> FindNewestAsync<TEntity>(IEnumerable<string> includes) where TEntity : BaseEntity;
+
         Task<PagedResult<TEntity>> FindPagedAsync<TEntity>(IQueryable<TEntity> query, int? pageIndex = 1, int? pageSize = 20) where TEntity : BaseEntity;
 
         IQueryable<TEntity> GetQueryable<TEntity>() where TEntity : BaseEntity;
@@ -43,5 +45,7 @@ namespace Motel.Core
         Task UpdateAsync<TEntity>(TEntity entity) where TEntity : BaseEntity;
 
         Task UpdateRangeAsync<TEntity>(IEnumerable<TEntity> entites) where TEntity : BaseEntity;
+
+        Task<int> CountAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity;
     }
 }

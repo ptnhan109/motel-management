@@ -41,6 +41,16 @@ namespace Motel.Core.Data
         public DbSet<AppContract> AppContracts { get; set; }
 
         public DbSet<UserInfo> UserInfos { get; set; }
+
+        public DbSet<StagePayment> StagePayments { get; set; }
+
+        public DbSet<StageRoom> StageRooms { get; set; }
+
+        public DbSet<InvoiceRoom> Invoices { get; set; }
+
+        public DbSet<SystemConfig> Systems { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<AppUser>().HasData(
@@ -57,100 +67,6 @@ namespace Motel.Core.Data
                     Role = EnumRole.Admin,
                     UpdatedAt = DateTime.Now,
                     CityId = null
-                }
-                );
-            builder.Entity<Provide>().HasData(
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Tiền điện",
-                    Type = EnumServiceType.ByNumber,
-                    DefaultPrice = 4000
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Tiền nước",
-                    Type = EnumServiceType.ByNumber,
-                    DefaultPrice = 100000
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Gửi Xe máy",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 50000
-
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Tiền xe đạp",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 0
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Tiền xe điện",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 100000
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Internet",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 50000
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Bảo vệ",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 10000
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Máy giặt",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 0
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Truyền hình cáp",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 0
-
-                },
-                new Provide()
-                {
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                    Id = Guid.NewGuid(),
-                    Name = "Thang máy",
-                    Type = EnumServiceType.ByMonth,
-                    DefaultPrice = 50000
                 }
                 );
         }

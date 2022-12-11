@@ -5,13 +5,15 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, map } from 'rxjs/operators';
 import { getToken } from '../common/message';
+import { UserServiceService } from './user-service.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
   constructor(
     private _router: Router,
-    private _toast : ToastrService
+    private _toast : ToastrService,
+    private _authService : UserServiceService
   ) {
 
   }
@@ -22,12 +24,13 @@ export class AuthInterceptor implements HttpInterceptor {
 
           if (err.status === 401 || err.status === 403) {
               this._toast.warning("Phiên đăng nhập đã hết hạn.");
+              this._authService.removeToken();
               this.redirectToLoginPage();
           }
 
           if(err.status === 500){
             this._toast.error("Lỗi hệ thống");
-            this.redirectToBadRequestPage();
+            
           }
           return throwError(err);
         }

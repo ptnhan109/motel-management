@@ -188,11 +188,14 @@ namespace Motel.Application.Services.RoomService
             return Ok(data);
         }
 
-        private async Task SetRoomStatus(Guid id, EnumRoomStatus status)
+        public async Task<Response> SetRoomStatus(Guid id, EnumRoomStatus status)
         {
             var room = await _repository.FindAsync<Room>(id);
             room.Status = status;
             await _repository.UpdateAsync(room);
+
+            return Ok();
         }
+
     }
 }

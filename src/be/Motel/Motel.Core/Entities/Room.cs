@@ -31,6 +31,8 @@ namespace Motel.Core.Entities
 
         public int? Count { get; set; }
 
+        public int Area { get; set; }
+
         public virtual ICollection<Customer> Customers { get; set; }
     }
 }

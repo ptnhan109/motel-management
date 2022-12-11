@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System;
 using Motel.Application.Services.RoomService;
 using Microsoft.AspNetCore.Authorization;
+using Motel.Common.Enums;
 
 namespace Motel.Api.Controllers
 {
@@ -68,5 +69,14 @@ namespace Motel.Api.Controllers
         {
             return await _service.GetRoomDeposit(id);
         }
+
+        [Route("{id}/status")]
+        [HttpPatch]
+        public async Task<Response> SetRoomStatus(Guid id, [FromBody] SetRoomStatus status)
+        {
+            status.Id = id;
+            return await _service.SetRoomStatus(id, status.Status);
+        }
+
     }
 }

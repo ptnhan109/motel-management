@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\Contact\" />
     <Folder Include="Exports\" />
   </ItemGroup>
 

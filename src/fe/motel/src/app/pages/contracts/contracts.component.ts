@@ -40,9 +40,10 @@ export class ContractsComponent implements OnInit {
     roomId: null,
     createdDate: null,
     expiredDate: null,
-    depositedAmount: null,
+    depositedAmount: 0,
     type: 1,
     contractDuration: null,
+    advanceAmount : 0,
     terms: []
   }
 
@@ -146,7 +147,7 @@ export class ContractsComponent implements OnInit {
       response => {
         this.paging = response.data;
         this.contracts = response.data.items;
-        console.log(this.contracts);
+        this.pageNumbers = [];
         for (let i = 1; i <= this.paging.totalPage; i++) {
           this.pageNumbers.push(i);
         }
@@ -207,6 +208,8 @@ export class ContractsComponent implements OnInit {
         return "Đã đặt cọc";
       case roomStatus.hired:
         return "Đã cho thuê";
+      case roomStatus.pending:
+        return "Tạm dừng cho thuê"
       default:
         return "";
     }

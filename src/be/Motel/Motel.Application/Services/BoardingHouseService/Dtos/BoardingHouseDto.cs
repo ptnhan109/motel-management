@@ -27,6 +27,15 @@ namespace Motel.Application.Services.BoardingHouseService.Dtos
         public bool? IsSelfPayment { get; set; }
 
         public IEnumerable<ServiceInHouseDto> Services { get; set; }
+
+        public static BoardingHouseDto FromEntity(BoardingHouse entity)
+        {
+            return new BoardingHouseDto()
+            {
+                Id = entity.Id,
+                Months = entity.Months
+            };
+        }
     }
 
     public class BoardingHouseDetail

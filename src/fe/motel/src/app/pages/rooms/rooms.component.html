@@ -144,7 +144,7 @@
                                     <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
                                         class="dropdown-item" *ngIf="(room.status == 0)"><i
                                             class="icon feather icon-box text-success f-20"></i> Đặt cọc</a>
-                                    <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
+                                    <a (click)="setRoomStatus(room.id,3)" href="javascript:;"
                                         class="dropdown-item" *ngIf="(room.status == 0)"><i
                                             class="icon feather icon-lock text-danger f-20"></i> Tạm dừng cho thuê</a>
                                     <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
@@ -162,7 +162,7 @@
                                     <a (click)="setRoomName(room);deleteDeposit.show()" href="javascript:;"
                                         *ngIf="(room.status == 1)" class="dropdown-item"><i
                                             class="icon feather icon-x text-danger f-20"></i> Hủy cọc</a>
-                                    <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
+                                    <a (click)="setRoomStatus(room.id,0)" href="javascript:;"
                                         class="dropdown-item" *ngIf="(room.status == 3)"><i
                                             class="icon feather icon-unlock text-success f-20"></i> Tiếp tục cho thuê</a>
                                 </div>
