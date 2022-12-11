@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Office2021.DocumentTasks;
+using Motel.Application.Services.InvoiceService.Dtos;
 using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Common.Enums;
 using Motel.Common.Generics;
@@ -12,5 +13,7 @@ namespace Motel.Application.Services.InvoiceService
     public interface IInvoiceService
     {
         Task<Response> GetByIdAsync(Guid id);
+
+        Task<Response> SetInvoice(InvoiceDto dto);
     }
 }

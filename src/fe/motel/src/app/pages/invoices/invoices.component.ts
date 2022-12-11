@@ -123,6 +123,7 @@ export class InvoicesComponent implements OnInit {
     this._service.addStage(request).subscribe(
       response =>{
         this._toast.success("Tạo đợt thanh toán thành công.");
+        this.getStagePaymentPaging();
       }
     )
     return true;

@@ -40,9 +40,10 @@ export class ContractsComponent implements OnInit {
     roomId: null,
     createdDate: null,
     expiredDate: null,
-    depositedAmount: null,
+    depositedAmount: 0,
     type: 1,
     contractDuration: null,
+    advanceAmount : 0,
     terms: []
   }
 

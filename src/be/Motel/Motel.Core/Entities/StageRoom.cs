@@ -24,5 +24,7 @@ namespace Motel.Core.Entities
         public virtual ICollection<InvoiceRoom> InvoiceRooms { get; set; }
 
         public bool IsCompleted { get; set; }
+
+        public bool IsSubtractToDeposited { get; set; }
     }
 }

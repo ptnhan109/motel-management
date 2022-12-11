@@ -198,4 +198,8 @@ export class AppService {
   getInvoiceById(id):Observable<AppResponse<any>>{
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/invoice/${id}`,this.options);
   }
+
+  updateInvoice(request):Observable<AppResponse<any>>{
+    return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/invoice/${request.id}`,request,this.options)
+  }
 }

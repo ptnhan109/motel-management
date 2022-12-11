@@ -35,6 +35,8 @@ namespace Motel.Application.Services.ContractService.Dtos
 
         public List<AddTermDto> Terms { get; set; }
 
+        public double AdvanceAmount { get; set; }
+
         public static ContractDto FromDeposited(RoomDeposited deposited)
         {
             return new ContractDto()
@@ -67,7 +69,8 @@ namespace Motel.Application.Services.ContractService.Dtos
                 Name = entity.Name,
                 RoomId = entity.RoomId,
                 Status = entity.Status,
-                Type = entity.Type
+                Type = entity.Type,
+                AdvanceAmount = entity.AdvanceAmount.Value
             };
     }
 }

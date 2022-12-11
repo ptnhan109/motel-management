@@ -45,10 +45,11 @@ export class AddContractComponent implements OnInit {
     roomId: null,
     createdDate: null,
     expiredDate: null,
-    depositedAmount: null,
+    depositedAmount: 0,
     type: 1,
     contractDuration: null,
-    terms: []
+    terms: [],
+    advanceAmount : 0
   }
 
   room = {

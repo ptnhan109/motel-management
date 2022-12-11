@@ -18,6 +18,10 @@ namespace Motel.Application.Services.StageService.Dtos
 
         public string BoardingName { get; set; }
 
+        public Guid StagePaymentId { get; set; }
+
+        public Guid RoomId { get; set; }
+
         public EnumInvoicePaymentStatus PaymentStatus { get; set; }
 
         public static StageRoomDto FromEntity(StageRoom entity)
@@ -28,7 +32,9 @@ namespace Motel.Application.Services.StageService.Dtos
                 IsComplete = entity.IsCompleted,
                 Name = entity.Room.Name,
                 PaymentStatus = entity.PaymentStatus,
-                BoardingName = entity.Room.BoardingHouse.Name
+                BoardingName = entity.Room.BoardingHouse.Name,
+                StagePaymentId = entity.StagePaymentId,
+                RoomId = entity.RoomId,
             };
     }
 }

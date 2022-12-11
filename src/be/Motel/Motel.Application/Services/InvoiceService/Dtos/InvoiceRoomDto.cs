@@ -1,4 +1,5 @@
-﻿using Motel.Application.Services.ServiceService.Dtos;
+﻿using DocumentFormat.OpenXml.Drawing.Charts;
+using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Common.Enums;
 using Motel.Core.Entities;
 using System;
@@ -9,7 +10,7 @@ namespace Motel.Application.Services.InvoiceService.Dtos
 {
     public class InvoiceRoomDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         public Guid StageRoomId { get; set; }
 

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { element } from 'protractor';
 import { FormatCurrency, RemoveNullable } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
 
@@ -10,7 +12,6 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class InvoiceSingleComponent implements OnInit {
 
-  isDeposited = false;
   filter = {
     boardingId : null,
     pageIndex : 1,
@@ -28,6 +29,8 @@ export class InvoiceSingleComponent implements OnInit {
   }
   invoices = [];
   invoiceDetail = {
+    id : null,
+    subtractDeposited : false,
     invoice : {
       amount : 0,
       boardingName: "",
@@ -49,7 +52,8 @@ export class InvoiceSingleComponent implements OnInit {
       roomId : null,
       status : null,
       terms : null,
-      type : null
+      type : null,
+      advanceAmount : 0
     },
     room:{
       price : 0
@@ -60,14 +64,17 @@ export class InvoiceSingleComponent implements OnInit {
     },
     items : []
   }
+  others = [];
   constructor(
     private _service : AppService,
-    private _route : ActivatedRoute
+    private _route : ActivatedRoute,
+    private _toast : ToastrService
   ) { }
 
   ngOnInit(): void {
     this.getStage();
     this.getRoomsInStage();
+    this.onChangeNumber();
   }
 
   getRoomsInStage(){
@@ -78,7 +85,6 @@ export class InvoiceSingleComponent implements OnInit {
         this._service.getRoomInStagePaging(id,request).subscribe(
           response =>{
             this.invoices = response.data.items;
-            console.log(this.invoices);
           }
         )
       }
@@ -92,7 +98,6 @@ export class InvoiceSingleComponent implements OnInit {
         this._service.getStageById(id).subscribe(
           response =>{
             this.stage = response.data;
-            console.log(this.stage);
           }
         )
       }
@@ -104,6 +109,7 @@ export class InvoiceSingleComponent implements OnInit {
       response =>{
         this.invoiceDetail = response.data;
         console.log(this.invoiceDetail);
+        this.onChangeNumber();
       }
     )
   }
@@ -124,13 +130,45 @@ export class InvoiceSingleComponent implements OnInit {
   }
 
   onChangeNumber(){
+    let totalAmount = 0;
     this.invoiceDetail.items.forEach(
       element =>{
         element.amount = (element.newValue - element.lastValue) * element.price;
+        totalAmount = totalAmount + element.amount;
       }
     )
+    this.others.forEach(
+      element =>{
+        totalAmount += element.price;
+      }
+    )
+    if(!this.invoiceDetail.subtractDeposited){
+      totalAmount += this.invoiceDetail.room.price;
+    }
+
+    this.invoiceDetail.invoice.amount = totalAmount;
+
+  }
+  changeRoomPrice(){
+    if(this.invoiceDetail.subtractDeposited){
+      this.invoiceDetail.invoice.amount -= this.invoiceDetail.room.price;
+      this.invoiceDetail.contract.advanceAmount -= this.invoiceDetail.room.price;
+    }else{
+      this.invoiceDetail.invoice.amount += this.invoiceDetail.room.price;
+      this.invoiceDetail.contract.advanceAmount += this.invoiceDetail.room.price;
+    }
   }
 
+  addOtherElements() {
+    this.others.push({
+      name: "",
+      price: 0
+    });
+  }
+  removeOther(index) {
+    this.others.splice(index, 1);
+    this.changeRoomPrice();
+  }
 
 
   getPercent(sub, total){
@@ -144,12 +182,28 @@ export class InvoiceSingleComponent implements OnInit {
     return FormatCurrency(input);
   }
 
-  roomPrice(){
-    if(this.isDeposited){
-      this.invoiceDetail.contract.depositedAmount = this.invoiceDetail.contract.depositedAmount - this.invoiceDetail.room.price;
-    }else{
-      this.invoiceDetail.contract.depositedAmount = this.invoiceDetail.contract.depositedAmount - this.invoiceDetail.room.price;
-    }
-  }
 
+  saveInvoice(){
+    let stageRoomId = this.invoiceDetail.items[0].stageRoomId;
+    this.others.forEach(element =>{
+      this.invoiceDetail.items.push({
+        id : null,
+        stageRoomId: stageRoomId,
+        provideId: null,
+        lastValue: 0,
+        newValue : 1,
+        price : element.price,
+        amount : element.price,
+        name : element.name,
+        provideType : 0
+      });
+    });
+    console.log(this.invoiceDetail);
+    this._service.updateInvoice(this.invoiceDetail).subscribe(
+      response =>{
+        this._toast.success("Cập nhật số liệu hóa đơn thành công");
+        this.getRoomsInStage();
+      }
+    )
+  }
 }
