@@ -1,4 +1,6 @@
-﻿using Motel.Application.Auth;
+﻿using AutoMapper;
+using Motel.Application.Auth;
+using Motel.Application.Services.UserService.Dtos;
 using Motel.Common.Generics;
 using Motel.Core;
 using Motel.Core.Contants;
@@ -15,14 +17,20 @@ namespace Motel.Application.Services.UserService
         private readonly ICryptorFactory _cryptor;
         private readonly IRepository _repository;
         private readonly IJwtTokenFactory _jwtToken;
+        private readonly IMapper _mapper;
+        private readonly IAppContextAccessor _accessor;
 
         public UserService(ICryptorFactory cryptor,
             IRepository repository,
-            IJwtTokenFactory jwtToken)
+            IJwtTokenFactory jwtToken,
+            IMapper mapper,
+            IAppContextAccessor accessor)
         {
             _cryptor = cryptor;
             _repository = repository;
             _jwtToken = jwtToken;
+            _mapper = mapper;
+            _accessor = accessor;
         }
         public async Task<Response> Authenticate(string phone, string password)
         {
@@ -35,6 +43,20 @@ namespace Motel.Application.Services.UserService
             }
             var data = _jwtToken.GenerateToken(entity.Id, entity.Phone, entity.Role.ToString());
             return Ok(data);
+        }
+
+        public async Task<Response> UpdateUserInfoAsync(UserInfoDto dto)
+        {
+            var entity = await _repository.FindAsync<UserInfo>(c => c.UserId == _accessor.GetUserId());
+            var map = _mapper.Map<UserInfoDto,UserInfo>(dto);
+            map.UserId = _accessor.GetUserId();
+            if(entity is null)
+            {
+                await _repository.AddAsync(map);
+            }
+            map.Id = entity.Id;
+            await _repository.UpdateAsync(map);
+            return Ok();
         }
     }
 }

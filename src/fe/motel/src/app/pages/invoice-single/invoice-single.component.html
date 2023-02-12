@@ -108,16 +108,21 @@
                                     <i class="icon feather icon-menu text-default f-20"></i>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                    <a (click)="getInvoiceRoomById(invoice.id);inputRoomData.show()" href="javascript:;"
-                                        class="dropdown-item"><i
+                                    <a *ngIf="invoice.paymentStatus !== 2"
+                                        (click)="getInvoiceRoomById(invoice.id);inputRoomData.show()"
+                                        href="javascript:;" class="dropdown-item"><i
                                             class="icon feather icon-download text-primary f-20"></i>
                                         Nhập số liệu</a>
-                                    <a href="javascript:;" class="dropdown-item"><i
+                                    <a *ngIf="invoice.paymentStatus !== 2" (click)="setRoomPaid(invoice.id)"
+                                        href="javascript:;" class="dropdown-item"><i
                                             class="icon feather icon-package text-success f-20"></i>
                                         Đã thanh toán</a>
-                                    <a href="javascript:;" class="dropdown-item"><i
+                                    <a *ngIf="invoice.paymentStatus !== 2" href="javascript:;" class="dropdown-item"><i
                                             class="icon feather icon-trash text-danger f-20"></i>
                                         Xóa khỏi đợt</a>
+                                    <a *ngIf="invoice.paymentStatus == 2" href="javascript:;" class="dropdown-item"><i
+                                            class="icon feather icon-info text-primary f-20"></i>
+                                        Thông tin thanh toán</a>
                                 </div>
                             </div>
 
@@ -132,7 +137,10 @@
                         <td>{{ invoice.boardingName }}</td>
                         <td>{{ invoice.name }}</td>
                         <td>{{ formatCurrency(invoice.amount) }}</td>
-                        <td> <span *ngIf="invoice.paymentStatus == 0" class="badge badge-danger">Chưa đóng tiền</span>
+                        <td>
+                            <span *ngIf="invoice.paymentStatus == 0" class="badge badge-danger">Chưa thanh toán</span>
+                            <span *ngIf="invoice.paymentStatus == 2" class="badge badge-success">Đã thanh toán</span>
+
                         </td>
                     </tr>
                 </tbody>
@@ -198,7 +206,7 @@
                     id="name">
             </div>
 
-            <div class="form-group col-md-12">
+            <div *ngIf="invoiceDetail.contract.advanceAmount > 0" class="form-group col-md-12">
                 <div class="form-check">
                     <input class="form-check-input" [(ngModel)]="invoiceDetail.subtractDeposited"
                         (change)="changeRoomPrice()" type="checkbox" value="" id="flexCheckDefault">
@@ -244,8 +252,8 @@
             </div>
         </div>
         <hr>
-        <h6>Chi phí khác <button *ngIf="others.length == 0" type="button" (click)="addOtherElements()" class="btn btn-success btn-sm float-right l-4"><i
-            class="icon feather icon-plus"></i></button></h6>
+        <h6>Chi phí khác <button *ngIf="others.length == 0" type="button" (click)="addOtherElements()"
+                class="btn btn-success btn-sm float-right l-4"><i class="icon feather icon-plus"></i></button></h6>
         <hr>
         <div *ngFor="let other of others; index as index" class="form-row">
             <div class="form-group col-md-4">
@@ -253,8 +261,8 @@
                     placeholder="Tên chi phí">
             </div>
             <div class="form-group col-md-3">
-                <input [(ngModel)]="others[index].price" (keyup)="onChangeNumber()" type="number" class="form-control no-border white"
-                    placeholder="Số tiền">
+                <input [(ngModel)]="others[index].price" (keyup)="onChangeNumber()" type="number"
+                    class="form-control no-border white" placeholder="Số tiền">
             </div>
             <div class="form-group col-md-1 float-right">
                 <button type="button" (click)="addOtherElements()" class="btn btn-success btn-sm float-right l-4"><i
@@ -282,6 +290,7 @@
         </div>
         <button (click)="inputRoomData.hide()" type="button" class="btn btn-default float-right">Hủy
             bỏ</button>
-        <button (click)="saveInvoice();inputRoomData.hide();" type="button" class="btn btn-primary float-right"> Lưu hóa đơn</button>
+        <button (click)="saveInvoice();inputRoomData.hide();" type="button" class="btn btn-primary float-right"> Lưu hóa
+            đơn</button>
     </div>
 </app-ui-modal>

@@ -32,5 +32,7 @@ namespace Motel.Core.Entities
 
         [StringLength(255)]
         public string Address { get; set; }
+
+
     }
 }

@@ -14,6 +14,8 @@ namespace Motel.Application.Services.InvoiceService
     {
         Task<Response> GetByIdAsync(Guid id);
 
-        Task<Response> SetInvoice(InvoiceDto dto);
+        Task<Response> SetInvoiceAsync(InvoiceDto dto);
+
+        Task<Response> SetRoomPaymentStatusAsync(RoomPaymentStatusDto dto);
     }
 }

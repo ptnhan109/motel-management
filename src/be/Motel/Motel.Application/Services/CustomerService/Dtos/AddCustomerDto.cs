@@ -38,6 +38,6 @@ namespace Motel.Application.Services.CustomerService.Dtos
 
         public Guid? RoomId { get; set; }
 
-        public List<VehicleDto>? Vehicles { get; set; }
+        public List<VehicleDto> Vehicles { get; set; }
     }
 }

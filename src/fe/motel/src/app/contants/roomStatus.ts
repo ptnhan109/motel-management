@@ -8,4 +8,10 @@ export const contractType = {
     deposited : 0,
     rent : 1
 }
+
+export const paymentStatus = {
+  none : 0,
+  unpaid : 1,
+  paid : 2
+}
   

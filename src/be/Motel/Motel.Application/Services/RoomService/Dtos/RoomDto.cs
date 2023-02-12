@@ -71,8 +71,9 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public bool? IsSelfContainer { get; set; }
 
-        public List<Guid>? Fitments { get; set; } = null;
+        public List<Guid> Fitments { get; set; } = null;
 
+        #nullable enable
         public List<IFormFile>? RoomImages { get; set; } = null;
 
         public IEnumerable<FitmentInRoom> ToFitmentInRoom(Guid id) => Fitments.Select(c => new FitmentInRoom()

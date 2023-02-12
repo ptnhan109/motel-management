@@ -29,7 +29,10 @@ namespace Motel.Api.Controllers
         public async Task<Response> UpdateAsync(Guid id, [FromBody] InvoiceDto request)
         {
             request.Id = id;
-            return await _service.SetInvoice(request);
+            return await _service.SetInvoiceAsync(request);
         }
+
+        [HttpPatch("{id}/room")]
+        public async Task<Response> SetRoomPaymentStatusAsync(Guid id, [FromBody] RoomPaymentStatusDto request) => await _service.SetRoomPaymentStatusAsync(request);
     }
 }
