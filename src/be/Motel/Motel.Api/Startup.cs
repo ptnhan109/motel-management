@@ -46,6 +46,7 @@ namespace Motel.Api
             var secret = Configuration["JwtOption:Secret"];
             services.Configure<JwtOption>(opt => Configuration.GetSection(nameof(JwtOption)).Bind(opt));
             services.Configure<AuthSetting>(opt => Configuration.GetSection(nameof(AuthSetting)).Bind(opt));
+            services.Configure<CustomerOption>(opt => Configuration.GetSection(nameof(CustomerOption)).Bind(opt));
             #endregion
 
             #region Swagger
