@@ -46,5 +46,7 @@ namespace Motel.Core.Entities
 
         [ForeignKey(nameof(RoomId))]
         public virtual Room Room { get; set; }
+
+        public string Password { get; set; }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Motel.Application.Auth;
+using Motel.Application.Options;
 using Motel.Application.Services.CustomerService.Dtos;
 using Motel.Application.Services.CustomerService.Models;
 using Motel.Common.Enums;
@@ -17,12 +20,18 @@ namespace Motel.Application.Services.CustomerService
     public class CustomerService : Service, ICustomerService
     {
         private readonly IRepository _repository;
+        private readonly ICryptorFactory _cryptor;
+        private readonly CustomerOption _option;
         private readonly IMapper _mapper;
 
         public CustomerService(IRepository repository,
+            ICryptorFactory cryptor,
+            IOptions<CustomerOption> option,
             IMapper mapper)
         {
             _repository = repository;
+            _cryptor = cryptor;
+            _option = option.Value;
             _mapper = mapper;
         }
 
@@ -30,6 +39,7 @@ namespace Motel.Application.Services.CustomerService
         {
             request.Id = Guid.NewGuid();
             var entity = _mapper.Map<AddCustomerDto, Customer>(request);
+            entity.Password = _cryptor.ToHashPassword(_option.Password);
             var customer = await _repository.AddAsync(entity);
             var vehicles = _mapper.Map<List<VehicleDto>, List<Vehicle>>(request.Vehicles);
             foreach(var vehicle in vehicles)
