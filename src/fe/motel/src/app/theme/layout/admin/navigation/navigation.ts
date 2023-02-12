@@ -140,10 +140,10 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
-        id: 'invoice',
+        id: 'system',
         title: 'Hệ thống',
         type: 'item',
-        url: '/contract',
+        url: '/system',
         icon: 'feather icon-settings',
         breadcrumbs: false
       },

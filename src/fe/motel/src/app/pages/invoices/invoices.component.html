@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    {{stage.amountPaid}} / {{stage.totalAmount}} tiền đã thu
+                    {{ formatCurrency(stage.amountPaid) }} đ / {{ formatCurrency(stage.totalAmount) }} đ tiền đã thu
                     <div class="progress mt-1" style="height:4px;">
                         <div class="progress-bar bg-warning rounded" role="progressbar" [style.width.%]="getPercent(stage.amountPaid,stage.totalAmount)"
                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>

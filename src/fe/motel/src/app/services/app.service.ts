@@ -202,4 +202,8 @@ export class AppService {
   updateInvoice(request):Observable<AppResponse<any>>{
     return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/invoice/${request.id}`,request,this.options)
   }
+
+  setRoomPaymentStatus(id,request):Observable<AppResponse<any>>{
+    return this.http.patch<AppResponse<any>>(`${environment.apiServer}/api/invoice/${id}/room`,request,this.options);
+  }
 }

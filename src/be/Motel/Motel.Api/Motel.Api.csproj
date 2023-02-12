@@ -40,5 +40,11 @@
     <Folder Include="Exports\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\Images\keep.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 
 </Project>

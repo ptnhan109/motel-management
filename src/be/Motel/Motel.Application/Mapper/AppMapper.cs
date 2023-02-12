@@ -7,11 +7,10 @@ using Motel.Application.Services.InvoiceService.Dtos;
 using Motel.Application.Services.RoomService.Dtos;
 using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Application.Services.StageService.Dtos;
+using Motel.Application.Services.UserService.Dtos;
 using Motel.Common.Enums;
 using Motel.Core.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Motel.Application.Mapper
 {
@@ -64,6 +63,10 @@ namespace Motel.Application.Mapper
 
             CreateMap<StageRoomDto, StageRoom>()
                 .ForMember(dest => dest.TotalAmount, d => d.MapFrom(source => source.Amount))
+                .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
+                .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
+
+            CreateMap<UserInfoDto, UserInfo>()
                 .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
                 .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
 

@@ -1,4 +1,5 @@
-﻿using Motel.Common.Generics;
+﻿using Motel.Application.Services.UserService.Dtos;
+using Motel.Common.Generics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,7 @@ namespace Motel.Application.Services.UserService
     public interface IUserService
     {
         Task<Response> Authenticate(string phone, string password);
+
+        Task<Response> UpdateUserInfoAsync(UserInfoDto dto);
     }
 }

@@ -45,6 +45,7 @@ import { AddContractComponent } from './pages/add-contract/add-contract.componen
 import { BadrequestComponent } from './pages/errors/badrequest/badrequest.component';
 import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.component';
+import { SystemComponent } from './pages/system/system.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.co
     AddContractComponent,
     BadrequestComponent,
     InvoicesComponent,
-    InvoiceSingleComponent
+    InvoiceSingleComponent,
+    SystemComponent
   ],
   imports: [
     BrowserModule,

@@ -122,7 +122,7 @@ export class InvoicesComponent implements OnInit {
     var request = RemoveNullable(this.stage);
     this._service.addStage(request).subscribe(
       response =>{
-        this._toast.success("Tạo đợt thanh toán thành công.");
+        this._toast.success('Tạo đợt thanh toán thành công.');
         this.getStagePaymentPaging();
       }
     )
@@ -132,7 +132,7 @@ export class InvoicesComponent implements OnInit {
   validate(){
     if(this.stage.name == '' || this.stage.name == undefined || this.stage.name == null
     || this.stage.stageDate == null ){
-      this._toast.error("Vui lòng điền đầy đủ thông tin");
+      this._toast.error('Vui lòng điền đầy đủ thông tin');
       return false;
     }
     if(this.selectedRooms.length == 0){

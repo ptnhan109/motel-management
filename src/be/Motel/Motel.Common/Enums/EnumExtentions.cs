@@ -22,5 +22,31 @@ namespace Motel.Common.Enums
                     return string.Empty;
             }
         }
+
+        public static string GetName(this EnumGender input)
+        {
+            switch (input)
+            {
+                case EnumGender.Male:
+                    return "Nam";
+                case EnumGender.Female:
+                    return "Nữ";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        public static string GetName(this EnumCareer input)
+        {
+            switch (input)
+            {
+                case EnumCareer.Student:
+                    return "Học sinh / sinh viên";
+                case EnumCareer.Worker:
+                    return "Người đi làm";
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }
