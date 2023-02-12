@@ -456,3 +456,5 @@ baseline.json
 
 # Husky
 .husky/_
+src/be/Motel/Motel.Api/appsettings.Development.json
+src/be/Motel/Motel.Api/appsettings.json
