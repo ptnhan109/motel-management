@@ -10,7 +10,7 @@
         {
             public const string Android = "http://192.168.0.101:8080";
 
-            public const string Authenticate = $"{Android}/api/Auth";
+            public const string Authenticate = $"{Android}/api/Customer/auth";
         }
     }
 }

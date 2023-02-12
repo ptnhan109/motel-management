@@ -1,5 +1,6 @@
 ﻿using Motel.Application.Services.CustomerService.Dtos;
 using Motel.Application.Services.CustomerService.Models;
+using Motel.Application.Services.UserService.Dtos;
 using Motel.Common.Generics;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,7 @@ namespace Motel.Application.Services.CustomerService
         Task<Response> AddCustomer(AddCustomerDto request);
 
         Task<Response> GetAllCustomer(CustomerFilter request);
+
+        Task<Response> CustomerLogin(LoginRequest request);
     }
 }
