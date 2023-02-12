@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Motel.Application.Services.CustomerService;
 using Motel.Application.Services.CustomerService.Dtos;
 using Motel.Application.Services.CustomerService.Models;
+using Motel.Application.Services.UserService.Dtos;
 using Motel.Common.Generics;
 using System.Threading.Tasks;
 
@@ -29,5 +30,9 @@ namespace Motel.Api.Controllers
 
         [HttpGet("get-all")]
         public async Task<Response> GetAll([FromQuery] CustomerFilter request) => await _service.GetAllCustomer(request);
+
+        [AllowAnonymous]
+        [HttpPost("auth")]
+        public async Task<Response> Auth([FromBody] LoginRequest request) => await _service.CustomerLogin(request);
     }
 }

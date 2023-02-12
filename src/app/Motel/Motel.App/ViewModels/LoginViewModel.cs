@@ -27,6 +27,7 @@ namespace Motel.App.ViewModels
         }
 
         private LoginModel ToLoginModel() => new LoginModel(UserName, Password);
+
         [RelayCommand]
         async Task Login()
         {
@@ -34,9 +35,8 @@ namespace Motel.App.ViewModels
             if (res != null)
             {
                 await _storage.SetAsync(Constants.Authorization, res.Token);
-                //
             }
-            Messages.ShowMessage(Messages.LoginSuccess);
+            await Common.Messages.ShowMessage(Common.Messages.LoginSuccess);
         }
     }
 }
