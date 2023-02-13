@@ -35,8 +35,11 @@ namespace Motel.App.ViewModels
             if (res != null)
             {
                 await _storage.SetAsync(Constants.Authorization, res.Token);
+                await Shell.Current.GoToAsync("home");
+                await Common.Messages.ShowMessage(Common.Messages.LoginSuccess);
             }
-            await Common.Messages.ShowMessage(Common.Messages.LoginSuccess);
+            await Common.Messages.ShowMessage(Common.Messages.LoginFail);
+
         }
     }
 }

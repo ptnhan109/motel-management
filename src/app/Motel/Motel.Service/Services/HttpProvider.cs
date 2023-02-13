@@ -3,6 +3,7 @@ using Motel.Common;
 using Motel.Service;
 using Motel.Service.Entities;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,10 +40,11 @@ namespace Motel.Application.Services
 
                         var result = JsonConvert.DeserializeObject<Response>(msg);
 
-                        return result.Data as TResponse;
+                        return (result.Data as JObject).ToObject<TResponse>();
                     }
                 }
-                catch
+                
+                catch(Exception)
                 {
                     return default;
                 }
