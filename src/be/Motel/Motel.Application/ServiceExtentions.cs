@@ -6,6 +6,7 @@ using Motel.Application.Services.ContractService;
 using Motel.Application.Services.CustomerService;
 using Motel.Application.Services.FitmentServices;
 using Motel.Application.Services.InvoiceService;
+using Motel.Application.Services.MessageService;
 using Motel.Application.Services.RoomService;
 using Motel.Application.Services.ServiceService;
 using Motel.Application.Services.StageService;
@@ -41,6 +42,8 @@ namespace Motel.Application
             services.AddScoped<IInvoiceService, InvoiceService>();
 
             services.AddScoped<IRoomRepository, RoomRepository>();
+
+            services.AddTransient<IMessageService, MessageService>();
         }
         public static void EnableCors(this IServiceCollection services)
         {
