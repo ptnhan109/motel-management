@@ -74,7 +74,7 @@ namespace Motel.Application.Services.StageService
                 var stageRoomId = stageRooms.FirstOrDefault(c => c.RoomId.Equals(room.Id)).Id;
                 foreach(var prd in prds)
                 {
-                    var lastValue = lastProvides?.FirstOrDefault()?.NewValue ?? 0;
+                    var lastValue = lastProvides?.FirstOrDefault(x => x.ProvideId.Equals(prd.ProvideId))?.NewValue ?? 0;
                     var inv = new InvoiceRoom()
                     {
                         Id = Guid.NewGuid(),
@@ -84,11 +84,12 @@ namespace Motel.Application.Services.StageService
                         Name = prd.Provide.Name,
                         Amount = 0,
                         LastValue = lastValue,
-                        NewValue = GetNewValueByType(prd.Provide.Type,room.Customers.Count),
+                        NewValue = 0,
                         Price = prd.Provide.DefaultPrice,
                         StageRoomId = stageRoomId,
                         ProvideType = prd.Provide.Type
                     };
+                    InvoiceRoomProcess(room.Customers.Count, ref inv);
                     invoices.Add(inv);
                 }
 
@@ -143,18 +144,39 @@ namespace Motel.Application.Services.StageService
             return Ok(count.ToCode(AppPrefix.Stage));
         }
 
-        private int GetNewValueByType(EnumServiceType type, int customers)
+        private int GetNewValueByType(EnumServiceType type, int customers, int lastValue)
         {
             switch (type)
             {
                 case EnumServiceType.ByMonth:
-                    return 1;
+                    return lastValue + 1;
                 case EnumServiceType.ByCustomer:
-                    return customers;
+                    return lastValue + customers;
                 case EnumServiceType.ByNumber:
-                    return 0;
+                    return lastValue ;
                 default:
                     return 0;
+            }
+        }
+
+        private void InvoiceRoomProcess(int customers, ref InvoiceRoom invoiceRoom)
+        {
+            if(invoiceRoom == null) return;
+            if (invoiceRoom.ProvideType.Equals(EnumServiceType.ByMonth))
+            {
+                invoiceRoom.LastValue = 0;
+                invoiceRoom.NewValue = 1;
+            }
+
+            if (invoiceRoom.ProvideType.Equals(EnumServiceType.ByCustomer))
+            {
+                invoiceRoom.LastValue = 0;
+                invoiceRoom.NewValue = customers;
+            }
+
+            if (invoiceRoom.ProvideType.Equals(EnumServiceType.ByNumber))
+            {
+                invoiceRoom.NewValue = invoiceRoom.LastValue;
             }
         }
     }

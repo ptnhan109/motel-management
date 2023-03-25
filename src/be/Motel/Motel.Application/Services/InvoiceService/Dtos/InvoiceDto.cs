@@ -45,6 +45,17 @@ namespace Motel.Application.Services.InvoiceService.Dtos
                 SubtractDeposited = entity.IsSubtractToDeposited
             };
         }
+
+        private void InvoiceProcess(ref List<InvoiceRoomDto> items)
+        {
+            foreach (var item in items)
+            {
+                switch (item.ProvideType)
+                {
+                    //case EnumServiceType.ByMonth
+                }
+            }
+        }
     }
 
 }

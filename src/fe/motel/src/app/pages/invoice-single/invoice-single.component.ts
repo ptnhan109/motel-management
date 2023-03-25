@@ -226,7 +226,6 @@ export class InvoiceSingleComponent implements OnInit {
         provideType: 0
       });
     });
-    console.log(this.invoiceDetail);
     this._service.updateInvoice(this.invoiceDetail).subscribe(
       response => {
         this._toast.success("Cập nhật số liệu thành công");

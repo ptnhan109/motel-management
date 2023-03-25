@@ -49,9 +49,7 @@ namespace Motel.Application.Services.InvoiceService
 
             return Ok();
         }
-
         
-
         public async Task<Response> SetRoomPaymentStatusAsync(RoomPaymentStatusDto dto)
         {
             var entity = await _repository.FindAsync<StageRoom>(dto.StageRoomId);

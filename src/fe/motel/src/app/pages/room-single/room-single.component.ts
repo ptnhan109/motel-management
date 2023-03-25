@@ -86,7 +86,6 @@ export class RoomSingleComponent implements OnInit {
     } else {
       this.selectedFitment.push(id);
     }
-    console.log(this.selectedFitment);
   }
 
   selectedFiles(files: FileList) {

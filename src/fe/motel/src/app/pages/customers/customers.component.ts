@@ -85,12 +85,10 @@ export class CustomersComponent implements OnInit {
     this.filter.pageIndex = page;
     this.pageNumbers = [];
     let filter = RemoveNullable(this.filter);
-    console.log(filter);
     this._service.getCustomers(filter).subscribe(
       response => {
         this.paging = response.data;
         this.customers = response.data.items;
-        console.log(this.customers)
         for (let i = 1; i <= this.paging.totalPage; i++) {
           this.pageNumbers.push(i);
         }
