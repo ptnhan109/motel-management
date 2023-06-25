@@ -184,11 +184,14 @@
         <hr>
         <div class="row">
             <div class="col-sm-6">
+                
+                <h6 class="float-left">Số tiền phòng đã trả trước: <span
+                    class="text-danger">{{formatCurrency(invoiceDetail.contract.advanceAmount)}} đ</span> </h6>
             </div>
             <div class="col-sm-6">
                 <h6 class="float-right">Số tiền phòng đã trả trước: <span
                         class="text-danger">{{formatCurrency(invoiceDetail.contract.advanceAmount)}} đ</span> </h6>
-
+                        
             </div>
         </div>
         <hr>
@@ -206,7 +209,7 @@
                     id="name">
             </div>
 
-            <div *ngIf="invoiceDetail.contract.advanceAmount > 0" class="form-group col-md-12">
+            <div class="form-group col-md-12">
                 <div class="form-check">
                     <input class="form-check-input" [(ngModel)]="invoiceDetail.subtractDeposited"
                         (change)="changeRoomPrice()" type="checkbox" value="" id="flexCheckDefault">
@@ -276,7 +279,7 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-check">
-                    <input class="form-check-input" (change)="changeRoomPrice()" type="checkbox" value="" id="checkOut">
+                    <input class="form-check-input" type="checkbox" value="" id="checkOut">
                     <label class="form-check-label" for="checkOut">
                         Khách trả phòng - tất toán hợp đồng
                     </label>
