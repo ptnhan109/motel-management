@@ -1,0 +1,357 @@
+<div class="page-header ng-star-inserted">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h5 class="m-b-10 ng-star-inserted">Phòng trọ</h5>
+                        </div>
+                        <div class="col-sm-6 ">
+
+                            <button type="button" class="btn btn-success float-right l-4"><i
+                                    class="icon feather icon-printer"></i> Excel</button>
+                            <a class="btn btn-primary float-right l-4" routerLink="/room-single"><i
+                                    class="icon feather icon-plus-circle"></i> Thêm mới</a>
+                            <button type="button" class="btn btn-secondary float-right" (click)="showSearch()">
+                                <i class="icon feather icon-search">
+                                </i>
+                                Tìm kiếm phòng
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
+                                    class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Khu trọ</a>
+                            </li>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Phòng trọ</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <select [(ngModel)]="filter.boardingHouseId" (change)="getRooms(1)"
+                                    class="form-control">
+                                    <option [ngValue]="null">Tất cả</option>
+                                    <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">
+                                        {{ boarding.name }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-header ng-star-inserted" *ngIf="isSearch">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputEmail4">Từ khóa</label>
+                            <input [(ngModel)]="filter.keyword" type="text" class="form-control" placeholder="Tìm kiếm">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Giá từ</label>
+                            <input [(ngModel)]="filter.startPrice" type="number" class="form-control"
+                                placeholder="Giá bắt đầu">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputEmail4">Giá đến</label>
+                            <input [(ngModel)]="filter.endPrice" type="number" class="form-control"
+                                placeholder="Giá kết thúc">
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="inputPassword4">Công trình phụ</label>
+                            <select [(ngModel)]="filter.isSelfContainer" class="form-control">
+                                <option [ngValue]="null">Tất cả</option>
+                                <option [ngValue]="true">Khép kín</option>
+                                <option [ngValue]="false">Vệ sinh chung</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputPassword4">Trạng thái</label>
+                            <select [(ngModel)]="filter.status" class="form-control">
+                                <option [ngValue]="null">Tất cả</option>
+                                <option [ngValue]="0">Phòng trống</option>
+                                <option [ngValue]="1">Đã có cọc</option>
+                                <option [ngValue]="2">Đã cho thuê</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row float-right">
+                        <button class="btn btn-default float-right" (click)="closeSearch()"><i
+                                class="icon feather icon-x"></i>
+                            Đóng</button>
+                        <button class="btn btn-primary float-right l-4" (click)="getRooms(1)"><i
+                                class="icon feather icon-filter"></i> Tìm
+                            kiếm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-xl-12">
+    <app-card cardTitle="Danh sách khu trọ quản lý" blockClass="table-border-style">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th class="text-center"></th>
+                        <th>Tầng</th>
+                        <th>Tên phòng</th>
+                        <th>Số người tối đa</th>
+                        <th>Đơn giá</th>
+                        <th>Trạng thái</th>
+                        <th>Mô tả</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let room of rooms; index as i">
+                        <td>{{ i + 1}}</td>
+                        <td>
+
+                            <div class="dropdown">
+                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon feather icon-menu text-default f-20"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <a [routerLink]="['/room-single',room.id]" href="javascript:;"
+                                        class="dropdown-item"><i class="icon feather icon-edit text-primary f-20"></i>
+                                        Chỉnh sửa</a>
+                                    <a (click)="setRoomName(room);createDeposit.show()" href="javascript:;"
+                                        class="dropdown-item" *ngIf="(room.status == 0)"><i
+                                            class="icon feather icon-box text-success f-20"></i> Đặt cọc</a>
+                                    <a (click)="setRoomStatus(room.id,3)" href="javascript:;" class="dropdown-item"
+                                        *ngIf="(room.status == 0)"><i
+                                            class="icon feather icon-lock text-danger f-20"></i> Tạm dừng cho thuê</a>
+                                    <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
+                                            class="icon feather icon-user-check text-danger f-20"></i> Xem hợp đồng</a>
+                                    <a href="javascript:;" *ngIf="(room.status == 2)" class="dropdown-item"><i
+                                            class="icon feather icon-box text-info f-20"></i> Trả phòng</a>
+                                    <a [routerLink]="['/add-contract-customer',room.id]" href="javascript:;"
+                                        *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                            class="icon feather icon-download text-warning f-20"></i> Nhận phòng (Tạo
+                                        hợp đồng)</a>
+                                    <a (click)="setRoomName(room);getContract();viewDeposit.show();" href="javascript:;"
+                                        *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                            class="icon feather icon-alert-circle text-primary f-20"></i> Xem đặt
+                                        cọc</a>
+                                    <a (click)="setRoomName(room);deleteDeposit.show()" href="javascript:;"
+                                        *ngIf="(room.status == 1)" class="dropdown-item"><i
+                                            class="icon feather icon-x text-danger f-20"></i> Hủy cọc</a>
+                                    <a (click)="setRoomStatus(room.id,0)" href="javascript:;" class="dropdown-item"
+                                        *ngIf="(room.status == 3)"><i
+                                            class="icon feather icon-unlock text-success f-20"></i> Tiếp tục cho
+                                        thuê</a>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ room.floor }}</td>
+                        <td>{{ room.name }}</td>
+                        <td>{{ room.maxHuman }}</td>
+                        <td>{{ formatCurrency(room.price) }}</td>
+                        <td><span class="{{formatStatusDisplay(room.status)}}">{{ formatStatus(room.status) }}</span>
+                        </td>
+                        <td>{{ room.description }}</td>
+                        <td style="width: 5%;" class="text-center">
+                            <a href="javascript:;" (click)="removeRoom(room.id)"><i
+                                    class="icon feather icon-trash text-danger f-20"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li [ngClass]="page == filter.pageIndex ? 'page-item active' : 'page-item'"
+                        *ngFor="let page of pageNumber"><a class="page-link" href="javascript:;"
+                            (click)="getRooms(page)">{{ page }}</a></li>
+                </ul>
+            </nav>
+        </div>
+    </app-card>
+
+</div>
+
+<app-ui-modal #createDeposit [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Tạo hợp đồng đặt cọc phòng</h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="createDeposit.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="address">Tên hợp đồng <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.name" type="text" class="form-control" id="address">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="roomSelected.display" type="text" class="form-control" id="address"
+                            disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.customerName" type="text" class="form-control" id="address"
+                            placeholder="Tên người đặt cọc">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Số điện thoại <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.customerPhone" type="text" class="form-control" id="address"
+                            placeholder="Số điện thoại">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.createdDate" type="date" class="form-control" id="address"
+                            placeholder="Địa chỉ chi tiết">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày hết hạn</label>
+                        <input [(ngModel)]="deposit.expiredDate" type="date" format="yyyy-MM-dd" class="form-control"
+                            id="address" placeholder="Địa chỉ chi tiết">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="address">Số tiền đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="deposit.depositedAmount" type="number" class="form-control" id="address"
+                            placeholder="Số tiền đặt cọc">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="descripion">Ghi chú</label>
+                    <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
+                </div>
+            </div>
+            <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right ">Hủy bỏ</button>
+            <button (click)="saveDeposit() == true? createDeposit.hide() : false" type="button"
+                class="btn btn-primary float-right">Nhận
+                cọc</button>
+        </div>
+    </div>
+</app-ui-modal>
+<app-ui-modal #deleteDeposit [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Hủy đặt cọc phòng - {{ roomSelected.name }}</h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="deleteDeposit.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="address">Lý do hủy cọc<span class="text-danger">*</span></label>
+                    <select class="form-control">
+                        <option>Khách thuê hủy cọc</option>
+                        <option>Quá hạn</option>
+                        <option>Lý do khác</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <textarea rows="4" type="text" class="form-control" id="descripion"
+                        placeholder="Khách hủy, quá hạn,.."></textarea>
+                </div>
+            </div>
+            <button (click)="deleteDeposit.hide();" type="button" class="btn btn-default float-right">Hủy bỏ</button>
+            <button (click)="cancelDeposited();deleteDeposit.hide();" type="button"
+                class="btn btn-primary float-right">Hủy cọc</button>
+        </div>
+    </div>
+</app-ui-modal>
+
+<app-ui-modal #viewDeposit [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Thông tin đặt cọc phòng</h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="viewDeposit.hide();"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="address">Tên hợp đồng đặt cọc<span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.name" type="text" class="form-control" id="address" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="roomSelected.display" type="text" class="form-control" id="address"
+                            disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.customerName" type="text" class="form-control" id="address"
+                            placeholder="Tên người đặt cọc" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Số điện thoại <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.customerPhone" type="text" class="form-control" id="address"
+                            placeholder="Số điện thoại" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.createdDate" type="date" class="form-control" id="address"
+                            placeholder="Địa chỉ chi tiết" disabled>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="address">Ngày hết hạn</label>
+                        <input [(ngModel)]="depositShow.expiredDate" type="date" format="yyyy-MM-dd"
+                            class="form-control" id="address" placeholder="Địa chỉ chi tiết" disabled>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="address">Số tiền đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.depositedAmount" type="number" class="form-control" id="address"
+                            placeholder="Số tiền đặt cọc" disabled>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="descripion">Ghi chú</label>
+                    <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"
+                        disabled></textarea>
+                </div>
+            </div>
+            <button (click)="viewDeposit.hide();" type="button" class="btn btn-default float-right l-4"><i
+                    class="icon feather icon-x"></i> Đóng</button>
+            <button type="button" class="btn btn-primary float-right l-4"><i class="icon feather icon-log-in"></i> Nhận
+                phòng</button>
+        </div>
+    </div>
+</app-ui-modal>

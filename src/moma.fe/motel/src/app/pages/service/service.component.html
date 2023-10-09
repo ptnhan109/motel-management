@@ -1,0 +1,134 @@
+<div class="page-header ng-star-inserted">
+  <div class="page-block">
+    <div class="row align-items-center">
+      <div class="col-md-12">
+        <div class="page-header-title">
+          <div class="row">
+            <div class="col-sm-6">
+
+              <h5 class="m-b-10 ng-star-inserted">Dịch vụ</h5>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-sm-9">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" href="/dashboard"
+                  class="ng-star-inserted"><i class="feather icon-home"></i></a>
+    
+              <li class="breadcrumb-item ng-star-inserted"><a href="javascript:">Danh mục</a></li>
+    
+              <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/service" href="/service">Dịch vụ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" class="btn btn-success float-right l-1" style="margin-left: 4px;" data-toggle="modal"
+            ><i class="icon feather icon-printer"></i> Excel</button>
+          <button type="button" class="btn btn-primary float-right" data-toggle="modal" (click)="createService.show()">Thêm mới</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-xl-12">
+  <app-card cardTitle="Danh sách dịch vụ hiện có" blockClass="table-border-style">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>Tên dịch vụ</th>
+            <th>Giá tiền mặc định</th>
+            <th>Hình thức</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let provide of provides; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              <a href="javascript:;" (click)="getProvideUpdate(provide);updateService.show()"><i class="icon feather icon-edit text-primary f-20"></i></a>
+            </td>
+            <td>{{ provide.name }}</td>
+            <td>{{ formatCurrency(provide.defaultPrice) }}</td>
+            <td>{{ provide.by }}</td>
+            <td>
+              <a href="javascript:;" (click)="removeProvide(provide.id)"><i class="icon feather icon-trash text-danger f-20"></i></a>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>
+<app-ui-modal #createService [hideFooter]="true" [dialogClass]="'modal-lg'">
+  <div class="app-modal-header">
+    <h5 class="modal-title">Thêm mới dịch vụ</h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+      (click)="createService.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="app-modal-body">
+    <div>
+      <div class="form-row">
+          <div class="form-group col-md-12">
+              <label for="inputEmail4">Tên dịch vụ <span class="text-danger">*</span></label>
+              <input [(ngModel)]="provideInsert.name" type="text" class="form-control" id="inputEmail4" placeholder="Tên dịch vụ" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">Giá tiền mặc định</label>
+              <input [(ngModel)]="provideInsert.defaultPrice" type="number" class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
+          </div>
+          <div class="form-group col-md-6">
+              <label for="inputPassword4">Hình thức thu</label>
+              <select [(ngModel)]="+provideInsert.type" id="inputState" class="form-control">
+                <option [ngValue]="2">Thu theo số người</option>
+                <option [ngValue]="0">Thu theo phòng</option>
+                <option [ngValue]="1">Thu theo số công tơ</option>
+            </select>
+          </div>
+      </div>
+      <button type="button" class="btn  btn-default float-right" (click)="createService.hide();">Đóng</button>
+
+      <button type="button" class="btn  btn-primary float-right" (click)="addProvide() ? createService.hide() : false;">Thêm mới</button>
+    </div>
+  </div>
+</app-ui-modal>
+<app-ui-modal #updateService [hideFooter]="true" [dialogClass]="'modal-lg'">
+  <div class="app-modal-header">
+    <h5 class="modal-title">Cập nhật dịch vụ</h5>
+    <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+      (click)="updateService.hide()"><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="app-modal-body">
+    <div>
+      <div class="form-row">
+          <div class="form-group col-md-12">
+              <label for="serviceName">Tên dịch vụ</label>
+              <input [(ngModel)]="provideUpdate.name" type="text" class="form-control" id="serviceName" placeholder="Tên dịch vụ">
+          </div>
+          
+          <div class="form-group col-md-6">
+            <label for="price">Giá tiền mặc định</label>
+              <input [(ngModel)]="provideUpdate.defaultPrice" type="number" class="form-control" id="price" placeholder="Tên dịch vụ">
+          </div>
+          <div class="form-group col-md-6">
+              <label for="inputPassword4">Hình thức thu</label>
+              <select [(ngModel)]="provideUpdate.type" id="inputState" class="form-control">
+                <option [ngValue]="2">Thu theo khách thuê</option>
+                <option [ngValue]="3">Thu theo số lượng</option>
+                <option [ngValue]="0">Thu theo phòng</option>
+                <option [ngValue]="1">Thu theo số</option>
+            </select>
+          </div>
+      </div>
+      <button type="button" class="btn  btn-default float-right" (click)="updateService.hide();">Đóng</button>
+      <button type="button" class="btn  btn-primary float-right" (click)="updateProvide() ? updateService.hide() : false;">Cập nhật</button>
+    </div>
+  </div>
+</app-ui-modal>

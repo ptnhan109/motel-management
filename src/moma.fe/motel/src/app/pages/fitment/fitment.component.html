@@ -1,0 +1,29 @@
+<div class="col-xl-12">
+  <app-card cardTitle="Striped Table" blockClass="table-border-style">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tên thiết bị</th>
+            <th>Trạng thái</th>
+            <th>Giá mua</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fitment of fitments; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>{{ fitment.name }}</td>
+            <td><span class="badge badge-primary" *ngIf="fitment.isCanUse">Đang sử dụng</span><span
+                class="badge badge-warning" *ngIf="!fitment.isCanUse">Tạm ngưng</span></td>
+            <td>{{ formatCurrency(fitment.recoupPrice) }}</td>
+            <td>
+              <a href="javascript:;"><i class="icon feather icon-trash text-danger f-20"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </app-card>
+</div>
