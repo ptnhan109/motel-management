@@ -57,7 +57,7 @@ namespace Motel.Application.Mapper
                 .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
 
             CreateMap<InvoiceRoomDto,InvoiceRoom>()
-                .ForMember(dest => dest.Id, d => d.MapFrom(source => source.Id.HasValue ? source.Id : Guid.NewGuid()))
+                .ForMember(dest => dest.Id, d => d.MapFrom(source => source.Id.HasValue ? source.Id : null))
                 .ForMember(dest => dest.CreatedAt, d => d.MapFrom(source => DateTime.Now))
                 .ForMember(dest => dest.UpdatedAt, d => d.MapFrom(source => DateTime.Now));
 

@@ -17,7 +17,7 @@ namespace Motel.Core.Entities
 
         public DateTime DateEnd { get; set; }
 
-        public double DespositedValue { get; set; }
+        public decimal DespositedValue { get; set; }
 
         [StringLength(150)]
         public string Note { get; set; }

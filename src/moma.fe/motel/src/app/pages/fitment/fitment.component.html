@@ -17,7 +17,7 @@
             <td>{{ fitment.name }}</td>
             <td><span class="badge badge-primary" *ngIf="fitment.isCanUse">Đang sử dụng</span><span
                 class="badge badge-warning" *ngIf="!fitment.isCanUse">Tạm ngưng</span></td>
-            <td>{{ formatCurrency(fitment.recoupPrice) }}</td>
+            <td>{{ fitment.recoupPrice | formatCurrency }}</td>
             <td>
               <a href="javascript:;"><i class="icon feather icon-trash text-danger f-20"></i></a>
             </td>

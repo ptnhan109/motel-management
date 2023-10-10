@@ -15,7 +15,7 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public DateTime DateEnd { get; set; }
 
-        public double DespositedValue { get; set; }
+        public decimal DespositedValue { get; set; }
 
         public string Note { get; set; }
 

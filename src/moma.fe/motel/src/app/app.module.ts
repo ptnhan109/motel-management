@@ -46,9 +46,12 @@ import { BadrequestComponent } from './pages/errors/badrequest/badrequest.compon
 import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.component';
 import { SystemComponent } from './pages/system/system.component';
+import { FormatCurrencyPipe } from './pipes/format-currency.pipe';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
+    FormatCurrencyPipe,
     AppComponent,
     AdminComponent,
     AuthComponent,
@@ -84,6 +87,7 @@ import { SystemComponent } from './pages/system/system.component';
     SystemComponent
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -93,6 +97,7 @@ import { SystemComponent } from './pages/system/system.component';
     NgbButtonsModule,
     NgbTabsetModule,
     HttpClientModule,
+    NgHttpLoaderModule.forRoot(),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
@@ -100,7 +105,8 @@ import { SystemComponent } from './pages/system/system.component';
     })
   ],
   providers: [NavigationItem,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    FormatCurrencyPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DocumentFormat.OpenXml.Office2010.PowerPoint;
+using Microsoft.EntityFrameworkCore;
 using Motel.Common.Generics;
 using Motel.Core.Data;
 using System;
@@ -21,6 +22,7 @@ namespace Motel.Core
         {
             entity.CreatedAt = DateTime.Now;
             entity.UpdatedAt = DateTime.Now;
+            entity.IsDeleted = false;
             _context.Set<TEntity>().Add(entity);
             await SaveChangeAsync();
 
@@ -29,13 +31,16 @@ namespace Motel.Core
 
         public async Task AddRangeAsync<TEntity>(IEnumerable<TEntity> entities) where TEntity : BaseEntity
         {
-            _context.Set<TEntity>().AddRange(entities);
+            var data = entities.ToList();
+            data.ForEach(x => x.IsDeleted = false);
+            _context.Set<TEntity>().AddRange(data);
             await SaveChangeAsync();
         }
 
         public async Task DeleteAsync<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
-            _context.Set<TEntity>().Remove(entity);
+            entity.IsDeleted = true;
+            _context.Set<TEntity>().Update(entity);
             await SaveChangeAsync();
         }
 
@@ -44,23 +49,27 @@ namespace Motel.Core
             var entity = _context.Set<TEntity>().FirstOrDefault(c => c.Id.Equals(id));
             if(entity != null)
             {
-                _context.Set<TEntity>().Remove(entity);
+                entity.IsDeleted = true;
+                _context.Set<TEntity>().Update(entity);
                 await SaveChangeAsync();
             }
         }
 
         public async Task DeleteRangeAsync<TEntity>(IEnumerable<Guid> ids) where TEntity : BaseEntity
         {
-            var entities = _context.Set<TEntity>().Where(c => ids.Contains(c.Id));
-            _context.RemoveRange(entities);
+            var entities = _context.Set<TEntity>().Where(c => ids.Contains(c.Id)).ToList();
+            entities.ForEach(element => element.IsDeleted = true);
+            _context.UpdateRange(entities);
             await SaveChangeAsync();
         }
 
 
         public async Task DeleteRangeAsync<TEntity>(Expression<Func<TEntity, bool>> where = null) where TEntity : BaseEntity
         {
-            var entities = _context.Set<TEntity>().Where(where);
-            _context.RemoveRange(entities);
+            var entities = _context.Set<TEntity>().Where(where)
+                .ToList();
+            entities.ForEach(element => element.IsDeleted = true);
+            _context.UpdateRange(entities);
             await SaveChangeAsync();
         }
 
@@ -125,9 +134,12 @@ namespace Motel.Core
             await SaveChangeAsync();
         }
 
-        public Task UpdateRangeAsync<TEntity>(IEnumerable<TEntity> entites) where TEntity : BaseEntity
+        public async Task UpdateRangeAsync<TEntity>(IEnumerable<TEntity> entites) where TEntity : BaseEntity
         {
-            throw new NotImplementedException();
+            var data = entites.ToList();
+            data.ForEach(x => x.IsDeleted = false);
+            _context.Set<TEntity>().UpdateRange(data);
+            await _context.SaveChangesAsync();
         }
 
         public async Task SaveChangeAsync()
@@ -159,7 +171,9 @@ namespace Motel.Core
 
         private IQueryable<TEntity> AsQueryable<TEntity>(IEnumerable<string> includes = null) where TEntity : BaseEntity
         {
-            var query = _context.Set<TEntity>().AsQueryable();
+            var query = _context.Set<TEntity>()
+                .Where(x => !x.IsDeleted.Value).AsQueryable();
+
             if (includes?.Any() != true)
             {
                 return query;

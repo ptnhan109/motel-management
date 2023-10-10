@@ -19,7 +19,7 @@ namespace Motel.Core.Entities
 
         public EnumInvoicePaymentStatus PaymentStatus { get; set; }
 
-        public double TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
         public virtual ICollection<InvoiceRoom> InvoiceRooms { get; set; }
 

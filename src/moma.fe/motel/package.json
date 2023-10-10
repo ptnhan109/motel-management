@@ -31,6 +31,7 @@
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
     "ng-click-outside": "^4.0.0",
+    "ng-http-loader": "^7.0.0",
     "ngx-lightbox": "^2.1.2",
     "ngx-perfect-scrollbar": "^8.0.0",
     "ngx-toastr": "^12.1.0",

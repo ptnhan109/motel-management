@@ -27,7 +27,7 @@ namespace Motel.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("AdvanceAmount")
+                    b.Property<decimal?>("AdvanceAmount")
                         .HasColumnType("float");
 
                     b.Property<int?>("ContractDuration")
@@ -51,7 +51,7 @@ namespace Motel.Core.Migrations
                     b.Property<string>("CustomerPhone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("DepositedAmount")
+                    b.Property<decimal>("DepositedAmount")
                         .HasColumnType("float");
 
                     b.Property<DateTime?>("ExpiredDate")
@@ -327,7 +327,7 @@ namespace Motel.Core.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
-                    b.Property<double>("RecoupPrice")
+                    b.Property<decimal>("RecoupPrice")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -374,22 +374,22 @@ namespace Motel.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("Amount")
+                    b.Property<decimal?>("Amount")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("LastValue")
+                    b.Property<decimal?>("LastValue")
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("NewValue")
+                    b.Property<decimal?>("NewValue")
                         .HasColumnType("float");
 
-                    b.Property<double>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("float");
 
                     b.Property<Guid?>("ProvideId")
@@ -422,7 +422,7 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DefaultPrice")
+                    b.Property<decimal>("DefaultPrice")
                         .HasColumnType("float");
 
                     b.Property<string>("Name")
@@ -451,7 +451,7 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("float");
 
                     b.Property<Guid>("ProvideId")
@@ -505,7 +505,7 @@ namespace Motel.Core.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
+                    b.Property<decimal>("Price")
                         .HasColumnType("float");
 
                     b.Property<int>("Status")
@@ -536,7 +536,7 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DespositedValue")
+                    b.Property<decimal>("DespositedValue")
                         .HasColumnType("float");
 
                     b.Property<string>("IdentityNumber")
@@ -571,7 +571,7 @@ namespace Motel.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AmountPaid")
+                    b.Property<decimal>("AmountPaid")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("CreatedAt")
@@ -598,7 +598,7 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("StageDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("TotalAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("float");
 
                     b.Property<int>("TotalRooms")
@@ -633,7 +633,7 @@ namespace Motel.Core.Migrations
                     b.Property<Guid>("StagePaymentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("TotalAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("UpdatedAt")

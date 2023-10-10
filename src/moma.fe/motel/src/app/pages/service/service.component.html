@@ -55,7 +55,7 @@
               <a href="javascript:;" (click)="getProvideUpdate(provide);updateService.show()"><i class="icon feather icon-edit text-primary f-20"></i></a>
             </td>
             <td>{{ provide.name }}</td>
-            <td>{{ formatCurrency(provide.defaultPrice) }}</td>
+            <td>{{ provide.defaultPrice | formatCurrency }}</td>
             <td>{{ provide.by }}</td>
             <td>
               <a href="javascript:;" (click)="removeProvide(provide.id)"><i class="icon feather icon-trash text-danger f-20"></i></a>

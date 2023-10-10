@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import { LoaderComponent } from './theme/layout/loader/loader.component';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,6 @@ import {NavigationEnd, Router} from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-
   constructor(private router: Router) { }
 
   ngOnInit() {

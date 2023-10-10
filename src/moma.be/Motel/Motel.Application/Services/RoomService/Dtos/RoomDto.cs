@@ -16,7 +16,7 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public string Name { get; set; }
 
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public int? Floor { get; set; }
 
@@ -57,7 +57,7 @@ namespace Motel.Application.Services.RoomService.Dtos
 
         public string Name { get; set; }
 
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public int? Floor { get; set; }
 

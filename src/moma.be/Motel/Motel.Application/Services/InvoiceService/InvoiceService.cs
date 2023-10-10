@@ -37,11 +37,14 @@ namespace Motel.Application.Services.InvoiceService
         public async Task<Response> SetInvoiceAsync(InvoiceDto dto)
         {
             var invoiceItems = _map.Map<IEnumerable<InvoiceRoomDto>, IEnumerable<InvoiceRoom>>(dto.Items);
-            await _repository.DeleteRangeAsync<InvoiceRoom>(invoice => invoice.StageRoomId.Equals(dto.Invoice.Id));
-            await _repository.AddRangeAsync(invoiceItems);
+            
+            await _repository.UpdateRangeAsync(invoiceItems.Where(x => x.Id != Guid.Empty));
+
+            await _repository.AddRangeAsync(invoiceItems.Where(x => x.Id == Guid.Empty));
 
             var invoiceRoom = _map.Map<StageRoomDto, StageRoom>(dto.Invoice);
             invoiceRoom.IsCompleted = true;
+            invoiceRoom.IsDeleted = false;
             invoiceRoom.IsSubtractToDeposited = dto.SubtractDeposited;
             await _repository.UpdateAsync(invoiceRoom);
 
@@ -89,6 +92,7 @@ namespace Motel.Application.Services.InvoiceService
             var compeletes = await _repository.FindAllAsync<StageRoom>(c => c.StagePaymentId.Equals(id) && c.IsCompleted);
             stage.RoomData = compeletes.Count();
             stage.TotalAmount = compeletes.Sum(x => x.TotalAmount);
+            stage.IsDeleted = false;
             await _repository.UpdateAsync(stage);
         }
 

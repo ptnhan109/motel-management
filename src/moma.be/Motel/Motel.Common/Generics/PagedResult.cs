@@ -11,7 +11,7 @@ namespace Motel.Common.Generics
         public int PageIndex { get; set; } = 1;
         public int PageSize { get; set; } = 20;
         public int TotalCount { get; set; }
-        public int TotalPage => (int)Math.Ceiling(TotalCount / (double)PageSize);
+        public int TotalPage => (int)Math.Ceiling(TotalCount / (decimal)PageSize);
 
         public PagedResult<TDto> ChangeType<TDto>(Func<TEntity, TDto> cast)
         {

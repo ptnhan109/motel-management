@@ -25,7 +25,7 @@ namespace Motel.Application.Services.ContractService.Dtos
 
         public DateTime? ExpiredDate { get; set; }
 
-        public double DepositedAmount { get; set; }
+        public decimal DepositedAmount { get; set; }
 
         public EnumContractType Type { get; set; }
 

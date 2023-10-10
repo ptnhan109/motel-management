@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { FormatCurrencyMaskDirective } from "./directives/FormatCurrency";
+import { FormatCurrencyPipe } from "./pipes/format-currency.pipe";
 
 export const CustomCurrencyMaskConfig = {
     align: "left",
@@ -14,14 +15,16 @@ export const CustomCurrencyMaskConfig = {
 @NgModule({
     declarations: [
         FormatCurrencyMaskDirective,
+        FormatCurrencyPipe
     ],
     imports: [
     ],
     providers: [
-        { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+        FormatCurrencyPipe
     ],
     exports: [
         FormatCurrencyMaskDirective,
+        FormatCurrencyPipe
     ]
 })
 export class SharedModule { }

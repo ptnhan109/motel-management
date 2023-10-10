@@ -7,10 +7,10 @@ namespace Motel.Application.Extentions
 {
     public static class StringExtentions
     {
-        public static string ToCurrency(this double value)
+        public static string ToCurrency(this decimal value)
         {
             CultureInfo cul = CultureInfo.GetCultureInfo("vi-VN");   // try with "en-US"
-            return value.ToString("#,###", cul.NumberFormat);
+            return value.ToString("#.###", cul.NumberFormat);
         }
 
         public static string ToCode(this int count, string prefix)

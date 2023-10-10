@@ -117,7 +117,7 @@
                             <span *ngIf="contract.type == 0" class="badge badge-warning">Hợp đồng đặt cọc</span>
                             <span *ngIf="contract.type == 1" class="badge badge-info">Hợp đồng thuê phòng</span>
                         </td>
-                        <td>{{ formatCurrency(contract.depositedAmount) }}</td>
+                        <td>{{ contract.depositedAmount | formatCurrency }}</td>
                         <td><button (click)="removeContract(contract.id)" class="dropdown-item" type="button"><i
                             class="icon feather icon-trash text-danger f-20"></i></button></td>
                     </tr>

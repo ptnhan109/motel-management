@@ -14,9 +14,9 @@ namespace Motel.Core.Entities
 
         public DateTime EndDate { get; set; }
 
-        public double TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
-        public double AmountPaid { get; set; }
+        public decimal AmountPaid { get; set; }
 
         public int RoomData { get; set; }
 

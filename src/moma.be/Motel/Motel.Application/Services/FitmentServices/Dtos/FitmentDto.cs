@@ -12,7 +12,7 @@ namespace Motel.Application.Services.FitmentServices.Dtos
 
         public bool IsCanUse { get; set; }
 
-        public double RecoupPrice { get; set; }
+        public decimal RecoupPrice { get; set; }
 
         public string Description { get; set; }
     }

@@ -85,10 +85,6 @@ export class InvoicesComponent implements OnInit {
     )
   }
 
-  formatCurrency(input) {
-    return FormatCurrency(input);
-  }
-
   selectedAllRoom() {
     this.rooms.forEach(room => {
       this.selectRoom(room.id);

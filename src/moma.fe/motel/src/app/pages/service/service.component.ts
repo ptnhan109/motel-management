@@ -95,9 +95,6 @@ export class ServiceComponent implements OnInit {
 
     return true;
   }
-  formatCurrency(input){
-    return FormatCurrency(input);
-  }
 
   validateInsert(){
     if(this.provideInsert.name == undefined || this.provideInsert.name == ""){

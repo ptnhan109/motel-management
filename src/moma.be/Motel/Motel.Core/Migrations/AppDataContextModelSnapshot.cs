@@ -25,14 +25,15 @@ namespace Motel.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("AdvanceAmount")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("AdvanceAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("ContractDuration")
                         .HasColumnType("int");
 
                     b.Property<string>("ContractNo")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -44,19 +45,25 @@ namespace Motel.Core.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CustomerName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(63)")
+                        .HasMaxLength(63);
 
                     b.Property<string>("CustomerPhone")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(16)")
+                        .HasMaxLength(16);
 
-                    b.Property<double>("DepositedAmount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("DepositedAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime?>("ExpiredDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
@@ -96,6 +103,9 @@ namespace Motel.Core.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Mail")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -128,16 +138,16 @@ namespace Motel.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8202e780-9d02-4fb0-989d-93007df683fc"),
+                            Id = new Guid("634e65c2-ea3e-4647-8024-584fc979cbd6"),
                             Address = "Cổ Nhuế, Từ Liêm",
-                            CreatedAt = new DateTime(2023, 10, 9, 22, 5, 19, 4, DateTimeKind.Local).AddTicks(7320),
+                            CreatedAt = new DateTime(2023, 10, 10, 20, 25, 29, 263, DateTimeKind.Local).AddTicks(9976),
                             Gender = 1,
                             Mail = "trongnhan1110i@gmail.com",
                             Name = "Phạm Trọng Nhân",
                             Password = "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=",
                             Phone = "0775331777",
                             Role = 0,
-                            UpdatedAt = new DateTime(2023, 10, 9, 22, 5, 19, 5, DateTimeKind.Local).AddTicks(2837)
+                            UpdatedAt = new DateTime(2023, 10, 10, 20, 25, 29, 264, DateTimeKind.Local).AddTicks(4854)
                         });
                 });
 
@@ -163,6 +173,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<int?>("EndDatePayment")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsNotLimitTime")
                         .HasColumnType("bit");
@@ -199,6 +212,9 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -224,6 +240,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Type")
                         .HasColumnType("int");
@@ -284,6 +303,9 @@ namespace Motel.Core.Migrations
                         .HasColumnType("nvarchar(13)")
                         .HasMaxLength(13);
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -324,12 +346,15 @@ namespace Motel.Core.Migrations
                     b.Property<bool>("IsCanUse")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
-                    b.Property<double>("RecoupPrice")
-                        .HasColumnType("float");
+                    b.Property<decimal>("RecoupPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -350,6 +375,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<Guid>("FitmentId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -375,23 +403,26 @@ namespace Motel.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("Amount")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Amount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("LastValue")
-                        .HasColumnType("float");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal?>("LastValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("NewValue")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("NewValue")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid?>("ProvideId")
                         .HasColumnType("uniqueidentifier");
@@ -423,8 +454,11 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DefaultPrice")
-                        .HasColumnType("float");
+                    b.Property<decimal>("DefaultPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -452,8 +486,11 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<Guid>("ProvideId")
                         .HasColumnType("uniqueidentifier");
@@ -489,25 +526,31 @@ namespace Motel.Core.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4000)")
+                        .HasMaxLength(4000);
 
                     b.Property<int?>("Floor")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsSelfContainer")
                         .HasColumnType("bit");
 
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(63)")
+                        .HasMaxLength(63);
 
                     b.Property<int?>("MaxHuman")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -537,11 +580,14 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DespositedValue")
-                        .HasColumnType("float");
+                    b.Property<decimal>("DespositedValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("IdentityNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -572,8 +618,8 @@ namespace Motel.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AmountPaid")
-                        .HasColumnType("float");
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -585,6 +631,9 @@ namespace Motel.Core.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsComplete")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -599,8 +648,8 @@ namespace Motel.Core.Migrations
                     b.Property<DateTime>("StageDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("TotalRooms")
                         .HasColumnType("int");
@@ -625,6 +674,9 @@ namespace Motel.Core.Migrations
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSubtractToDeposited")
                         .HasColumnType("bit");
 
@@ -637,8 +689,8 @@ namespace Motel.Core.Migrations
                     b.Property<Guid>("StagePaymentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("TotalAmount")
-                        .HasColumnType("float");
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -666,6 +718,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<string>("GroupKey")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -698,6 +753,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<int>("FileType")
                         .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<Guid>("MapId")
                         .HasColumnType("uniqueidentifier");
@@ -756,6 +814,9 @@ namespace Motel.Core.Migrations
                         .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
@@ -791,6 +852,9 @@ namespace Motel.Core.Migrations
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
@@ -811,7 +875,7 @@ namespace Motel.Core.Migrations
             modelBuilder.Entity("Motel.Core.Entities.AppContract", b =>
                 {
                     b.HasOne("Motel.Core.Entities.Room", "Room")
-                        .WithMany()
+                        .WithMany("AppContracts")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

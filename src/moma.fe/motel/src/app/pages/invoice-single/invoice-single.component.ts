@@ -183,15 +183,11 @@ export class InvoiceSingleComponent implements OnInit {
     return Math.round((sub * 100) / total);
   }
 
-  formatCurrency(input) {
-    return FormatCurrency(input);
-  }
-
   setRoomPaid(id) {
     this._service.getInvoiceById(id).subscribe(
       response => {
         this.invoiceDetail = response.data;
-        let message = `<strong>Phòng ${this.invoiceDetail.invoice.name} </strong> đã thanh toán số tiền <strong> ${this.formatCurrency(this.invoiceDetail.invoice.amount)} đ </strong>. <br/> Khi bạn xác nhận thao tác này sẽ không thể hoàn tác.`;
+        let message = `<strong>Phòng ${this.invoiceDetail.invoice.name} </strong> đã thanh toán số tiền <strong> ${FormatCurrency(this.invoiceDetail.invoice.amount)} đ </strong>. <br/> Khi bạn xác nhận thao tác này sẽ không thể hoàn tác.`;
         bootbox.confirm(message,(result : boolean) =>{
           if(result){
             let request = {

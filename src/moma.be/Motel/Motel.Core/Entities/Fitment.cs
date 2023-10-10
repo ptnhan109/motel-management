@@ -12,7 +12,7 @@ namespace Motel.Core.Entities
 
         public bool IsCanUse { get; set; }
 
-        public double RecoupPrice { get; set; }
+        public decimal RecoupPrice { get; set; }
 
         [StringLength(255)]
         public string Description { get; set; }

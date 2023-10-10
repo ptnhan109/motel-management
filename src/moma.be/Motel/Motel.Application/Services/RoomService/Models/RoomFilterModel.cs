@@ -8,9 +8,9 @@ namespace Motel.Application.Services.RoomService.Models
 {
     public class RoomFilterModel : AppFilter
     {
-        public double? StartPrice { get; set; } = null;
+        public decimal? StartPrice { get; set; } = null;
 
-        public double? EndPrice { get; set; } = null;
+        public decimal? EndPrice { get; set; } = null;
 
         public Guid? BoardingHouseId { get; set; } = null;
 

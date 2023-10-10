@@ -18,13 +18,13 @@ namespace Motel.Core.Entities
         [ForeignKey(nameof(ProvideId))]
         public virtual Provide Provide { get; set; }
 
-        public double? LastValue { get; set; }
+        public decimal? LastValue { get; set; }
 
-        public double? NewValue { get; set; }
+        public decimal? NewValue { get; set; }
 
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
-        public double? Amount { get; set; }
+        public decimal? Amount { get; set; }
 
         public string Name { get; set; }
 

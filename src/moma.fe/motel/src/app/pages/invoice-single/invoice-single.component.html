@@ -136,7 +136,7 @@
 
                         <td>{{ invoice.boardingName }}</td>
                         <td>{{ invoice.name }}</td>
-                        <td>{{ formatCurrency(invoice.amount) }}</td>
+                        <td>{{ invoice.amount | formatCurrency }}</td>
                         <td>
                             <span *ngIf="invoice.paymentStatus == 0" class="badge badge-danger">Chưa thanh toán</span>
                             <span *ngIf="invoice.paymentStatus == 2" class="badge badge-success">Đã thanh toán</span>
@@ -186,11 +186,11 @@
             <div class="col-sm-6">
                 
                 <h6 class="float-left">Số tiền phòng đã trả trước: <span
-                    class="text-danger">{{formatCurrency(invoiceDetail.contract.advanceAmount)}} đ</span> </h6>
+                    class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6>
             </div>
             <div class="col-sm-6">
                 <h6 class="float-right">Số tiền phòng đã trả trước: <span
-                        class="text-danger">{{formatCurrency(invoiceDetail.contract.advanceAmount)}} đ</span> </h6>
+                        class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6>
                         
             </div>
         </div>
@@ -205,7 +205,7 @@
                 <input value="1" type="number" class="form-control no-border" id="name">
             </div>
             <div class="form-group col-md-4">
-                <input type="text" value="{{formatCurrency(invoiceDetail.room.price)}} đ" class="form-control no-border"
+                <input type="text" value="{{invoiceDetail.room.price | formatCurrency}} đ" class="form-control no-border"
                     id="name">
             </div>
 
@@ -287,7 +287,7 @@
             </div>
             <div class="col-sm-6">
                 <h6 class="float-right">Tổng tiền cần thanh toán: <span
-                        class="text-danger">{{formatCurrency(invoiceDetail.invoice.amount)}} đ</span> </h6>
+                        class="text-danger">{{invoiceDetail.invoice.amount | formatCurrency}} đ</span> </h6>
 
             </div>
         </div>

@@ -11,7 +11,7 @@ namespace Motel.Application.Services.BoardingHouseService.Dtos
 
         public Guid BoardingHouseId { get; set; }
 
-        public double Price { get; set; }
+        public decimal Price { get; set; }
 
         public ProvideInBoardingHouse ToEntity(Guid id) => new ProvideInBoardingHouse()
         {
