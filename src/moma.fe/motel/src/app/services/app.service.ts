@@ -206,4 +206,9 @@ export class AppService {
   setRoomPaymentStatus(id,request):Observable<AppResponse<any>>{
     return this.http.patch<AppResponse<any>>(`${environment.apiServer}/api/invoice/${id}/room`,request,this.options);
   }
+
+  
+  getDashboardSummary() : Observable<AppResponse<any>>{
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/report/summary`,this.options);
+  }
 }

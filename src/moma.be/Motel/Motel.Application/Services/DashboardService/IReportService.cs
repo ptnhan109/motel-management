@@ -1,13 +1,11 @@
 ﻿using Motel.Application.Services.DashboardService.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Motel.Common.Generics;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.DashboardService
 {
-    public interface IDashboardService
+    public interface IReportService
     {
-        Task<SummaryDto> DashboardSummary();
+        Task<Response> DashboardSummary();
     }
 }
