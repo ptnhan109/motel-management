@@ -110,7 +110,7 @@
                         <td><img _ngcontent-vec-c106="" src="{{ getAvatar(customer.avatarPath) }}"
                                 alt="User-Profile-Image" class="img-radius wid-40 ng-tns-c106-4"></td>
                         <td>{{ getCareer(customer.career) }}</td>
-                        
+
                     </tr>
                 </tbody>
             </table>
@@ -211,18 +211,27 @@
 
                 <div class="form-group col-md-4">
                     <label for="address">Ảnh chân dung</label>
-                    <input (change)="uploadAvatarIdentity($event.target.files)" type="file" class="form-control"
+                    <br />
+                    <button type="button" class="btn btn-primary w-100"><i-feather name="image"></i-feather> Tải ảnh
+                        chân dùng</button>
+                    <input (change)="uploadAvatarIdentity($event.target.files)" type="file" class="form-control hide"
                         placeholder="Nơi cấp">
                 </div>
 
                 <div class="form-group col-md-4">
                     <label for="address">Ảnh mặt trước</label>
-                    <input (change)="uploadFontIdentity($event.target.files)" type="file" class="form-control"
+                    <br />
+                    <button type="button" class="btn btn-primary w-100"><i-feather name="image"></i-feather> Tải ảnh
+                        CCCD mặt trước</button>
+                    <input (change)="uploadFontIdentity($event.target.files)" type="file" class="form-control hide"
                         placeholder="Nơi cấp">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="address">Ảnh mặt sau</label>
-                    <input (change)="uploadBackIdentity($event.target.files)" type="file" class="form-control"
+                    <br />
+                    <button type="button" class="btn btn-primary w-100"><i-feather name="image"></i-feather> Tải ảnh
+                        CCCD mặt sau</button>
+                    <input (change)="uploadBackIdentity($event.target.files)" type="file" class="form-control hide"
                         placeholder="Nơi cấp">
                 </div>
             </div>

@@ -48,7 +48,9 @@ import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.co
 import { SystemComponent } from './pages/system/system.component';
 import { FormatCurrencyPipe } from './pipes/format-currency.pipe';
 import { NgHttpLoaderModule } from 'ng-http-loader';
-
+import { VehicleComponent } from './pages/vehicle/vehicle.component';
+import { allIcons } from 'angular-feather/icons';
+import { FeatherModule } from 'angular-feather';
 @NgModule({
   declarations: [
     FormatCurrencyPipe,
@@ -84,7 +86,8 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     BadrequestComponent,
     InvoicesComponent,
     InvoiceSingleComponent,
-    SystemComponent
+    SystemComponent,
+    VehicleComponent
   ],
   imports: [
     SharedModule,
@@ -98,6 +101,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     NgbTabsetModule,
     HttpClientModule,
     NgHttpLoaderModule.forRoot(),
+    FeatherModule.pick(allIcons),
     ToastrModule.forRoot({
       timeOut: 3000,
       positionClass: 'toast-bottom-right',

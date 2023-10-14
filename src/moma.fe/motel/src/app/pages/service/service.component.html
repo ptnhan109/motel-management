@@ -26,7 +26,8 @@
           <div class="col-sm-3">
             <button type="button" class="btn btn-success float-right l-1" style="margin-left: 4px;" data-toggle="modal"
             ><i class="icon feather icon-printer"></i> Excel</button>
-          <button type="button" class="btn btn-primary float-right" data-toggle="modal" (click)="createService.show()">Thêm mới</button>
+          <button type="button" class="btn btn-primary float-right" data-toggle="modal" (click)="createService.show()"><i
+            class="icon feather icon-plus-circle"></i> Thêm mới</button>
           </div>
         </div>
         
@@ -45,21 +46,30 @@
             <th>Tên dịch vụ</th>
             <th>Giá tiền mặc định</th>
             <th>Hình thức</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let provide of provides; index as i">
             <td>{{ i + 1 }}</td>
             <td>
-              <a href="javascript:;" (click)="getProvideUpdate(provide);updateService.show()"><i class="icon feather icon-edit text-primary f-20"></i></a>
+              <div class="dropdown">
+                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  <i class="icon feather icon-menu text-default f-20"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                  <a class="dropdown-item" href="javascript:;"
+                    (click)="getProvideUpdate(provide);updateService.show()"><i class="icon feather icon-edit text-primary f-20"></i> Chỉnh
+                    sửa</a>
+                  <a href="javascript:;" class="dropdown-item" (click)="removeProvide(provide.id)"><i
+                      class="icon feather icon-trash text-danger f-20"></i> Xóa</a>
+                </div>
+              </div>
+              
             </td>
             <td>{{ provide.name }}</td>
             <td>{{ provide.defaultPrice | formatCurrency }}</td>
             <td>{{ provide.by }}</td>
-            <td>
-              <a href="javascript:;" (click)="removeProvide(provide.id)"><i class="icon feather icon-trash text-danger f-20"></i></a>
-            </td>
           </tr>
 
         </tbody>

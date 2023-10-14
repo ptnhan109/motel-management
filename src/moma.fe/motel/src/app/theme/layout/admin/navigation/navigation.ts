@@ -65,7 +65,8 @@ const NavigationItems = [
             id: 'fitment',
             title: 'Thiết bị',
             type: 'item',
-            url: '/fitment'
+            url: '/fitment',
+            breadcrumbs: false
           }
         ]
       },
@@ -93,27 +94,11 @@ const NavigationItems = [
       },
       {
         id: 'contract',
-        title: 'Hợp đồng & khách thuê',
-        type: 'collapse',
-        url: '/contract',
+        title: 'Hợp đồng',
+        type: 'item',
+        url: '/contracts',
         icon: 'feather icon-box',
         breadcrumbs: false,
-        children: [
-          {
-            id: 'contracts',
-            title: 'Hợp đồng',
-            type: 'item',
-            url: '/contracts',
-            breadcrumbs: false
-          },
-          {
-            id: 'customers',
-            title: 'Khách thuê',
-            type: 'item',
-            url: '/customers',
-            breadcrumbs: false
-          }
-        ]
       },
       {
         id: 'invoice',
@@ -124,12 +109,28 @@ const NavigationItems = [
         breadcrumbs: false
       },
       {
-        id: 'invoice',
-        title: 'Nhân viên',
-        type: 'item',
-        url: '/contract',
+        id: 'customers',
+        title: 'Khách hàng',
+        type: 'collapse',
+        url: '#',
         icon: 'feather icon-users',
-        breadcrumbs: false
+        breadcrumbs: false,
+        children: [
+          {
+            id: 'customers',
+            title: 'Khách thuê',
+            type: 'item',
+            url: '/customers',
+            breadcrumbs: false
+          },
+          {
+            id: 'customers',
+            title: 'Phương tiện',
+            type: 'item',
+            url: '/customers',
+            breadcrumbs: false
+          }
+        ]
       },
       {
         id: 'aftereffect',

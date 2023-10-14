@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "~9.0.3",
     "@angular/router": "~9.0.3",
     "@ng-bootstrap/ng-bootstrap": "^4.2.1",
+    "angular-feather": "^6.0.8",
     "apexcharts": "^3.8.0",
     "bignumber.js": "^9.1.2",
     "bootbox": "^5.5.3",

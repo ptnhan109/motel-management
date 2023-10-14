@@ -18,6 +18,7 @@ import { BadrequestComponent } from './pages/errors/badrequest/badrequest.compon
 import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.component';
 import { SystemComponent } from './pages/system/system.component';
+import { VehicleComponent } from './pages/vehicle/vehicle.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
       {
         path: 'system',
         component: SystemComponent
+      },
+      {
+        path: 'vehicle',
+        component: VehicleComponent
       }
 
     ]
