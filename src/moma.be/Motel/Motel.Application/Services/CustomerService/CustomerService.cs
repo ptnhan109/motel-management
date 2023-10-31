@@ -104,6 +104,18 @@ namespace Motel.Application.Services.CustomerService
 
         }
 
+        public async Task<Response> GetVehiclePaging(VehicleFilter request)
+        {
+            var query = _repository.GetQueryable<Vehicle>(new string[] { "Customer" });
+
+            if (!string.IsNullOrEmpty(request.keyword))
+                query = query.Where(x => x.LicensePlate.Contains(request.keyword));
+
+            var data = await _repository.FindPagedAsync(query, request.pageIndex, request.pageSize);
+
+            return Ok(data.ChangeType(VehicleDto.FromEntity));
+        }
+
         private async Task SetRoomStatus(Guid id, EnumRoomStatus status)
         {
             var room = await _repository.FindAsync<Room>(id);

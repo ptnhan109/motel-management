@@ -18,5 +18,7 @@ namespace Motel.Application.Services.CustomerService
         Task<Response> GetAllCustomer(CustomerFilter request);
 
         Task<Response> CustomerLogin(LoginRequest request);
+
+        Task<Response> GetVehiclePaging(VehicleFilter request);
     }
 }

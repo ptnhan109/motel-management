@@ -124,10 +124,10 @@ const NavigationItems = [
             breadcrumbs: false
           },
           {
-            id: 'customers',
+            id: 'vehicles',
             title: 'Phương tiện',
             type: 'item',
-            url: '/customers',
+            url: '/vehicles',
             breadcrumbs: false
           }
         ]

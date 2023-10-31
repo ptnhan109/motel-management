@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Motel.Application.Services.CustomerService;
 using Motel.Application.Services.CustomerService.Dtos;
@@ -34,5 +33,8 @@ namespace Motel.Api.Controllers
         [AllowAnonymous]
         [HttpPost("auth")]
         public async Task<Response> Auth([FromBody] LoginRequest request) => await _service.CustomerLogin(request);
+
+        [HttpGet("vehicle-paging")]
+        public async Task<Response> GetVehiclePaging([FromQuery] VehicleFilter request) => await _service.GetVehiclePaging(request);
     }
 }

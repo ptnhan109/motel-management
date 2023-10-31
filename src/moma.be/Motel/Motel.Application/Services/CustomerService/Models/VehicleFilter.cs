@@ -3,7 +3,7 @@ using System;
 
 namespace Motel.Application.Services.CustomerService.Models
 {
-    public class CustomerFilter : AppFilter
+    public class VehicleFilter : AppFilter
     {
         public Guid? BoardingHouseId { get; set; }
 

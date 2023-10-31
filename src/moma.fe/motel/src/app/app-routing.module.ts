@@ -92,7 +92,7 @@ const routes: Routes = [
         component: SystemComponent
       },
       {
-        path: 'vehicle',
+        path: 'vehicles',
         component: VehicleComponent
       }
 
