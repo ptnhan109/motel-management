@@ -109,8 +109,7 @@ import { FeatherModule } from 'angular-feather';
     })
   ],
   providers: [NavigationItem,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    FormatCurrencyPipe
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

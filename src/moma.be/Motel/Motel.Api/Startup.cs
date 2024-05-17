@@ -2,14 +2,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Motel.Application;
@@ -19,9 +17,7 @@ using Motel.Core.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Motel.Api
 {
@@ -110,6 +106,11 @@ namespace Motel.Api
             services.AddSingleton(mapper);
             #endregion
 
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientWeb";
+            });
+
             services.Registers();
             services.AddCors(opt =>
             {
@@ -117,12 +118,17 @@ namespace Motel.Api
                 {
                     builder.AllowAnyMethod()
                             .AllowAnyHeader()
-                            .SetIsOriginAllowed(origin => true) // allow any origin  
-                            .AllowCredentials();
+                            .SetIsOriginAllowed(origin => true)
+                            .AllowCredentials()
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+                            .WithOrigins("http://*.ptnhan.net", "http://localhost:4200");
+                            }) ;
                 });
-            });
+
 
             services.AddControllers();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -146,13 +152,19 @@ namespace Motel.Api
 
             app.UseRouting();
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(
                     Path.Combine(env.ContentRootPath, "Assets")),
-                    RequestPath = "/Files"
+                RequestPath = "/Files"
             });
 
+            app.UseSpaStaticFiles();
             app.UseAuthentication();
             app.UseAuthorization();
 

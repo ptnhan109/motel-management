@@ -5,9 +5,6 @@ using Motel.Common.Generics;
 using Motel.Core;
 using Motel.Core.Contants;
 using Motel.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.UserService

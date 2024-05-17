@@ -1,8 +1,5 @@
-﻿using Motel.Common.Generics;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿using System.Net;
+using Motel.Common.Generics;
 
 namespace Motel.Application.Services
 {

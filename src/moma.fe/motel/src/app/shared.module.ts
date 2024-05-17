@@ -14,17 +14,14 @@ export const CustomCurrencyMaskConfig = {
 
 @NgModule({
     declarations: [
-        FormatCurrencyMaskDirective,
-        FormatCurrencyPipe
+        FormatCurrencyMaskDirective
     ],
     imports: [
     ],
     providers: [
-        FormatCurrencyPipe
     ],
     exports: [
-        FormatCurrencyMaskDirective,
-        FormatCurrencyPipe
+        FormatCurrencyMaskDirective
     ]
 })
 export class SharedModule { }
