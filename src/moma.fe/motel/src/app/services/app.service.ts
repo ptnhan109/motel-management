@@ -217,6 +217,11 @@ export class AppService {
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/report/summary`, this.options);
   }
 
+  getDashboardStagePayment(): Observable<AppResponse<any>> {
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/report/stage-payments`, this.options);
+  }
+
+
   getOwnerInfo() : Observable<AppResponse<any>> {
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/user/info`, this.options);
   }

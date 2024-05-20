@@ -7,5 +7,9 @@ namespace Motel.Application.Services.DashboardService
     public interface IReportService
     {
         Task<Response> DashboardSummary();
+
+        Task<Response> LastestPayentAsync();
+
+        Task<Response> GetPaymentStageAsync();
     }
 }

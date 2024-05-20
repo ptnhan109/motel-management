@@ -4,6 +4,8 @@ using Motel.Common.Enums;
 using Motel.Common.Generics;
 using Motel.Core;
 using Motel.Core.Entities;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.DashboardService
@@ -32,6 +34,44 @@ namespace Motel.Application.Services.DashboardService
                 TotalRoomPending = pending,
                 TotalRooms = total
             });
+        }
+
+        public async Task<Response> LastestPayentAsync()
+        {
+            var data = new LastestPayment()
+            {
+                Name = string.Empty,
+                DebtAmount = 0,
+                PaidAmount = 0,
+                TotalAmount = 0
+            };
+
+            var entity = await _repository.GetQueryable<StagePayment>().OrderByDescending(x => x.StageDate)
+                .FirstOrDefaultAsync();
+            if (entity is null) return Ok(data);
+
+            data.Name = entity.Name;
+            data.TotalAmount = entity.TotalAmount;
+            data.PaidAmount = entity.AmountPaid;
+            data.DebtAmount = entity.TotalAmount - entity.AmountPaid;
+
+            return Ok(data);
+        }
+
+        public async Task<Response> GetPaymentStageAsync()
+        {
+            var currentYear = new DateTime(DateTime.Now.Year,1,1);
+            var payments = await _repository.GetQueryable<StagePayment>()
+                .Where(x => x.CreatedAt >= currentYear)
+                .OrderBy(x => x.StageDate).ToListAsync();
+
+            var data = payments.Select(x => new ChartItem()
+            {
+                Label = x.StageDate.ToString("dd-MM-yyyy"),
+                Value = x.TotalAmount
+            });
+
+            return Ok(data.ToList());
         }
     }
 }

@@ -53,6 +53,8 @@ import { allIcons } from 'angular-feather/icons';
 import { FeatherModule } from 'angular-feather';
 import { FormatCurrencyMaskDirective } from './directives/FormatCurrency';
 import { CURRENCY_MASK_CONFIG } from './directives/CurrencyMaskConfig';
+import { ApexChartComponent } from './theme/shared/components/chart/apex-chart/apex-chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 export const CustomCurrencyMaskConfig = {
@@ -103,13 +105,14 @@ export const CustomCurrencyMaskConfig = {
     InvoicesComponent,
     InvoiceSingleComponent,
     SystemComponent,
-    VehicleComponent
+    VehicleComponent,
   ],
   imports: [
     SharedModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgApexchartsModule,
     SharedModule,
     NgbDropdownModule,
     NgbTooltipModule,

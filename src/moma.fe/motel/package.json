@@ -31,6 +31,7 @@
     "file-saver": "^2.0.5",
     "jquery": "^3.4.1",
     "moment": "^2.24.0",
+    "ng-apexcharts": "^1.5.1",
     "ng-click-outside": "^4.0.0",
     "ng-http-loader": "^7.0.0",
     "ngx-currency": "^17.0.0",

@@ -106,8 +106,8 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
               "node_modules/popper/dist/popper.min.js",
-              "node_modules/bootbox/dist/bootbox.min.js"
-
+              "node_modules/bootbox/dist/bootbox.min.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
             ]
           }
         },

@@ -39,3 +39,58 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-xl-12 col-md-12">
+        <div class="row">
+          <div class="col-md-9">
+            <app-card cardTitle="Doanh thu các đợt thanh toán" [options]="false">
+                <apx-chart
+                  [chart]="chartOptions.chart!"
+                  [dataLabels]="chartOptions.dataLabels!"
+                  [series]="chartOptions.series!"
+                  [xaxis]="chartOptions.xaxis!"
+                  [fill]="chartOptions.fill!"
+                  [yaxis]="chartOptions.yaxis!"
+                ></apx-chart>
+              </app-card>
+          </div>
+          <div class="col-md-3">
+            <app-card [hidHeader]="true" cardClass="bg-primary text-white">
+              <div class="row">
+                <div class="col-auto">
+                  <span>Số lượng phòng</span>
+                </div>
+                <div class="col text-end">
+                  <h2 class="mb-0 text-white">{{summary.totalRooms}}</h2>
+                </div>
+              </div>
+              <div id="customerChart">
+                <apx-chart
+                  [series]="chartOptions_2.series!"
+                  [chart]="chartOptions_2.chart!"
+                  [stroke]="chartOptions_2.stroke!"
+                  [dataLabels]="chartOptions_2.dataLabels!"
+                  [labels]="chartOptions_2.labels!"
+                  [legend]="chartOptions_2.legend!"
+                  [colors]="chartOptions_2.colors!"
+                  [fill]="chartOptions_2.fill!"
+                  [grid]="chartOptions_2.grid!"
+                  [plotOptions]="chartOptions_2.plotOptions!"
+                  [tooltip]="chartOptions_2.tooltip!"
+                ></apx-chart>
+              </div>
+              <div class="row mt-3 text-center">
+                <div class="col">
+                  <h3 class="m-0 text-white">{{summary.totalRoomHired}}</h3>
+                  <span class="ms-3">Đã cho thuê</span>
+                </div>
+                <div class="col">
+                  <h3 class="m-0 text-white">{{summary.totalRoomPending}}</h3>
+                  <span class="ms-3">Chưa cho thuê</span>
+                </div>
+              </div>
+            </app-card>
+          </div>
+        </div>
+      </div>
+</div>
