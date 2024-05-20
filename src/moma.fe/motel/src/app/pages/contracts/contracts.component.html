@@ -1,0 +1,257 @@
+<div class="page-header ng-star-inserted">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h5 class="m-b-10 ng-star-inserted">Hợp đồng</h5>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <button type="button" class="btn btn-danger float-right l-4"><i
+                                    class="icon feather icon-user-minus"></i> Xóa</button>
+                            <button type="button" class="btn btn-success float-right l-4"><i
+                                    class="icon feather icon-printer"></i> Xuất file hợp đồng</button>
+                            <button (click)="createContract.show()" class="btn btn-primary float-right l-4"><i
+                                    class="icon feather icon-file-plus"></i> Thêm mới Hợp đồng</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-sm-7">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
+                                    class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/boarding-house">Hợp đồng & Khách thuê</a>
+                            </li>
+                            <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                                    routerLink="/contracts">Hợp đồng</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-row">
+                            <div class="form-group col-md-5">
+                                <input [(ngModel)]="listFilter.keyword" class="form-control"
+                                    placeholder="Tìm tên hợp đồng" type="text">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select [(ngModel)]="listFilter.type" class="form-control">
+                                    <option [ngValue]="null">Tất cả</option>
+                                    <option [ngValue]="1">Thuê phòng</option>
+                                    <option [ngValue]="0">Đặt cọc</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <select [(ngModel)]="listFilter.status" class="form-control">
+                                    <option [ngValue]="null">Tất cả</option>
+                                    <option [ngValue]="0">Còn hiệu lực</option>
+                                    <option [ngValue]="1">Đã hết hạn</option>
+                                    <option [ngValue]="2">Đã hủy</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group col-md-1">
+                                <button (click)="getContracts(1)" type="button" class="btn btn-info float-right l-4"><i
+                                        class="icon feather icon-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Customer datatable -->
+<div class="col-xl-12">
+    <app-card cardTitle="Danh sách hợp đồng" blockClass="table-border-style">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th></th>
+                        <th>Tên hợp đồng</th>
+                        <th>Trạng thái</th>
+                        <th>Ngày hết hạn</th>
+                        <th>Người đại diện</th>
+                        <th>Loại hợp đồng</th>
+                        <th>Tiền đặt cọc</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr *ngFor="let contract of contracts; index as index;">
+                        <td>{{ index + 1 }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-default" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon feather icon-menu text-default f-20"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    <button class="dropdown-item" type="button"><i
+                                            class="icon feather icon-edit text-primary f-20"></i> Sửa hợp đồng</button>
+                                    
+                                    <button (click)="downloadContractFile(contract.id,contract.name)" class="dropdown-item" type="button"><i
+                                            class="icon feather icon-download text-primary f-20"></i> Tải hợp đồng</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ contract.name }}</td>
+                        <td>
+                            <span *ngIf="contract.status == 0" class="badge badge-success">Còn hạn</span>
+                            <span *ngIf="contract.status == 1" class="badge badge-warning">Đã hết hạn</span>
+                            <span *ngIf="contract.status == 2" class="badge badge-danger">Đã hủy</span>
+
+                        </td>
+                        <td>{{ formatExpiredDate(contract.expiredDate) }}</td>
+                        <td>{{ contract.customerName }}</td>
+                        <td>
+                            <span *ngIf="contract.type == 0" class="badge badge-warning">Hợp đồng đặt cọc</span>
+                            <span *ngIf="contract.type == 1" class="badge badge-info">Hợp đồng thuê phòng</span>
+                        </td>
+                        <td>{{ contract.depositedAmount | formatCurrency }}</td>
+                        <td><button (click)="removeContract(contract.id)" class="dropdown-item" type="button"><i
+                            class="icon feather icon-trash text-danger f-20"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" *ngFor="let page of pageNumbers">
+                        <a class="page-link" href="javascript:;" (click)="getContracts(page)">{{
+                            page }}</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </app-card>
+
+</div>
+<app-ui-modal #createContract [hideFooter]="true" [dialogClass]="'modal-xl'">
+    <div class="app-modal-header">
+        <h6 class="modal-title">Thêm mới hợp đồng</h6>
+        <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
+            (click)="createContract.hide()"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="app-modal-body">
+        <div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="name">Khu trọ</label>
+                    <select [(ngModel)]="filter.boardingHouseId" class="form-control" (change)="getRooms()">
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let boarding of boardings" [ngValue]="boarding.id">
+                            {{ boarding.name}}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="address">Phòng trọ <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="filter.roomId" (change)="getCustomers();setContractName();"
+                        class="form-control">
+                        <option [ngValue]="null">Tất cả</option>
+                        <option *ngFor="let room of rooms" [ngValue]="room.id"><span class="text-danger">{{ room.name
+                                }}</span> [ {{ getRoomStatus(room.status) }} ] {{ room.description }}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="address">Tên hợp đồng <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.name" type="text" class="form-control" placeholder="Tên hợp đồng">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="address">Thời hạn hợp đồng <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="addContract.contractDuration" class="form-control">
+                        <option [ngValue]="1">1 tháng</option>
+                        <option [ngValue]="6">6 tháng</option>
+                        <option [ngValue]="12">12 tháng</option>
+                        <option [ngValue]="null">Không thời hạn</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Loại hợp đồng <span class="text-danger">*</span></label>
+                    <select [(ngModel)]="addContract.type" [disabled]="isEnableType ? null : true"
+                        (change)="setContractName();" class="form-control">
+                        <option [ngValue]="0">Đặt cọc</option>
+                        <option [ngValue]="1">Thuê phòng</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Người đại diện <span *ngIf="addContract.type == 1" class="text-danger">*</span></label>
+                    <select [(ngModel)]="addContract.customerId" [disabled]="addContract.type == 0 ? true : false"
+                        (change)="setCustomerName()" class="form-control">
+                        <option [ngValue]="null">Chọn người đại diện</option>
+                        <option *ngFor="let customer of customers" [ngValue]="customer.id">{{ customer.name }} - {{
+                            customer.phone}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Tên người đặt cọc <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.customerName" [disabled]="addContract.type == 1 ? true : false"
+                        type="text" class="form-control" placeholder="Người đại diện">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Số điện thoại</label>
+                    <input [(ngModel)]="addContract.customerPhone" [disabled]="addContract.type == 1 ? true : false"
+                        type="text" class="form-control" placeholder="Số điện thoại">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Ngày có hiệu lực <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.createdDate" type="date" class="form-control"
+                        placeholder="Ngày có hiệu lực">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Ngày hết hạn <span *ngIf="addContract.type == 0" class="text-danger">*</span></label>
+                    <input [(ngModel)]="addContract.expiredDate" type="date" class="form-control"
+                        placeholder="Ngày hết hiệu lực">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Số tiền đặt cọc</label>
+                    <input [(ngModel)]="addContract.depositedAmount" type="number" class="form-control"
+                        placeholder="Số tiền đặt cọc">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="address">Số tiền trả trước</label>
+                    <input [(ngModel)]="addContract.advanceAmount" type="number" class="form-control"
+                        placeholder="Số tiền đặt cọc">
+                </div>
+            </div>
+            <h6>Thêm điều khoản</h6>
+            <button *ngIf="terms.length == 0" (click)="addTerms()" type="button" class="btn btn-success"><i
+                class="icon feather icon-plus-circle"></i> Thêm điều khoản</button>
+            <hr *ngIf="terms.length == 0">
+            <div class="form-row" *ngFor="let term of terms; index as index">
+                <div class="form-group col-md-12">
+                    <select [(ngModel)]="terms[index].type" class="form-control">
+                        <option [ngValue]="0">Điều khoản chung</option>
+                        <option [ngValue]="0">Bên cho thuê</option>
+                        <option [ngValue]="1">Bên thuê</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-12">
+                    <textarea [(ngModel)]="terms[index].content" rows="3" type="text" class="form-control"
+                        placeholder="Nội dung điều khoản"></textarea>
+                </div>
+                <div class="form-group col-md-12">
+                    <button (click)="addTerms()" type="button" class="btn btn-success btn-sm float-right l-4"><i
+                            class="icon feather icon-plus"></i> </button>
+                    <button (click)="removeTerms(index)" type="button" class="btn btn-danger btn-sm float-right l-4"><i
+                            class="icon feather icon-minus"></i> </button>
+                </div>
+            </div>
+            <hr>
+            <button (click)="createContract.hide()" type="button" class="btn btn-default float-right">Hủy bỏ</button>
+            <button (click)="saveContract() == true ? createContract.hide() : false" type="button" class="btn btn-primary float-right">Thêm mới</button>
+        </div>
+    </div>
+</app-ui-modal>

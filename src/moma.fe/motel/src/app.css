@@ -1,0 +1,31 @@
+.f-20{
+    font-size: 15px;
+}
+.no-border{
+    border-top: transparent; border-right: transparent; border-left: transparent;
+    border-color: darkgray;
+    border-radius: 0px !important;
+}
+.l-4{
+    margin-left: 4px;
+}
+.l-2{
+    margin-left: 2px;
+}
+
+.p-r-0{
+    padding-right: 0px !important;
+}
+.m-b-15{
+    margin-bottom: 15px !important;
+}
+.s-19{
+    width: 19px;
+    height: 19px;
+}
+.p-t-10{
+    padding-top: 10px;
+}
+.white{
+    background-color: white !important;
+}

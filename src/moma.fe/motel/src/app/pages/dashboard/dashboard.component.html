@@ -1,0 +1,41 @@
+<div class="row">
+    <!-- order-card start -->
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-blue order-card">
+            <div class="card-body">
+                <h6 class="text-white">Phòng đang quản lý</h6>
+                <h2 class="text-right text-white"><i
+                        class="feather icon-grid float-left"></i><span>{{summary.totalRooms}}</span>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-green order-card">
+            <div class="card-body">
+                <h6 class="text-white">Phòng đã cho thuê</h6>
+                <h2 class="text-right text-white"><i
+                        class="feather icon-package float-left"></i><span>{{summary.totalRoomHired}}</span></h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-yellow order-card">
+            <div class="card-body">
+                <h6 class="text-white">Phòng đã có đặt cọc</h6>
+                <h2 class="text-right text-white"><i
+                        class="feather icon-repeat float-left"></i><span>{{summary.totalRoomDeposited}}</span>
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card bg-c-red order-card">
+            <div class="card-body">
+                <h6 class="text-white">Phòng đang tạm dừng</h6>
+                <h2 class="text-right text-white"><i
+                        class="feather icon-award float-left"></i><span>{{summary.totalRoomPending}}</span></h2>
+            </div>
+        </div>
+    </div>
+</div>

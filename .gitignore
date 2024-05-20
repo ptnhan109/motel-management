@@ -56,6 +56,7 @@ dlldata.c
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
+Exports/
 
 # .NET Core
 project.lock.json
@@ -455,3 +456,5 @@ baseline.json
 
 # Husky
 .husky/_
+src/be/Motel/Motel.Api/appsettings.Development.json
+src/be/Motel/Motel.Api/appsettings.json
