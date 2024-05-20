@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { ContractType } from 'src/app/common/contractType';
 import { FormatCurrency, RemoveNullable, SetPropertyToNull } from 'src/app/common/stringFormat';
@@ -251,8 +252,10 @@ export class RoomsComponent implements OnInit {
       response => {
         this.depositShow.id = response.data.id;
         this.depositShow.name = response.data.name;
-        this.depositShow.createdDate = response.data.createdDate;
-        this.depositShow.expiredDate = response.data.expiredDate;
+        
+        this.depositShow.createdDate = moment(response.data.createdDate).format("YYYY-MM-DD");
+        this.depositShow.expiredDate = moment(response.data.expiredDate).format("YYYY-MM-DD");
+
         this.depositShow.customerName = response.data.customerName;
         this.depositShow.customerPhone = response.data.customerPhone;
         this.depositShow.depositedAmount = response.data.depositedAmount;

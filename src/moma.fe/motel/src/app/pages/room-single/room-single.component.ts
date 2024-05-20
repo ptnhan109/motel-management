@@ -88,11 +88,16 @@ export class RoomSingleComponent implements OnInit {
     }
   }
 
+  onSelectFileButton(){
+    
+  }
+
   selectedFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       this.roomImages.push(files[i]);
     }
   }
+
   SaveRoom() {
     if(!this.validate()){
       return;

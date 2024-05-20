@@ -26,7 +26,6 @@ export class FormatCurrencyMaskDirective implements OnInit, OnChanges, OnDestroy
     const posStart = element.selectionStart;
     const posEnd = element.selectionEnd;
     const value = element.value;
-
     if (!this.isFocused && posStart === 0 && posEnd === 0) {
       const idxOfDecimal = value.indexOf(',');
       if (idxOfDecimal !== -1) {
@@ -242,19 +241,7 @@ export class FormatCurrencyMaskDirective implements OnInit, OnChanges, OnDestroy
 
   ngOnInit(): void {
     this.init();
-    setTimeout(() => {
-      var element = this.el.nativeElement;
-      const idxOfDecimal = element.value.indexOf(',');
-      this.setSectionRange(idxOfDecimal, idxOfDecimal);
-      element.focus();
-    }, 0);
-
-    // setTimeout(() => {
-    //   this.subscr = this.ngControl.valueChanges.subscribe((res: any) => {
-    //     var element = this.el.nativeElement;
-    //     this.setValue(element, element.value, typeof res === 'number');
-    //   });
-    // }, 0);
+    this.el.nativeElement.select();
   }
 
   ngDoCheck(): void {
@@ -292,7 +279,7 @@ export class FormatCurrencyMaskDirective implements OnInit, OnChanges, OnDestroy
     const inputConfig = changes.options.currentValue;
     if (inputConfig) {
       this.options = {
-        align: inputConfig.align || 'right',
+        // align: inputConfig.align || 'right',
         allowNegative: inputConfig.allowNegative == undefined ? true : inputConfig.allowNegative,
         precision: inputConfig.precision || 0,
         maxIntegerDigit: inputConfig.maxIntegerDigit || 15

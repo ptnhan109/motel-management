@@ -216,4 +216,12 @@ export class AppService {
   getDashboardSummary(): Observable<AppResponse<any>> {
     return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/report/summary`, this.options);
   }
+
+  getOwnerInfo() : Observable<AppResponse<any>> {
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/user/info`, this.options);
+  }
+
+  updateOwnerInfo(model : any) : Observable<AppResponse<any>> {
+    return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/user/info`,model, this.options);
+  }
 }

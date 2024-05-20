@@ -20,7 +20,11 @@ namespace Motel.Api.Controllers
             _service = service;
         }
 
+        [HttpGet("info")]
+        public async Task<Response> GetOwnerInfoAsync() => await _service.GetOwnerAsync();
+
         [HttpPut("info")]
-        public async Task<Response> UpdateUserInfoAsync([FromBody] UserInfoDto request) => await _service.UpdateUserInfoAsync(request);
+        public async Task<Response> UpdateOwnerInfoAsync([FromBody] UserInfoDto request) => await _service.UpdateOwnerAsync(request);
+
     }
 }

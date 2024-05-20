@@ -6,6 +6,7 @@ import { AppService } from 'src/app/services/app.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
+
 export class DashboardComponent implements OnInit {
 
   summary =

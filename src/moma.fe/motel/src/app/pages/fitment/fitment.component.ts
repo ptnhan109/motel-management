@@ -11,24 +11,39 @@ import { FormatCurrency } from 'src/app/common/stringFormat';
 export class FitmentComponent implements OnInit {
 
   fitments = [];
+  fitment: any = {
+    id: null,
+    name: null,
+    recoupPrice: 0,
+    description: null
+  }
   constructor(
-    private _service : AppService,
-    private _toast : ToastrService,
+    private _service: AppService,
+    private _toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
     this.getFitments();
   }
 
-  getFitments(){
+  getFitments() {
     this._service.getFitments().subscribe(
-      response =>{
+      response => {
         this.fitments = response.data;
       }
     )
   }
 
-  formatCurrency(input){
+  getFitmentUpdate(fitment) {
+    this.fitment.id = fitment.id;
+    this.fitment.name = fitment.name;
+
+    this.fitment.recoupPrice = fitment.recoupPrice;
+    this.fitment.description = null;
+    this.fitment.type = fitment.type;
+  }
+
+  formatCurrency(input) {
     return FormatCurrency(input);
   }
 

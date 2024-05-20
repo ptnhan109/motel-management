@@ -19,7 +19,7 @@ export class VehicleComponent implements OnInit {
   paging = null;
   customers = [];
   filter = {
-    keyword: null,
+    keyword: "",
     pageIndex: 1,
     pageSize: 20
   }
@@ -37,7 +37,11 @@ export class VehicleComponent implements OnInit {
 
   GetVehicles() {
     this._service.getVehicles(this.filter).subscribe((response) => {
-      console.log(response);
+      this.paging = response.data;
+      this.customers = response.data.items;
+      for (let i = 1; i <= this.paging.totalPage; i++) {
+        this.pageNumbers.push(i);
+      }
     })
   }
 

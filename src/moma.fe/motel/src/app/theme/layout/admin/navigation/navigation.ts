@@ -134,20 +134,20 @@ const NavigationItems = [
       },
       {
         id: 'aftereffect',
-        title: 'Phản ánh',
+        title: 'Thông tin',
         type: 'item',
-        url: '/contract',
+        url: '/system',
         icon: 'feather icon-layers',
         breadcrumbs: false
       },
-      {
-        id: 'system',
-        title: 'Hệ thống',
-        type: 'item',
-        url: '/system',
-        icon: 'feather icon-settings',
-        breadcrumbs: false
-      },
+      // {
+      //   id: 'system',
+      //   title: 'Hệ thống',
+      //   type: 'item',
+      //   url: '/system',
+      //   icon: 'feather icon-settings',
+      //   breadcrumbs: false
+      // },
     ]
   }
 ];

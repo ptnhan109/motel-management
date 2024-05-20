@@ -2,7 +2,7 @@ import { Component, getModuleFactory, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContractType } from 'src/app/common/contractType';
-import { RemoveNullable } from 'src/app/common/stringFormat';
+import { GetCurrentDate, RemoveNullable } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
 import { environment } from 'src/environments/environment';
 
@@ -74,6 +74,7 @@ export class AddContractComponent implements OnInit {
     this.getRooms();
     this.getContract();
     this.addVehicleElements();
+
   }
 
   changeStep(step) {
@@ -130,6 +131,8 @@ export class AddContractComponent implements OnInit {
             this.addContract.customerPhone = response.data.customerPhone;
 
             this.addContract.depositedAmount = response.data.depositedAmount;
+
+            this.addContract.createdDate = GetCurrentDate();
 
           }
         )

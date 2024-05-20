@@ -185,8 +185,8 @@
         <div class="row">
             <div class="col-sm-6">
                 
-                <h6 class="float-left">Số tiền phòng đã trả trước: <span
-                    class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6>
+                <!-- <h6 class="float-left">Số tiền phòng đã trả trước: <span
+                    class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6> -->
             </div>
             <div class="col-sm-6">
                 <h6 class="float-right">Số tiền phòng đã trả trước: <span
@@ -223,18 +223,25 @@
         <hr>
         <h6>Chi phí dịch vụ</h6>
         <div *ngFor="let item of invoiceDetail.items; index as i" class="form-row">
+            <!-- TÊN DỊCH VỤ -->
             <div class="form-group col-md-4">
                 <input [(ngModel)]="invoiceDetail.items[i].name" type="text" class="form-control white no-border"
                     id="name" disabled>
             </div>
+
+            <!-- SỐ CŨ -->
             <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
                 <input [(ngModel)]="invoiceDetail.items[i].lastValue" (keyup)="onChangeNumber()" type="number"
                     class="form-control no-border" id="name">
             </div>
+
+            <!-- SỐ MỚI -->
             <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
                 <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
                     class="form-control no-border" id="name">
             </div>
+
+            <!-- SỐ SỬ DỤNG -->
             <div *ngIf="invoiceDetail.items[i].provideType != 1" class="form-group col-md-2 text-center no-border">
                 <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
                     class="form-control no-border" id="name">
@@ -242,9 +249,11 @@
             <div class="form-group col-md-1 text-center">
                 x
             </div>
+
+            <!-- ĐƠN GIÁ -->
             <div class="form-group col-md-2">
-                <input [(ngModel)]="invoiceDetail.items[i].price" (keyup)="onChangeNumber()" type="number"
-                    class="form-control no-border" id="name">
+                <input [(ngModel)]="invoiceDetail.items[i].price" (ngModelChange)="onChangeNumber()" currencyMask 
+                    class="form-control no-border" id="name" />
             </div>
             <div class="form-group col-md-1 text-center">
                 =

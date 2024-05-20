@@ -46,6 +46,7 @@ namespace Motel.Application.Services.ServiceService
         public async Task<Response> Update(ProvideDto model)
         {
             var entity = _mapper.Map<ProvideDto, Provide>(model);
+            entity.IsDeleted = false;
             await _repository.UpdateAsync(entity);
 
             return Ok();

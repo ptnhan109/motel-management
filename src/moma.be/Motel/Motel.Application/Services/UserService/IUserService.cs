@@ -12,5 +12,9 @@ namespace Motel.Application.Services.UserService
         Task<Response> Authenticate(string phone, string password);
 
         Task<Response> UpdateUserInfoAsync(UserInfoDto dto);
+
+        Task<Response> UpdateOwnerAsync(UserInfoDto dto);
+
+        Task<Response> GetOwnerAsync();
     }
 }

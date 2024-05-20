@@ -61,7 +61,6 @@
                         <th>Biển số</th>
                         <th>Màu sắc</th>
                         <th>Chủ sở hữu</th>
-                        <th>Khu</th>
                     </tr>
 
                 </thead>
@@ -78,19 +77,19 @@
                                     <button class="dropdown-item" type="button"><i
                                             class="icon feather icon-edit text-primary f-20"></i> Sửa thông tin</button>
                                     <button class="dropdown-item" type="button"><i
-                                            class="icon feather icon-trash text-danger f-20"></i> Xóa khách
-                                        thuê</button>
+                                            class="icon feather icon-trash text-danger f-20"></i> Xóa</button>
                                 </div>
                             </div>
 
                         </td>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.phone }}</td>
-                        <td>{{ customer.boardingHouseName }}</td>
-                        <td>{{ customer.room }}</td>
-                        <td><img _ngcontent-vec-c106=""
-                                alt="User-Profile-Image" class="img-radius wid-40 ng-tns-c106-4"></td>
-                        <td></td>
+                        <td>
+                            <span *ngIf="customer.type == 0">Xe đạp</span>
+                            <span *ngIf="customer.type == 1">Xe máy</span>
+                            <span *ngIf="customer.type == 2">Ô tô</span>
+                        </td>
+                        <td>{{ customer.licensePlate }}</td>
+                        <td>{{ customer.color }}</td>
+                        <td>{{ customer.customerName }}</td>
 
                     </tr>
                 </tbody>

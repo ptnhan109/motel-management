@@ -51,8 +51,24 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 import { VehicleComponent } from './pages/vehicle/vehicle.component';
 import { allIcons } from 'angular-feather/icons';
 import { FeatherModule } from 'angular-feather';
+import { FormatCurrencyMaskDirective } from './directives/FormatCurrency';
+import { CURRENCY_MASK_CONFIG } from './directives/CurrencyMaskConfig';
+
+
+export const CustomCurrencyMaskConfig = {
+  align: "left",
+  allowNegative: true,
+  decimal: ",",
+  precision: 0,
+  prefix: "",
+  suffix: "",
+  thousands: "."
+};
+
+
 @NgModule({
   declarations: [
+    FormatCurrencyMaskDirective,
     FormatCurrencyPipe,
     AppComponent,
     AdminComponent,
@@ -109,7 +125,8 @@ import { FeatherModule } from 'angular-feather';
     })
   ],
   providers: [NavigationItem,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
   ],
   bootstrap: [AppComponent]
 })

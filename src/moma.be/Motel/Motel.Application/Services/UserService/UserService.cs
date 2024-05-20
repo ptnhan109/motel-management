@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Motel.Application.Auth;
 using Motel.Application.Services.UserService.Dtos;
 using Motel.Common.Generics;
 using Motel.Core;
 using Motel.Core.Contants;
 using Motel.Core.Entities;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.UserService
@@ -40,6 +42,36 @@ namespace Motel.Application.Services.UserService
             }
             var data = _jwtToken.GenerateToken(entity.Id, entity.Phone, entity.Role.ToString());
             return Ok(data);
+        }
+
+        public async Task<Response> GetOwnerAsync()
+        {
+            var query = _repository.GetQueryable<UserInfo>();
+            var data = await query.FirstOrDefaultAsync();
+            if (data is null) return NotFound();
+
+            return Ok(data);
+        }
+
+        public async Task<Response> UpdateOwnerAsync(UserInfoDto dto)
+        {
+            var query = _repository.GetQueryable<UserInfo>();
+            var data = await query.FirstOrDefaultAsync();
+            if (data is null) return NotFound();
+
+            data.Name = dto.Name;
+            data.Phone = dto.Phone;
+            data.IdentityNumber = dto.IdentityNumber;
+            data.IdentityProvider = dto.IdentityProvider;
+            data.IdentityDate = dto.IdentityDate;
+            data.Address = dto.Address;
+            data.Email = dto.Email;
+            data.BankName = dto.BankName;
+            data.AccountBankNumber = dto.AccountBankNumber;
+            data.IsDeleted = false;
+
+            await _repository.UpdateAsync(data);
+            return Ok();
         }
 
         public async Task<Response> UpdateUserInfoAsync(UserInfoDto dto)

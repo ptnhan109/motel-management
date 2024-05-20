@@ -1,1 +1,116 @@
-<p>system works!</p>
+<div class="page-header ng-star-inserted">
+    <div class="page-block">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+                <div class="page-header-title">
+                    <div class="row">
+                        <div class="col-sm-6">
+
+                            <h5 class="m-b-10 ng-star-inserted">Thông tin chủ trọ</h5>
+                        </div>
+                    </div>
+
+                </div>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a ng-reflect-router-link="/dashboard" routerLink="/dashboard"
+                            class="ng-star-inserted"><i class="feather icon-home"></i></a>
+                    <li class="breadcrumb-item ng-star-inserted"><a ng-reflect-router-link="/boarding-house"
+                            routerLink="/boarding-house">Thông tin chủ trọ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Cập nhật thông tin chủ trọ" [options]="false">
+            <hr />
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Họ tên chủ trọ</label>
+                            <input [(ngModel)]="info.name" type="text" class="form-control" placeholder="Họ tên chủ trọ" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Địa chỉ</label>
+                            <input [(ngModel)]="info.address" type="text" class="form-control" placeholder="Địa chỉ" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ngân hàng thụ hướng</label>
+                            <input [(ngModel)]="info.bankName" type="text" class="form-control" placeholder="Ngân hàng thụ hưởng" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số tài khoản</label>
+                            <input [(ngModel)]="info.accountBankNumber" type="text" class="form-control" placeholder="Số tài khoản" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số điện thoại</label>
+                            <input [(ngModel)]="info.phone" type="text" class="form-control" placeholder="Số điện thoại" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Thư điện tử</label>
+                            <input [(ngModel)]="info.email" type="text" class="form-control" placeholder="Thư điện tử chủ trọ" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số căn cước công dân</label>
+                            <input [(ngModel)]="info.identityNumber" type="text" class="form-control" placeholder="Số căn cước" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Ngày cấp</label>
+                            <input [(ngModel)]="info.identityDate" type="date" class="form-control" placeholder="Ngày cấp" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div action="javascript:">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Nơi cấp</label>
+                            <input [(ngModel)]="info.identityProvider" type="text" class="form-control" placeholder="Ngày cấp" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary float-right" type="submit" (click)="submit()"> Cập nhật thông tin </button>
+            </div>
+        </app-card>
+    </div>
+</div>

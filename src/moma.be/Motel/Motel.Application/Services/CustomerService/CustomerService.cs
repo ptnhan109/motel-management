@@ -107,7 +107,7 @@ namespace Motel.Application.Services.CustomerService
         public async Task<Response> GetVehiclePaging(VehicleFilter request)
         {
             var query = _repository.GetQueryable<Vehicle>(new string[] { "Customer" });
-
+            var s = await query.ToListAsync();
             if (!string.IsNullOrEmpty(request.keyword))
                 query = query.Where(x => x.LicensePlate.Contains(request.keyword));
 

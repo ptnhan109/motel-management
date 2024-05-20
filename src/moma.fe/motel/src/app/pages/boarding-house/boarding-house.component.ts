@@ -46,7 +46,7 @@ export class BoardingHouseComponent implements OnInit {
   }
 
   addBoardingHouse() {
-    if(!this.validate()){
+    if (!this.validate()) {
       return false;
     }
     this.boardingInfo.services = this.selectedProvides;
@@ -82,16 +82,16 @@ export class BoardingHouseComponent implements OnInit {
     this._service.getBoarding(id).subscribe(
       response => {
         this.boardingUpdate = response.data;
-        console.log(this.boardingUpdate);
       }
     )
   }
 
   setSelectProvide(id) {
+    let provide = this.provides.find(x => x.id == id);
     let element = {
       serviceId: id,
-      price: 0
-    }
+      price: provide.defaultPrice
+    };
     let index = this.selectedProvides.findIndex(x => x.id == id);
     console.log(index);
     if (index > -1) {
@@ -141,9 +141,9 @@ export class BoardingHouseComponent implements OnInit {
   validate() {
     if (this.boardingInfo.name == undefined || this.boardingInfo.name == '' || this.boardingInfo.name == null
       || this.boardingInfo.address == undefined || this.boardingInfo.address == '' || this.boardingInfo.address == null) {
-        this._toast.error("Vui lòng điền đầy đủ thông tin.")
+      this._toast.error("Vui lòng điền đầy đủ thông tin.")
 
-        return false;
+      return false;
     }
 
     return true;
