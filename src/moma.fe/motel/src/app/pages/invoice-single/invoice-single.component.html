@@ -158,148 +158,196 @@
         <button type="button" class="close basic-close" data-dismiss="modal" aria-label="Close"
             (click)="inputRoomData.hide()"><span aria-hidden="true">&times;</span></button>
     </div>
-    <div class="app-modal-body">
-        <div class="form-row">
-            <div class="form-group col-md-3">
-                <label for="name">Khu trọ <span class="text-danger">*</span></label>
-                <input [(ngModel)]="invoiceDetail.invoice.boardingName" type="text" class="form-control no-border white"
-                    id="name" disabled>
+    <div class="app-modal-body invoice">
+        <div class="invoice-content">
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="name">Khu trọ <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="invoiceDetail.invoice.boardingName" type="text"
+                        class="form-control no-border white" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="name">Phòng trọ <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="invoiceDetail.invoice.name" type="text" class="form-control no-border white"
+                        disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="name">Người đại diện <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="invoiceDetail.contract.customerName" type="text"
+                        class="form-control no-border white" disabled>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="name">Số tháng đóng tiền 1 lần <span class="text-danger">*</span></label>
+                    <input [(ngModel)]="invoiceDetail.boardingHouse.months" type="text"
+                        class="form-control no-border white" disabled>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="name">Phòng trọ <span class="text-danger">*</span></label>
-                <input [(ngModel)]="invoiceDetail.invoice.name" type="text" class="form-control no-border white"
-                    id="name" disabled>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <h6 style="margin-top: 20px;">Đóng thêm tiền trả trước</h6>
+                </div>
+                <div class="col-sm-3">
+                    <input [(ngModel)]="invoiceDetail.advanceAmount" type="number" class="form-control no-border white" placeholder="Số tiền đóng thêm">
+                </div>
+                <div class="col-sm-6">
+                    <h6 class="float-right" style="margin-top: 20px;">Số tiền phòng đã trả trước: <span
+                            class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6>
+
+                </div>
+                <div class="col-sm-6">
+                    <div class="alert alert-warning" role="alert">
+                        Số tiền đóng thêm = Tiền phòng x số tháng đóng tiền 1 lần
+                    </div>
+                </div>
             </div>
-            <div class="form-group col-md-3">
-                <label for="name">Người đại diện <span class="text-danger">*</span></label>
-                <input [(ngModel)]="invoiceDetail.contract.customerName" type="text"
-                    class="form-control no-border white" id="name" disabled>
+            <hr>
+            <h6>Tiền phòng cần đóng</h6>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input type="text" value="Tiền phòng" class="form-control white no-border" disabled>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <input value="1" type="number" class="form-control no-border">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" value="{{invoiceDetail.room.price | formatCurrency}} đ"
+                        class="form-control no-border">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <div class="form-check">
+                        <input class="form-check-input" [(ngModel)]="invoiceDetail.subtractDeposited"
+                            (change)="changeRoomPrice()" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Trừ tiền phòng vào tiền trả trước
+                        </label>
+                    </div>
+                </div>
+
             </div>
-            <div class="form-group col-md-3">
-                <label for="name">Số tháng đóng tiền 1 lần <span class="text-danger">*</span></label>
-                <input [(ngModel)]="invoiceDetail.boardingHouse.months" type="text" class="form-control no-border white"
-                    id="name" disabled>
+            <hr>
+            <h6>Chi phí dịch vụ</h6>
+            <div *ngFor="let item of invoiceDetail.items; index as i" class="form-row">
+                <!-- TÊN DỊCH VỤ -->
+                <div class="form-group col-md-4">
+                    <input [(ngModel)]="invoiceDetail.items[i].name" type="text" class="form-control white no-border"
+                        disabled>
+                </div>
+
+                <!-- SỐ CŨ -->
+                <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
+                    <input [(ngModel)]="invoiceDetail.items[i].lastValue" (keyup)="onChangeNumber()" type="number"
+                        class="form-control no-border">
+                </div>
+
+                <!-- SỐ MỚI -->
+                <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
+                    <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
+                        class="form-control no-border">
+                </div>
+
+                <!-- SỐ SỬ DỤNG -->
+                <div *ngIf="invoiceDetail.items[i].provideType != 1" class="form-group col-md-2 text-center no-border">
+                    <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
+                        class="form-control no-border">
+                </div>
+                <div class="form-group col-md-1 text-center">
+                    x
+                </div>
+
+                <!-- ĐƠN GIÁ -->
+                <div class="form-group col-md-2">
+                    <input [(ngModel)]="invoiceDetail.items[i].price" (ngModelChange)="onChangeNumber()" currencyMask
+                        class="form-control no-border" />
+                </div>
+                <div class="form-group col-md-1 text-center">
+                    =
+                </div>
+                <div class="form-group col-md-2">
+                    <input [(ngModel)]="invoiceDetail.items[i].amount" type="number" class="form-control no-border">
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row">
-            <div class="col-sm-6">
+            <hr>
+            <h6>Chi phí khác <button *ngIf="others.length == 0" type="button" (click)="addOtherElements()"
+                    class="btn btn-success btn-sm float-right l-4"><i class="icon feather icon-plus"></i></button></h6>
+            <hr>
+            <div *ngFor="let other of others; index as index" class="form-row">
+                <div class="form-group col-md-4">
+                    <input [(ngModel)]="others[index].name" type="text" class="form-control no-border white"
+                        placeholder="Tên chi phí">
+                </div>
+                <div class="form-group col-md-3">
+                    <input [(ngModel)]="others[index].price" (keyup)="onChangeNumber()" type="number"
+                        class="form-control no-border white" placeholder="Số tiền">
+                </div>
+                <div class="form-group col-md-1 float-right">
+                    <button type="button" (click)="addOtherElements()" class="btn btn-success btn-sm float-right l-4"><i
+                            class="icon feather icon-plus"></i></button>
+                    <button type="button" (click)="removeOther(index)" class="btn btn-danger btn-sm float-right l-4"><i
+                            class="icon feather icon-minus"></i></button>
+                </div>
+            </div>
+
+            <hr>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="invoiceDetail.isCheckout" (ngModelChange)="OnCheckOut($event)">
+                        <label class="form-check-label" for="checkOut">
+                            Khách trả phòng - tất toán hợp đồng
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h6 class="float-right" *ngIf="!invoiceDetail.isCheckout">Tổng tiền cần thanh toán: <span
+                            class="text-danger">{{invoiceDetail.invoice.amount | formatCurrency}} đ</span> </h6>
+
+                </div>
+            </div>
+            <div class="row" *ngIf="invoiceDetail.isCheckout">
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-3">
+                    <h6 style="margin-top: 20px;">Số tiền trả trước</h6>
+                </div>
+                <div class="col-sm-3">
+                    <input [(ngModel)]="checkOutInfo.remainAmount" formatCurrency  class="form-control no-border white" placeholder="Số tiền đóng thêm">
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-3">
+                    <h6 style="margin-top: 20px;">Số tiền đặt cọc</h6>
+                </div>
+                <div class="col-sm-3">
+                    <input [(ngModel)]="checkOutInfo.dipositedAmount" formatCurrency class="form-control no-border white" placeholder="Số tiền đóng thêm">
+                </div>
+
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-3">
+                    <h6 style="margin-top: 20px;">Số tiền khách cần thanh toán</h6>
+                </div>
+                <div class="col-sm-3">
+                    <input [(ngModel)]="checkOutInfo.amount" formatCurrency class="form-control no-border white" placeholder="Số tiền đóng thêm">
+                </div>
+                <div class="col-sm-6">
+
+                </div>
+                <div class="col-sm-3">
+                    <h6 style="margin-top: 20px; color: red;">Số tiền cần trả khách</h6>
+                </div>
+                <div class="col-sm-3">
+                    <input [(ngModel)]="checkOutInfo.needGiveAmount" formatCurrency class="form-control no-border white" placeholder="Số tiền đóng thêm">
+                </div>
                 
-                <!-- <h6 class="float-left">Số tiền phòng đã trả trước: <span
-                    class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6> -->
-            </div>
-            <div class="col-sm-6">
-                <h6 class="float-right">Số tiền phòng đã trả trước: <span
-                        class="text-danger">{{invoiceDetail.contract.advanceAmount | formatCurrency}} đ</span> </h6>
-                        
-            </div>
-        </div>
-        <hr>
-        <h6>Tiền phòng cần đóng</h6>
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <input type="text" value="Tiền phòng" class="form-control white no-border" id="name" disabled>
-            </div>
-
-            <div class="form-group col-md-2">
-                <input value="1" type="number" class="form-control no-border" id="name">
-            </div>
-            <div class="form-group col-md-4">
-                <input type="text" value="{{invoiceDetail.room.price | formatCurrency}} đ" class="form-control no-border"
-                    id="name">
-            </div>
-
-            <div class="form-group col-md-12">
-                <div class="form-check">
-                    <input class="form-check-input" [(ngModel)]="invoiceDetail.subtractDeposited"
-                        (change)="changeRoomPrice()" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">
-                        Trừ tiền phòng vào tiền trả trước
-                    </label>
-                </div>
-            </div>
-
-        </div>
-        <hr>
-        <h6>Chi phí dịch vụ</h6>
-        <div *ngFor="let item of invoiceDetail.items; index as i" class="form-row">
-            <!-- TÊN DỊCH VỤ -->
-            <div class="form-group col-md-4">
-                <input [(ngModel)]="invoiceDetail.items[i].name" type="text" class="form-control white no-border"
-                    id="name" disabled>
-            </div>
-
-            <!-- SỐ CŨ -->
-            <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
-                <input [(ngModel)]="invoiceDetail.items[i].lastValue" (keyup)="onChangeNumber()" type="number"
-                    class="form-control no-border" id="name">
-            </div>
-
-            <!-- SỐ MỚI -->
-            <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
-                <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
-                    class="form-control no-border" id="name">
-            </div>
-
-            <!-- SỐ SỬ DỤNG -->
-            <div *ngIf="invoiceDetail.items[i].provideType != 1" class="form-group col-md-2 text-center no-border">
-                <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
-                    class="form-control no-border" id="name">
-            </div>
-            <div class="form-group col-md-1 text-center">
-                x
-            </div>
-
-            <!-- ĐƠN GIÁ -->
-            <div class="form-group col-md-2">
-                <input [(ngModel)]="invoiceDetail.items[i].price" (ngModelChange)="onChangeNumber()" currencyMask 
-                    class="form-control no-border" id="name" />
-            </div>
-            <div class="form-group col-md-1 text-center">
-                =
-            </div>
-            <div class="form-group col-md-2">
-                <input [(ngModel)]="invoiceDetail.items[i].amount" type="number" class="form-control no-border"
-                    id="name">
-            </div>
-        </div>
-        <hr>
-        <h6>Chi phí khác <button *ngIf="others.length == 0" type="button" (click)="addOtherElements()"
-                class="btn btn-success btn-sm float-right l-4"><i class="icon feather icon-plus"></i></button></h6>
-        <hr>
-        <div *ngFor="let other of others; index as index" class="form-row">
-            <div class="form-group col-md-4">
-                <input [(ngModel)]="others[index].name" type="text" class="form-control no-border white"
-                    placeholder="Tên chi phí">
-            </div>
-            <div class="form-group col-md-3">
-                <input [(ngModel)]="others[index].price" (keyup)="onChangeNumber()" type="number"
-                    class="form-control no-border white" placeholder="Số tiền">
-            </div>
-            <div class="form-group col-md-1 float-right">
-                <button type="button" (click)="addOtherElements()" class="btn btn-success btn-sm float-right l-4"><i
-                        class="icon feather icon-plus"></i></button>
-                <button type="button" (click)="removeOther(index)" class="btn btn-danger btn-sm float-right l-4"><i
-                        class="icon feather icon-minus"></i></button>
             </div>
         </div>
 
-        <hr>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="checkOut">
-                    <label class="form-check-label" for="checkOut">
-                        Khách trả phòng - tất toán hợp đồng
-                    </label>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <h6 class="float-right">Tổng tiền cần thanh toán: <span
-                        class="text-danger">{{invoiceDetail.invoice.amount | formatCurrency}} đ</span> </h6>
-
-            </div>
-        </div>
         <button (click)="inputRoomData.hide()" type="button" class="btn btn-default float-right">Hủy
             bỏ</button>
         <button (click)="saveInvoice();inputRoomData.hide();" type="button" class="btn btn-primary float-right"> Lưu hóa

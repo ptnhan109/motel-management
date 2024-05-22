@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Vml.Office;
 using Motel.Application.Services.ContractService.Dtos;
 using Motel.Application.Services.InvoiceService.Dtos;
 using Motel.Application.Services.StageService.Dtos;
+using Motel.Common.Constants;
 using Motel.Common.Enums;
 using Motel.Common.Generics;
 using Motel.Core;
@@ -41,14 +42,23 @@ namespace Motel.Application.Services.InvoiceService
             await _repository.UpdateRangeAsync(invoiceItems.Where(x => x.Id != Guid.Empty));
 
             await _repository.AddRangeAsync(invoiceItems.Where(x => x.Id == Guid.Empty));
-
             var invoiceRoom = _map.Map<StageRoomDto, StageRoom>(dto.Invoice);
+            invoiceRoom.IsCheckout = dto.IsCheckout;
             invoiceRoom.IsCompleted = true;
             invoiceRoom.IsDeleted = false;
             invoiceRoom.IsSubtractToDeposited = dto.SubtractDeposited;
             await _repository.UpdateAsync(invoiceRoom);
 
             await SetStageDataStatus(dto.Invoice.StagePaymentId);
+
+            var contract = await _repository.FindAsync<AppContract>(x => x.RoomId.Equals(dto.Contract.RoomId));
+
+            if(contract != null)
+            {
+                contract.AdvanceAmount = dto.Contract.AdvanceAmount + dto.AdvanceAmount;
+            }
+
+
 
             return Ok();
         }

@@ -34,6 +34,7 @@ export class InvoiceSingleComponent implements OnInit {
   invoiceDetail = {
     id: null,
     subtractDeposited: false,
+    advanceAmount: 0,
     invoice: {
       amount: 0,
       boardingName: "",
@@ -56,7 +57,7 @@ export class InvoiceSingleComponent implements OnInit {
       status: null,
       terms: null,
       type: null,
-      advanceAmount: 0
+      advanceAmount: 0,
     },
     room: {
       price: 0
@@ -65,7 +66,9 @@ export class InvoiceSingleComponent implements OnInit {
       id: null,
       months: null
     },
-    items: []
+    items: [],
+    isCheckout: false
+
   }
   others = [];
   constructor(
@@ -112,8 +115,8 @@ export class InvoiceSingleComponent implements OnInit {
     this._service.getInvoiceById(id).subscribe(
       response => {
         this.invoiceDetail = response.data;
-        console.log(this.invoiceDetail);
         this.onChangeNumber();
+        this.OnCheckOut(this.invoiceDetail.isCheckout);
       }
     )
   }
@@ -152,6 +155,7 @@ export class InvoiceSingleComponent implements OnInit {
 
     this.invoiceDetail.invoice.amount = totalAmount;
 
+    this.OnCheckOut(this.invoiceDetail.isCheckout);
   }
   changeRoomPrice() {
     if (this.invoiceDetail.subtractDeposited) {
@@ -188,13 +192,13 @@ export class InvoiceSingleComponent implements OnInit {
       response => {
         this.invoiceDetail = response.data;
         let message = `<strong>Phòng ${this.invoiceDetail.invoice.name} </strong> đã thanh toán số tiền <strong> ${FormatCurrency(this.invoiceDetail.invoice.amount)} đ </strong>. <br/> Khi bạn xác nhận thao tác này sẽ không thể hoàn tác.`;
-        bootbox.confirm(message,(result : boolean) =>{
-          if(result){
+        bootbox.confirm(message, (result: boolean) => {
+          if (result) {
             let request = {
-              stageRoomId : id,
-              status : paymentStatus.paid
+              stageRoomId: id,
+              status: paymentStatus.paid
             }
-            this._service.setRoomPaymentStatus(this.id,request).subscribe(response =>{
+            this._service.setRoomPaymentStatus(this.id, request).subscribe(response => {
               this._toast.success(`Đã xác nhận thanh toán cho phòng ${this.invoiceDetail.invoice.name}.`);
               this.getRoomsInStage();
             })
@@ -228,5 +232,32 @@ export class InvoiceSingleComponent implements OnInit {
         this.getRoomsInStage();
       }
     )
+  }
+
+  checkOutInfo: any = {
+    remainAmount: 0,
+    amount: 0,
+    dipositedAmount :0,
+    needGiveAmount: 0
+  }
+
+  OnCheckOut(event: any) {
+    let isCheckout = event as boolean;
+    // Trả phòng thì không tính tiền phòng
+    if (isCheckout) {
+      this.invoiceDetail.subtractDeposited = false;
+
+      // tính tiền cần trả khách thuê
+      this.checkOutInfo.amount = this.invoiceDetail.invoice.amount- this.invoiceDetail.room.price;
+      this.checkOutInfo.remainAmount = this.invoiceDetail.contract.advanceAmount;
+      this.checkOutInfo.dipositedAmount = this.invoiceDetail.contract.depositedAmount;
+      this.checkOutInfo.needGiveAmount = this.checkOutInfo.remainAmount + this.checkOutInfo.dipositedAmount - this.checkOutInfo.amount ;
+      console.log(this.checkOutInfo);
+    } else {
+      this.checkOutInfo.amount = 0;
+      this.checkOutInfo.remainAmount = 0;
+      this.checkOutInfo.dipositedAmount = 0;
+      this.checkOutInfo.needGiveAmount = 0;
+    }
   }
 }

@@ -29,6 +29,10 @@ namespace Motel.Application.Services.InvoiceService.Dtos
 
         public bool SubtractDeposited { get; set; }
 
+        public decimal AdvanceAmount { get; set; } = 0;
+
+        public bool IsCheckout { get; set; }
+
         public static InvoiceDto FromEntity(StageRoom entity)
         {
             var stageRoom = StageRoomDto.FromEntity(entity);
@@ -42,7 +46,8 @@ namespace Motel.Application.Services.InvoiceService.Dtos
                 Invoice = stageRoom,
                 Room = room,
                 BoardingHouse = boading,
-                SubtractDeposited = entity.IsSubtractToDeposited
+                SubtractDeposited = entity.IsSubtractToDeposited,
+                IsCheckout = entity.IsCheckout
             };
         }
 

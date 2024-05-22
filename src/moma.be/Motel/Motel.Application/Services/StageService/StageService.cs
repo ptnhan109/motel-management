@@ -93,7 +93,6 @@ namespace Motel.Application.Services.StageService
                     invoices.Add(inv);
                 }
 
-
             }
             await _repository.AddRangeAsync(invoices);
             return Ok();

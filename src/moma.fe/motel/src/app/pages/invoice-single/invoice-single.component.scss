@@ -1,0 +1,9 @@
+.invoice{
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 78vh;
+
+    .invoice-content{
+        padding: 10px;
+    }
+}

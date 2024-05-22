@@ -8,6 +8,17 @@ using System.Text;
 
 namespace Motel.Application.Services.InvoiceService.Dtos
 {
+    public class CheckOutInfo
+    {
+        public decimal RemainAmount { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public decimal DipositedAmount { get; set; }
+
+        public decimal NeedGiveAmount { get; set; }
+
+    }
     public class InvoiceRoomDto
     {
         public Guid? Id { get; set; }

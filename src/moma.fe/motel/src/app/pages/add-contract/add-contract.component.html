@@ -238,6 +238,15 @@
                     <input [(ngModel)]="addContract.advanceAmount" type="number" class="form-control"
                         placeholder="Số tiền đặt cọc">
                 </div>
+                <div class="form-group col-md-4">
+
+                </div>
+                <div class="form-group col-md-8">
+                    <div class="alert alert-warning" role="alert">
+                        <p class="mb-0"><strong>Lưu ý </strong> Số tiền phòng trả trước đã bao gồm tiền phòng trong đợt thanh toán đầu tiên.</p>
+                      </div>
+                      
+                </div>
             </div>
             <h6>Thêm điều khoản</h6>
             <button *ngIf="addContract.terms.length == 0" (click)="addTerms()" type="button" class="btn btn-success"><i

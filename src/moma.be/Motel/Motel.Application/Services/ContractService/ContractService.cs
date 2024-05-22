@@ -40,7 +40,9 @@ namespace Motel.Application.Services.ContractService
         public async Task<Response> AddAsync(ContractDto dto)
         {
             dto.Id = Guid.NewGuid();
+            var room = await _repository.FindAsync<Room>(x => x.Id.Equals(dto.RoomId));
             var entity = _mapper.Map<ContractDto, AppContract>(dto);
+            entity.AdvanceAmount -= room.Price;
             await _repository.AddAsync(entity);
             if (dto?.Terms?.FirstOrDefault() != null)
             {

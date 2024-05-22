@@ -26,5 +26,7 @@ namespace Motel.Core.Entities
         public bool IsCompleted { get; set; }
 
         public bool IsSubtractToDeposited { get; set; }
+
+        public bool IsCheckout { get; set; }
     }
 }

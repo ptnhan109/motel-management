@@ -138,16 +138,16 @@ namespace Motel.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("634e65c2-ea3e-4647-8024-584fc979cbd6"),
+                            Id = new Guid("dc087c21-6f3f-4617-bb1b-5021f71f29ed"),
                             Address = "Cổ Nhuế, Từ Liêm",
-                            CreatedAt = new DateTime(2023, 10, 10, 20, 25, 29, 263, DateTimeKind.Local).AddTicks(9976),
+                            CreatedAt = new DateTime(2024, 5, 21, 22, 39, 6, 71, DateTimeKind.Local).AddTicks(445),
                             Gender = 1,
                             Mail = "trongnhan1110i@gmail.com",
                             Name = "Phạm Trọng Nhân",
                             Password = "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=",
                             Phone = "0775331777",
                             Role = 0,
-                            UpdatedAt = new DateTime(2023, 10, 10, 20, 25, 29, 264, DateTimeKind.Local).AddTicks(4854)
+                            UpdatedAt = new DateTime(2024, 5, 21, 22, 39, 6, 71, DateTimeKind.Local).AddTicks(5490)
                         });
                 });
 
@@ -670,6 +670,9 @@ namespace Motel.Core.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsCheckout")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
