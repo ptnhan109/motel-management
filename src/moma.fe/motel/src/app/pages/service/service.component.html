@@ -92,7 +92,7 @@
           </div>
           <div class="form-group col-md-6">
             <label for="inputEmail4">Giá tiền mặc định</label>
-              <input [(ngModel)]="provideInsert.defaultPrice" type="number" class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
+              <input [(ngModel)]="provideInsert.defaultPrice" class="form-control" [options]="{ precision: 0 }" formatCurrency>
           </div>
           <div class="form-group col-md-6">
               <label for="inputPassword4">Hình thức thu</label>
@@ -103,7 +103,7 @@
             </select>
           </div>
       </div>
-      <button type="button" class="btn  btn-default float-right" (click)="createService.hide();">Đóng</button>
+      <button type="button" class="btn  btn-default float-right" (click)="createService.hide();Reset();">Đóng</button>
 
       <button type="button" class="btn  btn-primary float-right" (click)="addProvide() ? createService.hide() : false;">Thêm mới</button>
     </div>
@@ -120,12 +120,12 @@
       <div class="form-row">
           <div class="form-group col-md-12">
               <label for="serviceName">Tên dịch vụ</label>
-              <input [(ngModel)]="provideUpdate.name" type="text" class="form-control" id="serviceName" placeholder="Tên dịch vụ">
+              <input [(ngModel)]="provideUpdate.name" type="text" class="form-control" placeholder="Tên dịch vụ">
           </div>
           
           <div class="form-group col-md-6">
             <label for="price">Giá tiền mặc định</label>
-              <input [(ngModel)]="provideUpdate.defaultPrice" type="number" class="form-control" id="price" placeholder="Tên dịch vụ">
+              <input [(ngModel)]="provideUpdate.defaultPrice" id="price" class="form-control" [options]="{ precision: 0 }" formatCurrency placeholder="Tên dịch vụ">
           </div>
           <div class="form-group col-md-6">
               <label for="inputPassword4">Hình thức thu</label>
@@ -137,7 +137,7 @@
             </select>
           </div>
       </div>
-      <button type="button" class="btn  btn-default float-right" (click)="updateService.hide();">Đóng</button>
+      <button type="button" class="btn  btn-default float-right" (click)="updateService.hide();Reset();">Đóng</button>
       <button type="button" class="btn  btn-primary float-right" (click)="updateProvide() ? updateService.hide() : false;">Cập nhật</button>
     </div>
   </div>

@@ -84,6 +84,9 @@ export class RoomsComponent implements OnInit {
       }
     )
 
+    this.deposit.createdDate = moment().format("YYYY-MM-DD");
+    this.deposit.expiredDate = moment().add(10, 'days').format("YYYY-MM-DD");
+
   }
 
   showSearch() {
@@ -252,7 +255,7 @@ export class RoomsComponent implements OnInit {
       response => {
         this.depositShow.id = response.data.id;
         this.depositShow.name = response.data.name;
-        
+
         this.depositShow.createdDate = moment(response.data.createdDate).format("YYYY-MM-DD");
         this.depositShow.expiredDate = moment(response.data.expiredDate).format("YYYY-MM-DD");
 

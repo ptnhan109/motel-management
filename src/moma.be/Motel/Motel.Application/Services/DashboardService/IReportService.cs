@@ -1,5 +1,6 @@
 ﻿using Motel.Application.Services.DashboardService.Dtos;
 using Motel.Common.Generics;
+using System;
 using System.Threading.Tasks;
 
 namespace Motel.Application.Services.DashboardService
@@ -11,5 +12,7 @@ namespace Motel.Application.Services.DashboardService
         Task<Response> LastestPayentAsync();
 
         Task<Response> GetPaymentStageAsync();
+
+        Task<Response> GetRevenueReportAsync(DateTime fromDate, DateTime toDate);
     }
 }

@@ -58,8 +58,6 @@ namespace Motel.Application.Services.InvoiceService
                 contract.AdvanceAmount = dto.Contract.AdvanceAmount + dto.AdvanceAmount;
             }
 
-
-
             return Ok();
         }
         
@@ -76,6 +74,12 @@ namespace Motel.Application.Services.InvoiceService
             if (entity.IsSubtractToDeposited)
             {
                 await SubtractAdvanceAmountAsync(entity.RoomId);
+            }
+
+            if (entity.IsCheckout)
+            {
+                var room = await _repository.FindAsync<Room>(entity.RoomId);
+                room.Status = EnumRoomStatus.Available;
             }
             return Ok();
         }

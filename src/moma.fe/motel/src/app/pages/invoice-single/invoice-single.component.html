@@ -188,7 +188,7 @@
                     <h6 style="margin-top: 20px;">Đóng thêm tiền trả trước</h6>
                 </div>
                 <div class="col-sm-3">
-                    <input [(ngModel)]="invoiceDetail.advanceAmount" type="number" class="form-control no-border white" placeholder="Số tiền đóng thêm">
+                    <input [(ngModel)]="invoiceDetail.advanceAmount"  class="form-control no-border white" placeholder="Số tiền đóng thêm">
                 </div>
                 <div class="col-sm-6">
                     <h6 class="float-right" style="margin-top: 20px;">Số tiền phòng đã trả trước: <span
@@ -209,7 +209,7 @@
                 </div>
 
                 <div class="form-group col-md-2">
-                    <input value="1" type="number" class="form-control no-border">
+                    <input value="1"  class="form-control no-border">
                 </div>
                 <div class="form-group col-md-4">
                     <input type="text" value="{{invoiceDetail.room.price | formatCurrency}} đ"
@@ -238,19 +238,19 @@
 
                 <!-- SỐ CŨ -->
                 <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
-                    <input [(ngModel)]="invoiceDetail.items[i].lastValue" (keyup)="onChangeNumber()" type="number"
+                    <input [(ngModel)]="invoiceDetail.items[i].lastValue" [options]="{ precision: 0 }" formatCurrency (keyup)="onChangeNumber()" 
                         class="form-control no-border">
                 </div>
 
                 <!-- SỐ MỚI -->
                 <div *ngIf="invoiceDetail.items[i].provideType == 1" class="form-group col-md-1 no-border">
-                    <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
+                    <input [(ngModel)]="invoiceDetail.items[i].newValue" [options]="{ precision: 0 }" formatCurrency (keyup)="onChangeNumber()" 
                         class="form-control no-border">
                 </div>
 
                 <!-- SỐ SỬ DỤNG -->
                 <div *ngIf="invoiceDetail.items[i].provideType != 1" class="form-group col-md-2 text-center no-border">
-                    <input [(ngModel)]="invoiceDetail.items[i].newValue" (keyup)="onChangeNumber()" type="number"
+                    <input [(ngModel)]="invoiceDetail.items[i].newValue" [options]="{ precision: 0 }" formatCurrency (keyup)="onChangeNumber()" 
                         class="form-control no-border">
                 </div>
                 <div class="form-group col-md-1 text-center">
@@ -259,14 +259,14 @@
 
                 <!-- ĐƠN GIÁ -->
                 <div class="form-group col-md-2">
-                    <input [(ngModel)]="invoiceDetail.items[i].price" (ngModelChange)="onChangeNumber()" currencyMask
+                    <input [(ngModel)]="invoiceDetail.items[i].price" [options]="{ precision: 0 }" formatCurrency (ngModelChange)="onChangeNumber()" currencyMask
                         class="form-control no-border" />
                 </div>
                 <div class="form-group col-md-1 text-center">
                     =
                 </div>
                 <div class="form-group col-md-2">
-                    <input [(ngModel)]="invoiceDetail.items[i].amount" type="number" class="form-control no-border">
+                    <input [(ngModel)]="invoiceDetail.items[i].amount" [options]="{ precision: 0 }" formatCurrency  class="form-control no-border">
                 </div>
             </div>
             <hr>
@@ -279,7 +279,7 @@
                         placeholder="Tên chi phí">
                 </div>
                 <div class="form-group col-md-3">
-                    <input [(ngModel)]="others[index].price" (keyup)="onChangeNumber()" type="number"
+                    <input [(ngModel)]="others[index].price" (keyup)="onChangeNumber()"  [options]="{ precision: 0 }" formatCurrency
                         class="form-control no-border white" placeholder="Số tiền">
                 </div>
                 <div class="form-group col-md-1 float-right">

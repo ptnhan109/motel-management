@@ -55,6 +55,10 @@ namespace Motel.Core.Migrations
                     b.Property<decimal>("DepositedAmount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(4000)")
+                        .HasMaxLength(4000);
+
                     b.Property<DateTime?>("ExpiredDate")
                         .HasColumnType("datetime2");
 
@@ -138,16 +142,16 @@ namespace Motel.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dc087c21-6f3f-4617-bb1b-5021f71f29ed"),
+                            Id = new Guid("f607ccb3-f194-439a-bbfb-569cea808aa2"),
                             Address = "Cổ Nhuế, Từ Liêm",
-                            CreatedAt = new DateTime(2024, 5, 21, 22, 39, 6, 71, DateTimeKind.Local).AddTicks(445),
+                            CreatedAt = new DateTime(2024, 5, 25, 13, 51, 36, 317, DateTimeKind.Local).AddTicks(4192),
                             Gender = 1,
                             Mail = "trongnhan1110i@gmail.com",
                             Name = "Phạm Trọng Nhân",
                             Password = "T24UgcZyY5d5T538cm2QRc80DLB/e79sk97fjiJDzJw=",
                             Phone = "0775331777",
                             Role = 0,
-                            UpdatedAt = new DateTime(2024, 5, 21, 22, 39, 6, 71, DateTimeKind.Local).AddTicks(5490)
+                            UpdatedAt = new DateTime(2024, 5, 25, 13, 51, 36, 317, DateTimeKind.Local).AddTicks(8995)
                         });
                 });
 

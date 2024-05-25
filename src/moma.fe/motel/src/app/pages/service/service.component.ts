@@ -114,4 +114,19 @@ export class ServiceComponent implements OnInit {
     return true;
   }
 
+  Reset(){
+    this.provideInsert = {
+      name: "",
+      type: 0,
+      defaultPrice: 0
+    }
+  
+    this.provideUpdate = {
+      id :"",
+      type: 0,
+      name: "",
+      defaultPrice : 0
+    }
+  }
+
 }

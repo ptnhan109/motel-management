@@ -43,5 +43,8 @@ namespace Motel.Core.Entities
         public decimal? AdvanceAmount { get; set; }
 
         public virtual ICollection<ContractTerm> ContractTerms { get; set; }
+
+        [StringLength(4000)]
+        public string Description { get; set; }
     }
 }

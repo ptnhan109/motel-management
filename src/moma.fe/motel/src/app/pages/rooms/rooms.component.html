@@ -240,8 +240,8 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="address">Số tiền đặt cọc <span class="text-danger">*</span></label>
-                        <input [(ngModel)]="deposit.depositedAmount" type="number" class="form-control" id="address"
-                            placeholder="Số tiền đặt cọc">
+                        <input [(ngModel)]="deposit.depositedAmount" formatCurrency [options]="{precision : 0}"
+                            class="form-control" id="address" placeholder="Số tiền đặt cọc">
                     </div>
                 </div>
 
@@ -252,10 +252,13 @@
                     <textarea rows="4" type="text" class="form-control" id="descripion" placeholder="Mô tả"></textarea>
                 </div>
             </div>
-            <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right ">Hủy bỏ</button>
-            <button (click)="saveDeposit() == true? createDeposit.hide() : false" type="button"
-                class="btn btn-primary float-right">Nhận
-                cọc</button>
+            <div class="w-100">
+                <button (click)="createDeposit.hide();" type="button" class="btn btn-default float-right">Hủy
+                    bỏ</button>
+                <button (click)="saveDeposit() == true? createDeposit.hide() : false" type="button"
+                    class="btn btn-primary float-right">Nhận
+                    cọc</button>
+            </div>
         </div>
     </div>
 </app-ui-modal>
@@ -334,9 +337,9 @@
                             class="form-control" id="address" placeholder="Địa chỉ chi tiết" disabled>
                     </div>
                     <div class="form-group col-md-12">
-                        <label for="address">Số tiền đặt cọc <span class="text-danger">*</span></label>
-                        <input [(ngModel)]="depositShow.depositedAmount" type="number" class="form-control" id="address"
-                            placeholder="Số tiền đặt cọc" disabled>
+                        <label for="amount">Số tiền đặt cọc <span class="text-danger">*</span></label>
+                        <input [(ngModel)]="depositShow.depositedAmount" formatCurrency [options]="{precision : 0}"
+                            class="form-control" id="amount" placeholder="Số tiền đặt cọc" disabled>
                     </div>
                 </div>
 
@@ -350,9 +353,9 @@
             </div>
             <div class="col-sm-12">
                 <button (click)="viewDeposit.hide();" type="button" class="btn btn-default float-right l-4"><i
-                    class="icon feather icon-x"></i> Đóng</button>
+                        class="icon feather icon-x"></i> Đóng</button>
             </div>
-            
+
             <!-- <button type="button" class="btn btn-primary float-right l-4"><i class="icon feather icon-log-in"></i> Nhận
                 phòng</button> -->
         </div>

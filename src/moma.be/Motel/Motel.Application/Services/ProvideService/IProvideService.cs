@@ -16,5 +16,7 @@ namespace Motel.Application.Services.ServiceService
         Task<Response> Delete(Guid id);
 
         Task<Response> Update(ProvideDto model);
+
+        Task<Response> Export();
     }
 }

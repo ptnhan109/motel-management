@@ -139,7 +139,7 @@
                                 <input  id="{{provide.id}}" type="checkbox" class="custom-control-input" [(ngModel)]="provide.checked"  [checked]="provide.checked">
                                 <label class="custom-control-label" for="{{provide.id}}">{{ provide.name }}</label>
                                 &nbsp;
-                                <input type="number" value="{{provide.defaultPrice}}" class="no-border" [(ngModel)] = "provide.defaultPrice" [disabled]="!provide.checked">
+                                <input [options]="{ precision: 0 }" formatCurrency value="{{provide.defaultPrice}}" class="no-border" [(ngModel)] = "provide.defaultPrice" [disabled]="!provide.checked">
                             <hr>
                         </div>
 

@@ -93,7 +93,7 @@
           </div>
           <div class="form-group col-md-12">
             <label for="inputEmail4">Giá tiền mặc định</label>
-              <input [(ngModel)]="fitment.recoupPrice" formatCurrency class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
+              <input [(ngModel)]="fitment.recoupPrice" [options]="{ precision: 0 }" formatCurrency class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
           </div>
       </div>
       <button type="button" class="btn  btn-default float-right" (click)="createService.hide();">Đóng</button>
@@ -118,7 +118,7 @@
           </div>
           <div class="form-group col-md-12">
             <label for="inputEmail4">Giá tiền mặc định</label>
-              <input [(ngModel)]="fitment.recoupPrice" formatCurrency class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
+              <input [(ngModel)]="fitment.recoupPrice" [options]="{ precision: 0 }" formatCurrency class="form-control" id="inputEmail4" placeholder="Tên dịch vụ">
           </div>
       </div>
       <button type="button" class="btn  btn-default float-right" (click)="updateService.hide();">Đóng</button>

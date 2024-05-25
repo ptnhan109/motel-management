@@ -55,6 +55,7 @@ import { FormatCurrencyMaskDirective } from './directives/FormatCurrency';
 import { CURRENCY_MASK_CONFIG } from './directives/CurrencyMaskConfig';
 import { ApexChartComponent } from './theme/shared/components/chart/apex-chart/apex-chart.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { ReportRevenueComponent } from './pages/report-revenue/report-revenue.component';
 
 
 export const CustomCurrencyMaskConfig = {
@@ -106,6 +107,7 @@ export const CustomCurrencyMaskConfig = {
     InvoiceSingleComponent,
     SystemComponent,
     VehicleComponent,
+    ReportRevenueComponent
   ],
   imports: [
     SharedModule,

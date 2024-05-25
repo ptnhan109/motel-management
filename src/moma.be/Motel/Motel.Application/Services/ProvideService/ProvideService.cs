@@ -5,6 +5,7 @@ using Motel.Core;
 using Motel.Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,20 @@ namespace Motel.Application.Services.ServiceService
             await _repository.DeleteAsync<Provide>(id);
 
             return Ok();
+        }
+
+        public async Task<Response> Export()
+        {
+            var data = await _repository.FindAllAsync<Provide>();
+            var entities = data.Select(x => new ProvideDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Type = x.Type,
+                DefaultPrice = x.DefaultPrice
+            });
+
+            return Ok(entities);
         }
 
         public async Task<Response> GetAll()

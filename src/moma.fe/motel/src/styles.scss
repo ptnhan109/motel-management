@@ -2,41 +2,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import "scss/style";
 
-h5{
-    font-size: 1rem;
+h5 {
+  font-size: 1rem;
 }
 
-.hide{
-    display: none;
+.hide {
+  display: none;
 }
 
-.w-100{
-    width: 100%;
+.w-100 {
+  width: 100%;
 }
 
-.breadcrumb{
-    background-color: #fff !important;
-    margin-bottom: 0rem !important;
+.breadcrumb {
+  background-color: #fff !important;
+  margin-bottom: 0rem !important;
 }
 
+.float-right {
+  float: right !important;
+}
 
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #0270de;
-    border-radius: 5px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #004993;
-  }
+  width: 8px;
+  height: 8px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #0270de;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #004993;
+}

@@ -243,6 +243,7 @@ export class InvoiceSingleComponent implements OnInit {
 
   OnCheckOut(event: any) {
     let isCheckout = event as boolean;
+    
     // Trả phòng thì không tính tiền phòng
     if (isCheckout) {
       this.invoiceDetail.subtractDeposited = false;

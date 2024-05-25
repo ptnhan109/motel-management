@@ -73,5 +73,14 @@ namespace Motel.Application.Services.DashboardService
 
             return Ok(data.ToList());
         }
+
+        public async Task<Response> GetRevenueReportAsync(DateTime fromDate, DateTime toDate)
+        {
+            var data = await _repository.GetQueryable<StageRoom>(new string[] { "Room", "Room.BoardingHouse" })
+                .Where(x => x.CreatedAt >= fromDate && x.CreatedAt <= toDate)
+                .ToListAsync();
+
+            return Ok(data);
+        }
     }
 }
