@@ -44,6 +44,7 @@
 
   <ItemGroup>
     <Folder Include="Assets\Contact\" />
+    <Folder Include="Assets\Exports\" />
     <Folder Include="Exports\" />
   </ItemGroup>
 

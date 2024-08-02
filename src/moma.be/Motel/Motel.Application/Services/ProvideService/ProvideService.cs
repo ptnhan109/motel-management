@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Motel.Application.Helpers;
+using Motel.Application.Services.CustomerService.Dtos;
 using Motel.Application.Services.ServiceService.Dtos;
 using Motel.Common.Generics;
 using Motel.Core;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Math.EC.ECCurve;
 
 namespace Motel.Application.Services.ServiceService
 {
@@ -48,7 +51,9 @@ namespace Motel.Application.Services.ServiceService
                 DefaultPrice = x.DefaultPrice
             });
 
-            return Ok(entities);
+            var file = await ExcelHelper.ExportExcel(data.Cast<dynamic>().ToList(), typeof(ProvideDto), "Danh sách dịch vụ");
+
+            return Ok(file);
         }
 
         public async Task<Response> GetAll()

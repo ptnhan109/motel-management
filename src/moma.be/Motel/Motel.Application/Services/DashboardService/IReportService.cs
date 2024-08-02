@@ -13,6 +13,8 @@ namespace Motel.Application.Services.DashboardService
 
         Task<Response> GetPaymentStageAsync();
 
-        Task<Response> GetRevenueReportAsync(DateTime fromDate, DateTime toDate);
+        Task<Response> GetStagePaymentReportAsync(DateTime fromDate, DateTime toDate);
+
+        Task<Response> RevenueReportAsync(DateTime fromDate, DateTime toDate, Guid? boardingHouseId);
     }
 }

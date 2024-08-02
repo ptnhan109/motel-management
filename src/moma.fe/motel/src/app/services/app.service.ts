@@ -6,6 +6,7 @@ import { AppResponse } from 'src/app/common/response'
 import { getToken } from '../common/message';
 import { tap } from 'rxjs/operators';
 import { param } from 'jquery';
+import { ToUrlParam } from '../common/stringFormat';
 
 @Injectable({
   providedIn: 'root'
@@ -228,5 +229,10 @@ export class AppService {
 
   updateOwnerInfo(model : any) : Observable<AppResponse<any>> {
     return this.http.put<AppResponse<any>>(`${environment.apiServer}/api/user/info`,model, this.options);
+  }
+
+  getReportRevenue(filter): Observable<AppResponse<any>> {
+    var param = ToUrlParam(filter);
+    return this.http.get<AppResponse<any>>(`${environment.apiServer}/api/report/report-revenue-by-room${param}`, this.options);
   }
 }

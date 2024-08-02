@@ -19,6 +19,7 @@ import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceSingleComponent } from './pages/invoice-single/invoice-single.component';
 import { SystemComponent } from './pages/system/system.component';
 import { VehicleComponent } from './pages/vehicle/vehicle.component';
+import { ReportRevenueComponent } from './pages/report-revenue/report-revenue.component';
 
 const routes: Routes = [
   {
@@ -94,6 +95,10 @@ const routes: Routes = [
       {
         path: 'vehicles',
         component: VehicleComponent
+      },
+      {
+        path: 'report-revenue',
+        component: ReportRevenueComponent
       }
 
     ]

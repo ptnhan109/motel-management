@@ -43,10 +43,18 @@ const NavigationItems = [
       {
         id: 'report',
         title: 'Báo cáo',
-        type: 'item',
-        url: '/report',
+        type: 'collapse',
         icon: 'feather icon-inbox',
-        breadcrumbs: false
+        breadcrumbs: false,
+        children: [
+          {
+            id: 'revenue',
+            title: 'Doanh thu',
+            type: 'item',
+            url: '/report-revenue',
+            breadcrumbs: false
+          }
+        ]
       },
       {
         id: 'category',

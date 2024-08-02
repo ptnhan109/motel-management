@@ -18,5 +18,7 @@ namespace Motel.Common.Extensions
 
         public static string ToDateOnlyFormat(this DateTime dateTime) => dateTime.ToString("dd/MM/yyyy");
 
+        public static string ToVietnameseMonth(this DateTime dateTime) => $"Tháng {dateTime.Month.ToString().PadLeft(2, '0')}";
+
     }
 }

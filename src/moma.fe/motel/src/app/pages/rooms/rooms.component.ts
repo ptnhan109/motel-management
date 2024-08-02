@@ -44,7 +44,8 @@ export class RoomsComponent implements OnInit {
     expiredDate: null,
     type: 0,
     status: 0,
-    depositedAmount: 0
+    depositedAmount: 0,
+    description: null
   }
   depositShow = {
     id: null,
@@ -56,7 +57,8 @@ export class RoomsComponent implements OnInit {
     expiredDate: null,
     type: 0,
     status: 0,
-    depositedAmount: 0
+    depositedAmount: 0,
+    description: null
   }
   roomSelected = {
     name: null,

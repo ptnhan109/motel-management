@@ -37,6 +37,8 @@ namespace Motel.Application.Services.ContractService.Dtos
 
         public decimal AdvanceAmount { get; set; }
 
+        public string Description { get; set; }
+
         public static ContractDto FromDeposited(RoomDeposited deposited)
         {
             return new ContractDto()
@@ -51,7 +53,7 @@ namespace Motel.Application.Services.ContractService.Dtos
                 RoomId = deposited.RoomId,
                 Type = EnumContractType.Deposited,
                 CustomerPhone = deposited.Phone,
-                Name = $"Hợp đồng đặt cọc phòng {deposited?.Room?.Name}"
+                Name = $"Hợp đồng đặt cọc phòng {deposited?.Room?.Name}",
             };
         }
 

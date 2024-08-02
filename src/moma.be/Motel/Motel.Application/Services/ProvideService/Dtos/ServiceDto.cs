@@ -1,12 +1,10 @@
 ﻿using Motel.Common.Enums;
 using Motel.Common.Helper;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Motel.Application.Services.ServiceService.Dtos
 {
-    public class ProvideDto
+    public class ProvideDto : ExportExcelModel
     {
         public string Name { get; set; }
 

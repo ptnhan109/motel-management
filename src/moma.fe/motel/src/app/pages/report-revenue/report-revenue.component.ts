@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { AppService } from 'src/app/services/app.service';
 import { FormatCurrency } from 'src/app/common/stringFormat';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-report-revenue',
@@ -10,41 +11,49 @@ import { FormatCurrency } from 'src/app/common/stringFormat';
 })
 export class ReportRevenueComponent implements OnInit {
 
-  fitments = [];
-  fitment: any = {
-    id: null,
-    name: null,
-    recoupPrice: 0,
-    description: null
+  filter: any = {
+    fromDate: new Date(),
+    toDate: new Date(),
+    boardingHouseId: null
   }
+
+  items : any[] = [];
+  months: any[] = [];
+  totals : any[] = [];
+
+  boardings: any[] = [];
   constructor(
     private _service: AppService,
     private _toast: ToastrService,
   ) { }
 
   ngOnInit(): void {
-    this.getFitments();
+    this.filter.fromDate = moment().startOf('year').format('YYYY-MM-DD');
+    this.filter.toDate = moment().endOf('year').format('YYYY-MM-DD');
+    this.GetAllBoardingHouse();
+    this.GetReport();
   }
 
-  getFitments() {
-    this._service.getFitments().subscribe(
+  GetAllBoardingHouse() {
+    this._service.getBoardings().subscribe(
+      response => this.boardings = response.data
+    )
+  }
+
+  GetReport() {
+    this.filter.fromDate = moment(this.filter.fromDate).format('YYYY-MM-DD');
+    this.filter.toDate = moment(this.filter.toDate).format('YYYY-MM-DD');
+    this._service.getReportRevenue(this.filter).subscribe(
       response => {
-        this.fitments = response.data;
+        if (response.isSucceeded) {
+          this.items = response.data.items;
+          this.months = response.data.months;
+          this.totals = response.data.totals;
+        }
       }
     )
   }
 
-  getFitmentUpdate(fitment) {
-    this.fitment.id = fitment.id;
-    this.fitment.name = fitment.name;
 
-    this.fitment.recoupPrice = fitment.recoupPrice;
-    this.fitment.description = null;
-    this.fitment.type = fitment.type;
-  }
-
-  formatCurrency(input) {
-    return FormatCurrency(input);
-  }
 
 }

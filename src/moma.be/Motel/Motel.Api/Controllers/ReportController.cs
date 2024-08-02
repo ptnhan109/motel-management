@@ -29,6 +29,11 @@ namespace Motel.Api.Controllers
 
         [AllowAnonymous]
         [HttpGet("report-revenue")]
-        public async Task<Response> ReportRevenue([FromQuery] DateTime from, [FromQuery] DateTime to) => await _dashboardService.GetRevenueReportAsync(from, to);
+        public async Task<Response> ReportRevenue([FromQuery] DateTime from, [FromQuery] DateTime to) => await _dashboardService.GetStagePaymentReportAsync(from, to);
+
+        [AllowAnonymous]
+        [HttpGet("report-revenue-by-room")]
+        public async Task<Response> ReportRevenueByRoom([FromQuery] DateTime fromDate, [FromQuery] DateTime toDate, [FromQuery] Guid? boardingHouseId = null)
+            => await _dashboardService.RevenueReportAsync(fromDate, toDate, boardingHouseId);
     }
 }

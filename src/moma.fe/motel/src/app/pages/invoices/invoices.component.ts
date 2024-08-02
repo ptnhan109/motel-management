@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { FormatCurrency, RemoveNullable, SetPropertyToNull } from 'src/app/common/stringFormat';
 import { AppService } from 'src/app/services/app.service';
@@ -16,9 +17,9 @@ export class InvoicesComponent implements OnInit {
   }
 
   invoiceFilter = {
-    keyword : null,
-    pageIndex : 1,
-    pageSize : 100
+    keyword: null,
+    pageIndex: 1,
+    pageSize: 100
   }
 
   boardings = [];
@@ -26,8 +27,8 @@ export class InvoicesComponent implements OnInit {
     name: null,
     code: null,
     stageDate: null,
-    endDate : null,
-    rooms : []
+    endDate: null,
+    rooms: []
   }
 
   checkAll = false;
@@ -36,7 +37,7 @@ export class InvoicesComponent implements OnInit {
   stages = [];
   constructor(
     private _service: AppService,
-    private _toast : ToastrService
+    private _toast: ToastrService
   ) { }
   ngOnInit(): void {
     this.onInitCreate();
@@ -47,6 +48,8 @@ export class InvoicesComponent implements OnInit {
 
   onInitCreate() {
     var currentDate = new Date();
+    this.stage.stageDate = moment().format("YYYY-MM-DD");
+    this.stage.endDate = moment().add(10, 'days').format("YYYY-MM-DD");
     this.stage.name = `Đợt thanh toán tiền tháng ${currentDate.getUTCMonth() + 1} năm ${currentDate.getFullYear()}`;
     this._service.getStageCode().subscribe(
       response => {
@@ -75,10 +78,10 @@ export class InvoicesComponent implements OnInit {
     )
   }
 
-  getStagePaymentPaging(){
+  getStagePaymentPaging() {
     let request = RemoveNullable(this.invoiceFilter);
     this._service.getStagePaging(request).subscribe(
-      response =>{
+      response => {
         this.stages = response.data.items;
         console.log(this.stages);
       }
@@ -99,25 +102,25 @@ export class InvoicesComponent implements OnInit {
     }
   }
 
-  setSelectedValue(id){
+  setSelectedValue(id) {
     let index = this.selectedRooms.indexOf(id);
-    if(index > -1){
+    if (index > -1) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
 
 
-  saveStage(){
-    if(!this.validate()){
+  saveStage() {
+    if (!this.validate()) {
       return false;
     }
     this.stage.rooms = this.selectedRooms;
     var request = RemoveNullable(this.stage);
     this._service.addStage(request).subscribe(
-      response =>{
+      response => {
         this._toast.success('Tạo đợt thanh toán thành công.');
         this.getStagePaymentPaging();
       }
@@ -125,24 +128,24 @@ export class InvoicesComponent implements OnInit {
     return true;
   }
 
-  validate(){
-    if(this.stage.name == '' || this.stage.name == undefined || this.stage.name == null
-    || this.stage.stageDate == null ){
+  validate() {
+    if (this.stage.name == '' || this.stage.name == undefined || this.stage.name == null
+      || this.stage.stageDate == null) {
       this._toast.error('Vui lòng điền đầy đủ thông tin');
       return false;
     }
-    if(this.selectedRooms.length == 0){
+    if (this.selectedRooms.length == 0) {
       this._toast.error("Vui lòng chọn phòng trong đợt thanh toán.");
       return false;
     }
     return true;
   }
 
-  getPercent(sub, total){
-    if(total == 0){
+  getPercent(sub, total) {
+    if (total == 0) {
       return 0;
     }
-    return Math.round((sub * 100)/total);
+    return Math.round((sub * 100) / total);
   }
 
 

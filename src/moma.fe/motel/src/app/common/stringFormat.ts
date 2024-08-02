@@ -50,3 +50,17 @@ export function GetCurrentDate() {
     const format = "YYYY-MM-DD";
     return moment().format(format);
 }
+
+// Function to convert an object to URL parameters
+export function ToUrlParam(model: any) {
+    let data = RemoveNullable(model);
+    let params = Object.keys(data)
+      .map(
+        key => Array.isArray(data[key]) ?
+          data[key].map(v => `${key}=${v}`).join('&') :
+          `${key}=${data[key]}`
+      )
+      .join('&');
+    return `?${params}`
+  }
+  
